@@ -15,7 +15,9 @@
 }
 
 .display {
-    background-color: gray;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 8px;
 }
 
 .buttons
