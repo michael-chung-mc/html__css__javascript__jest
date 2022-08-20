@@ -165,7 +165,8 @@ decimal.addEventListener('click', () => {
 });
 
 let undo = document.getElementsByClassName('back')[0];
-undo.addEventListener('click', () => {
+function backSpace ()
+{
     if (error)
     {
         clearDisplay();
@@ -188,7 +189,8 @@ undo.addEventListener('click', () => {
         displayValue = displayValue.slice(0,displayValue.length-1);
         updateDisplay();
     }
-});
+}
+undo.addEventListener('click', backSpace);
 
 //number key support
 document.addEventListener('keydown', (event) => {
@@ -253,6 +255,31 @@ document.addEventListener('keydown', (event) => {
     else if (event.key.match(/=/) || event.key == "Enter")
     {
         evaluate();
+    }
+    else if (event.key === "Backspace")
+    {
+        if (error)
+        {
+            clearDisplay();
+        }
+        else if (displayValue.length > 0)
+        {
+            let last = displayValue[displayValue.length -1];
+            if (last == operator)
+            {
+                operator = "";
+            }
+            else if (operator == "")
+            {
+                firstOperand = firstOperand.slice(0,firstOperand.length-1);
+            }
+            else if (operator != "")
+            {
+                secondOperand = secondOperand.slice(0,secondOperand.length-1);
+            }
+            displayValue = displayValue.slice(0,displayValue.length-1);
+            updateDisplay();
+        }
     }
 })
 
