@@ -57,8 +57,6 @@ function evaluate ()
         error = true;
         displayValue = "NO-OPERATOR";
         firstOperand = "";
-        operator = ""
-        secondOperand = "";
     }
     else if (operator == "/" && secondOperand == "0")
     {
@@ -66,8 +64,6 @@ function evaluate ()
         // check for divide by zero
         displayValue = "DIV-ZERO";
         firstOperand = "";
-        operator = ""
-        secondOperand = "";
     }
     else if (firstOperand == "")
     {
@@ -75,8 +71,6 @@ function evaluate ()
         displayValue = operate(0, parseFloat(secondOperand), operator);
         displayValue = Math.round(displayValue * 1000)/1000;
         firstOperand = displayValue;
-        operator = ""
-        secondOperand = "";
     }
     else if (secondOperand == "")
     {
@@ -84,18 +78,16 @@ function evaluate ()
         displayValue = operate(parseFloat(firstOperand), 0, operator);
         displayValue = Math.round(displayValue * 1000)/1000;
         firstOperand = displayValue;
-        operator = ""
-        secondOperand = "";
     }
     else
     {
-        displayValue = operate(parseFloat(firstOperand), parseInt(secondOperand), operator);
+        displayValue = operate(parseFloat(firstOperand), parseFloat(secondOperand), operator);
         displayValue = Math.round(displayValue * 1000)/1000;
         //reset values while allowing for 'chaining' operations using result
         firstOperand = displayValue;
-        operator = ""
-        secondOperand = "";
     }
+    operator = ""
+    secondOperand = "";
     updateDisplay();
 }
 
@@ -145,10 +137,32 @@ for (let i = 0; i < operators.length; i++)
         }
     });
 }
-let clearButton = document.getElementsByClassName('clear');
-clearButton[0].addEventListener('click', clearDisplay);
+let clearButton = document.getElementsByClassName('clear')[0];
+clearButton.addEventListener('click', clearDisplay);
 
-let equalsButton = document.getElementsByClassName('equals');
-equalsButton[0].addEventListener('click', evaluate);
+let equalsButton = document.getElementsByClassName('equals')[0];
+equalsButton.addEventListener('click', evaluate);
+
+let decimal = document.getElementsByClassName('period')[0];
+decimal.addEventListener('click', () => {
+    //console.log(`${firstOperand} to ${secondOperand}`)
+    if (error)
+    {
+        clearDisplay();
+    }
+    else if (operator == "" && !firstOperand.toString().match(/\./))
+    {
+        firstOperand += ".";
+        displayValue = displayValue + decimal.innerText;
+        updateDisplay();
+    }
+    else if (operator != "" && !secondOperand.toString().match(/\./))
+    {
+        secondOperand += ".";
+        displayValue = displayValue + decimal.innerText;
+        updateDisplay();
+    }
+});
+
 updateDisplay();
 
