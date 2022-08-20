@@ -190,5 +190,71 @@ undo.addEventListener('click', () => {
     }
 });
 
+//number key support
+document.addEventListener('keydown', (event) => {
+    if (event.key.match(/\d/))
+    {
+        // console.log(displayValue);
+        if (error)
+        {
+            clearDisplay();
+        }
+        else {
+            displayValue = displayValue + event.key
+            // update parameters
+            if (operator == "")
+            {
+                firstOperand += event.key;
+            }
+            else
+            {
+                secondOperand += event.key;
+            }
+            updateDisplay();
+        }
+    }
+    else if (event.key.match(/\./))
+    {
+        if (error)
+        {
+            clearDisplay();
+        }
+        else if (operator == "" && !firstOperand.toString().match(/\./))
+        {
+            firstOperand += ".";
+            displayValue = displayValue + decimal.innerText;
+            updateDisplay();
+        }
+        else if (operator != "" && !secondOperand.toString().match(/\./))
+        {
+            secondOperand += ".";
+            displayValue = displayValue + decimal.innerText;
+            updateDisplay();
+        }
+    }
+    else if (event.key.match(/[\+\-\*\/]/))
+    {
+        if (error)
+        {
+            clearDisplay();
+        }
+        else if (operator != "")
+        {
+            //evaluate current operation before allowing another operator
+            evaluate();
+        }
+        else {
+            operator = event.key;
+            // console.log(operator);
+            displayValue = displayValue + operator
+            updateDisplay();
+        }
+    }
+    else if (event.key.match(/=/) || event.key == "Enter")
+    {
+        evaluate();
+    }
+})
+
 updateDisplay();
 
