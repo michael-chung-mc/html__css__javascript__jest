@@ -17,6 +17,8 @@
 .display {
     background-color: white;
     border: 1px solid gray;
+    min-width: 128px;
+    min-height: 32px;
     padding: 8px;
 }
 
