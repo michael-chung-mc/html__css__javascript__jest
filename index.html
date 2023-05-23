@@ -6,12 +6,12 @@
        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div id="background">
-            <div id="bg_image">
-                <img src="./images/peter-lloyd-2018-unsplash.jpg" id="bg">
+        <div id="image_page">
+            <div id="bg">
+                <img src="./images/peter-lloyd-2018-unsplash.jpg" id="bg_image">
                 <div id="banner">
                     <div id="logo">
-                        <img src="./images/odin-lined.png">
+                        <img src="./images/odin-lined.png" id="logo_image">
                     </div>
                     <div id="banner_name">
                         ODIN
@@ -19,27 +19,29 @@
                 </div>
             </div>
         </div>
-        <form action="" method="post">
-            <div class = "name">
-                <label for="first_name">FIRST NAME</label>
-                <input type="text" id="first_name" name="first_name">
-                <label for="last_name">LAST NAME</label>
-                <input type="text" id="last_name" name="last_name">
-            </div>
-            <div class = "contact_info">
-                <label for="user_email">EMAIL</label>
-                <input type="email" id="user_email" name="email" placeholder="name@example.com">
-                <label for="phone_number">PHONE NUMBER</label>
-                <input type="text" id="phone_number" name="phone_number">
-            </div>
-            <div class = "password">
-                <label for="user_password">PASSWORD</label>
-                <input type="password" id="user_password" name="password">
-                <label for="password_confirmation">CONFIRM PASSWORD</label>
-                <input type="text" id="password_confirmation" name="password_confirmation">
-            </div>
-            <button type="submit" id="account_creation_button">Create Account</button>
-        </form>
+        <div id="text_page">
+            <form action="" method="post" id="account_creation_form">
+                <div class = "user_name">
+                    <label for="first_name">FIRST NAME</label>
+                    <input type="text" id="first_name" name="first_name">
+                    <label for="last_name">LAST NAME</label>
+                    <input type="text" id="last_name" name="last_name">
+                </div>
+                <div class = "contact_info">
+                    <label for="user_email">EMAIL</label>
+                    <input type="email" id="user_email" name="email" placeholder="name@example.com">
+                    <label for="phone_number">PHONE NUMBER</label>
+                    <input type="text" id="phone_number" name="phone_number">
+                </div>
+                <div class = "user_password">
+                    <label for="user_password">PASSWORD</label>
+                    <input type="password" id="user_password" name="password">
+                    <label for="password_confirmation">CONFIRM PASSWORD</label>
+                    <input type="text" id="password_confirmation" name="password_confirmation">
+                </div>
+                <button type="submit" id="account_creation_button">Create Account</button>
+            </form>
+        </div>
     </body>
   </html>
 </DOCTYPE>
