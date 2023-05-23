@@ -1,0 +1,30 @@
+@font-face {
+    font-family: norse-bold;
+    src: url(./fonts/norse-bold.otf);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#bg-image {
+    position: relative;
+    size: auto;
+}
+
+#banner {
+    position: absolute;
+    top:50%;
+    left:50%;
+    font-family: norse-bold;
+    transform: translate(-50%, -25%);
+}
+
+form {
+    flex-direction: column;
+}
+
+#account_creation_button {
+    background-color: #596D48;
+}
