@@ -6,8 +6,6 @@
 body {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-content: center;
     width:100vw;
     height:100vh;
     margin:0;
@@ -15,61 +13,82 @@ body {
 
 #image_page {
     position: relative;
-    width:50vw;
-    height:100vh;
-}
-
-#bg {
-    position: relative;
-    width:100%;
+    width:50%;
     height:100%;
-    display: flex;
-}
-
-#bg_image {
-    position: absolute;
     left: 0;
-    max-width:100%;
-    min-height:100%;
-    background: cover;
-}
-
-#banner {
-    position: absolute;
-    background-size:100%, 20% cover;
-    display: flex;
-    flex-direction: column;
-    font-family: norse-bold;
-    font-size: small;
-}
-
-#logo {
-    position: absolute;
-    background-size:50%, 20% cover;
-}
-
-#logo_image {
-    position: absolute;
-    background-size:50%, 20% cover;
-    /*max-height:100%;
-    max-width:50%;*/
-}
-
-#banner_name {
-    position: absolute;
-    padding: 20px;
-    left:50%;
-}
-#text_page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
 }
+
+#bg {
+    position: relative;
+    max-width:100%;
+    min-height:100%;
+    left: 0;
+}
+
+#bg_image {
+    max-width:100%;
+    min-height:100%;
+    background-size: cover;
+}
+
+#banner {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    right: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    max-width:100%;
+    max-height:20%;
+}
+
+#logo {
+    /* max-width:100%;
+    max-height:100%; */
+   /* background-size:50%, 20% cover;*/
+}
+
+#logo_image {
+    /* max-width:100%;*/
+    max-height:100%;
+    background-size: contain;
+    /*background-size:50%, 20% cover;
+    max-height:100%;
+    max-width:50%;*/
+}
+
+#banner_name {
+    padding: 20px;
+    left:50%;
+    font-family: norse-bold;
+    font-size: medium;
+}
+
+#attribution_footer {
+    position: absolute;
+    bottom: 10px;
+    color: white;
+    font-size: medium;
+}
+
+#text_page {
+    position:absolute;
+    left:50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 5%;
+}
 #acount_creation_form {
     display: flex;
     flex-direction: row;
-    position:absolute;
     right:50%;
     margin: 20px;
     padding: 20px;
