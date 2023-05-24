@@ -101,28 +101,90 @@ body {
 }
 
 #text_page {
+    /*to allow overlay of elements*/
     position:absolute;
-    max-height:100%;
+    /*max height to viewport*/
+    max-height:100vw;
+    /*positioned to left of half of viewport*/
     left:50%;
+    /*stack text & form*/
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    padding: 20% 5% 5% 5%;
-    font-size: 3vw;
+    /*space out text and form*/
+    justify-content: space-between;
+    align-content: space-between;
+    /*pad text*/
+    padding: 10% 5% 5% 5%;
+    /*adaptive font size*/
+    font-size: 2vw;
 }
 
 #acount_creation_form {
-    font-size: 2vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     right:50%;
     margin: 20px;
     padding: 20px;
-    background-color: rgba(17, 6, 54, 0.795);
+    background-color: rgba(22, 19, 31, 0.795);
+    /*adaptive font size*/
+    font-size: 1vw;
+}
+
+.user_name {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#user_name_first {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+#user_name_last {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+
+.contact_info {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#contact_info_email {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+#contact_info_phone_number {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+
+.user_password {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#user_password_first {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+#user_password_confirmation {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
 }
 
 #account_creation_button {
-    background-color: #596D48;
+    color: white;
+    background-color: #061418d5;
+    /*adaptive font size*/
+    font-size: 2vw;
 }
