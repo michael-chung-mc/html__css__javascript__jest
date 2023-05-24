@@ -4,7 +4,10 @@ const passwordBox = document.getElementById("user_password_box")
 const passwordField = document.getElementById("user_password")
 const confirmedPasswordField = document.getElementById("password_confirmation")
 
-confirmedPasswordField.onfocus = function() {
+passwordField.onfocus = passwordValidation;
+confirmedPasswordField.onfocus = passwordValidation;
+
+function passwordValidation() {
     // const password = document.getElementById("user_password")
     // console.log(password);
     // const confirmedPassword = document.getElementById("password_confirmation")
@@ -25,3 +28,6 @@ confirmedPasswordField.onfocus = function() {
         console.log("goodbye");
     }
 }
+
+// passwordField.addEventListener("focus", passwordValidation());
+// confirmedPasswordField.addEventListener("focus", passwordValidation());
