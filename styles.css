@@ -3,6 +3,13 @@
     src: url(./fonts/Norse-Bold.otf);
 }
 
+*:focus {
+    outline-offset: 1px;
+    outline-width: 15px;
+    outline-color: rgb(0, 162, 255);
+    box-shadow: 1px rgb(0, 162, 255);
+}
+
 body {
     /*to allow overlay of elements*/
     position: relative;
