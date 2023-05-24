@@ -4,19 +4,27 @@
 }
 
 body {
+    /*to allow overlay of elements*/
     position: relative;
+    /*image and text/form side by side*/
     display: flex;
     flex-direction: row;
+    /*set to viewport dimensions*/
     width:100vw;
     height:100vh;
+    /*clear margin for cleaner looking result*/
     margin:0;
 }
 
 #image_page {
+    /*to allow overlay of elements*/
     position: relative;
+    /*50% of body width & as tall as body height*/
     width:50%;
     height:100%;
+    /*set to justify left when changing window size*/
     left: 0;
+    /*banner & attribution on top of each other*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,61 +32,67 @@ body {
 }
 
 #bg {
+    /*to allow overlay of elements*/
     position: relative;
+    /*stretch image to cover entirely of left half of viewport*/
     max-width:100%;
     min-height:100%;
+    /*set to justify left when changing window size*/
     left: 0;
 }
 
 #bg_image {
+    /*stretch image to cover entirely of left half of viewport*/
     max-width:100%;
     min-height:100%;
     background-size: cover;
+    /*rotate image to make raven face the text*/
     transform: rotateY(180deg);
 }
 
 #banner {
+    /*to allow overlay of elements*/
     position: absolute;
-    left: 40%;
-    top: 10px;
+    /*set to justify top right of half of viewport*/
+    right: 5px;
+    top: 5px;
+    /*translucent background*/
+    background-color: rgba(19, 19, 37, 0.795);
+    /*logo & text side by side with centered text*/
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
-    min-width:30%;
+    width:40%;
+    /*prevent covering image of raven of bg*/
+    max-height:20%;
     /*prevent text from clipping through banner*/
     min-height:8vw;
-    max-width:30%;
-    max-height:20%;
-    border-radius: 90%;
-    background-color: rgba(17, 6, 54, 0.795);
 }
 
 #logo {
-    /* max-width:100%;
-    max-height:100%; */
-   /* background-size:50%, 20% cover;*/
-    padding: 10%;
+    /*center image*/
+    display: flex;
+    align-content: center;
+    /*miniscule padding to prevent perceived clipping of logo & border*/
+    padding: 4px;
 }
 
 #logo_image {
-    /* min-width:70px;
-    min-height:90px; */
     max-width:100%;
     max-height:100%;
     background-size: contain;
-    /*background-size:50%, 20% cover;*/
 }
 
 #banner_text {
     font-family: norse-bold;
-    /* max-height:100%; */
     padding: 10%;
     font-size: 5vw;
     color:white;
 }
 
 #attribution_footer {
+    /*set attribution to bottom left corner*/
     position: absolute;
     bottom: 10px;
     left: 10px;
