@@ -3,10 +3,17 @@
     src: url(./fonts/Norse-Bold.otf);
 }
 
-*:focus {
-    outline-offset: 1px;
-    outline-width: 15px;
-    outline-color: rgb(0, 162, 255);
+
+input {
+    border:3px solid #E5E7EB;
+}
+
+.error {
+    border: 3px solid red;
+}
+
+input:focus {
+    border: 3px solid rgb(0, 162, 255);
     box-shadow: 1px rgb(0, 162, 255);
 }
 
@@ -130,6 +137,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-content: space-between;
     right:50%;
     margin: 20px;
     padding: 20px;
@@ -172,7 +180,7 @@ body {
     flex-direction: column;
 }
 
-.user_password {
+#user_password_box {
     /*format field to have input under prompt*/
     display: flex;
     flex-direction: row;

@@ -27,35 +27,35 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </div>
             <div id="account_creation_form">
-                <form action="" method="post">
+                <form action="" method="post" id="account_form">
                     <div class = "user_name">
                         <div id = "user_name_first">
-                            <label for="first_name">FIRST NAME</label>
-                            <input type="text" id="first_name" name="first_name">
+                            <label for="first_name">*FIRST NAME</label>
+                            <input type="text" id="first_name" name="first_name" required>
                         </div>
                         <div id = "user_name_last">
-                            <label for="last_name">LAST NAME</label>
-                            <input type="text" id="last_name" name="last_name">
+                            <label for="last_name">*LAST NAME</label>
+                            <input type="text" id="last_name" name="last_name" required>
                         </div>
                     </div>
                     <div class = "contact_info">
                         <div id = "contact_info_email">
-                            <label for="user_email">EMAIL</label>
-                            <input type="email" id="user_email" name="email" placeholder="name@example.com">
+                            <label for="user_email">*EMAIL</label>
+                            <input type="email" id="user_email" name="email" placeholder="name@example.com" required>
                         </div>
                         <div id = "contact_info_phone_number">
-                            <label for="phone_number">PHONE NUMBER</label>
-                            <input type="text" id="phone_number" name="phone_number">
+                            <label for="phone_number">*PHONE NUMBER</label>
+                            <input type="text" id="phone_number" name="phone_number" required>
                         </div>
                     </div>
-                    <div class = "user_password">
+                    <div id="user_password_box">
                         <div id="user_password_first">
-                            <label for="user_password">PASSWORD</label>
-                            <input type="password" id="user_password" name="password">
+                            <label for="user_password">*PASSWORD</label>
+                            <input type="password" id="user_password" name="user_password" required>
                         </div>
                         <div id="user_password_confirmation">
-                            <label for="password_confirmation">CONFIRM PASSWORD</label>
-                            <input type="text" id="password_confirmation" name="password_confirmation">
+                            <label for="password_confirmation">*CONFIRM PASSWORD</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation" required>
                         </div>
                     </div>
                     <button type="submit" id="account_creation_button">Create Account</button>
@@ -63,5 +63,6 @@
             </div>
         </div>
     </body>
+    <script src="osuf.js"></script>
   </html>
 </DOCTYPE>
