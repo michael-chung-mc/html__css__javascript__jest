@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+
+.content_container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+#library_container {
+    grid-column: 2 / span 1;
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+    background-color: darkgray;
+    grid-template-columns: .25fr repeat(autofit, minmax(.25fr, 1fr));
+}
+
+.book_card {
+    background-color: gray;
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: 2fr 1fr 1fr 1fr;
+}
