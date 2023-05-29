@@ -7,7 +7,24 @@
     </head>
     <body>
         <div class="content_container">
-            <button type="button" class="new_book">NEW BOOK</button>
+            <div class = "form_container">
+                <button type="button" class="new_book">NEW BOOK</button>
+                <form name="new_book_form" class="toggle_form">
+                    <div class="new_book_title form_field">
+                        <label for="new_book_title_text">Title</label>
+                        <input type="text" name="new_book_title_text">
+                    </div>
+                    <div class="new_book_author form_field">
+                        <label for="new_book_author_text">Author</label>
+                        <input type="text" name="new_book_author_text">
+                    </div>
+                    <div class="new_book_pages form_field">
+                        <label for="new_book_pages_text">Pages</label>
+                        <input type="text" name="new_book_pages_text">
+                    </div>
+                    <input type="button">
+                </form>
+            </div>
             <div id="library_container"></div>
         </div>
     </body>
