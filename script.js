@@ -87,3 +87,7 @@ function clearLibrary () {
 }
 
 displayLibrary();
+
+function viewForm () {
+    document.getElementById("toggle_form").style.display = "grid";
+}

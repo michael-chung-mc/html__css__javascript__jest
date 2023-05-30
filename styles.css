@@ -26,7 +26,7 @@ body {
     grid-template-rows: 2fr 1fr 1fr 1fr;
 }
 
-.toggle_form {
+#toggle_form {
     display: none;
 }
 
