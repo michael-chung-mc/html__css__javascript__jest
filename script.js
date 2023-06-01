@@ -90,6 +90,12 @@ function displayLibrary () {
             book.appendChild(getAuthorDiv(library[i].author));
             book.appendChild(getReadDiv(library[i].read));
             book.classList.add("book_card");
+            // add ability to remove book
+            let removeButton = document.createElement("input");
+            removeButton.setAttribute("type", "submit");
+            removeButton.setAttribute("id", "remove_button_submit");
+            removeButton.setAttribute("value", "Remove Book");
+            book.appendChild(removeButton);
             document.getElementById("library_container").appendChild(book);
         }
     }
@@ -119,9 +125,7 @@ function viewForm () {
 }
 
 document.addEventListener("submit", function(event){
-    console.log("a");
     event.preventDefault();
-    console.log("a");
     var form = document.getElementById("toggle_form");
     let title = form.new_book_title_text.value;
     let pages = form.new_book_pages_text.value;
