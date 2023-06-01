@@ -35,13 +35,13 @@ function testLibrary () {
     }
 }
 
-addBookToLibrary (new book("Test", 111111111, "Test"));
-addBookToLibrary (new book("Test1", 2, "Test1"));
-addBookToLibrary (new book("Test2", 333, "Test2"));
-addBookToLibrary (new book("Test3", 4444, "Test3"));
-addBookToLibrary (new book("Test4", 555555, "Test4"));
+// addBookToLibrary (new book("Test", 111111111, "Test"));
+// addBookToLibrary (new book("Test1", 2, "Test1"));
+// addBookToLibrary (new book("Test2", 333, "Test2"));
+// addBookToLibrary (new book("Test3", 4444, "Test3"));
+// addBookToLibrary (new book("Test4", 555555, "Test4"));
 
-testLibrary();
+// testLibrary();
 
 function getTitleDiv (title) {
     var div = document.createElement("div");
@@ -83,11 +83,38 @@ function displayLibrary () {
 }
 
 function clearLibrary () {
-    document.getElementById("library_container").classList = "";
+    myLibrary = [];
+    let oldLibrary = document.getElementById("library_container");
+    while (oldLibrary.firstChild)
+    {
+        oldLibrary.removeChild(oldLibrary.firstChild)
+    }
 }
 
-displayLibrary();
+function clearLibraryDisplay () {
+    let oldLibrary = document.getElementById("library_container");
+    while (oldLibrary.firstChild)
+    {
+        oldLibrary.removeChild(oldLibrary.firstChild)
+    }
+}
+
+// displayLibrary();
 
 function viewForm () {
     document.getElementById("toggle_form").style.display = "grid";
 }
+
+document.addEventListener("submit", function(event){
+    console.log("a");
+    event.preventDefault();
+    console.log("a");
+    var form = document.getElementById("toggle_form");
+    let title = form.new_book_title_text.value;
+    let pages = form.new_book_pages_text.value;
+    let author = form.new_book_author_text.value;
+    addBookToLibrary (new book(title, pages, author));
+    clearLibraryDisplay;
+    displayLibrary();
+    testLibrary();
+})
