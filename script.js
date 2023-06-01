@@ -1,6 +1,7 @@
-let myLibrary = [];
+let library = [];
 
-function book (title, pages, author){
+function book (id, title, pages, author){
+    this.id = id
     this.title = title
     this.pages = pages
     this.author = author
@@ -24,14 +25,14 @@ function book (title, pages, author){
 }
 
 function addBookToLibrary (book) {
-    myLibrary.push(book);
+    library.push(book);
     // console.log(book.info());
 }
 
 function testLibrary () {
-    for (let i = 0; i < myLibrary.length - 1; i += 1)
+    for (let i = 0; i < library.length - 1; i += 1)
     {
-        console.log(myLibrary[i].info());
+        console.log(library[i].info());
     }
 }
 
@@ -42,6 +43,12 @@ function testLibrary () {
 // addBookToLibrary (new book("Test4", 555555, "Test4"));
 
 // testLibrary();
+
+function getIdDiv (bookId) {
+    var div = document.createElement("id");
+    div.innerHTML = bookId;
+    return div;
+}
 
 function getTitleDiv (title) {
     var div = document.createElement("div");
@@ -70,20 +77,26 @@ function getReadDiv (read) {
 }
 
 function displayLibrary () {
-    for (let i = 0; i < myLibrary.length -1; i++) {
-        // add book div
-        var book = document.createElement("div");
-        book.appendChild(getTitleDiv(myLibrary[i].title));
-        book.appendChild(getPageseDiv(myLibrary[i].pages));
-        book.appendChild(getAuthorDiv(myLibrary[i].author));
-        book.appendChild(getReadDiv(myLibrary[i].read));
-        book.classList.add("book_card");
-        document.getElementById("library_container").appendChild(book);
+    let libraryContainer = document.getElementById("library_container");
+    let existingBooks = libraryContainer.childNodes;
+    let newAdditionSize = library.length - existingBooks.length;
+    if (newAdditionSize > 0) {
+        for (let i = library.length -1; i > existingBooks.length - 1; i--) {
+            // add book div
+            var book = document.createElement("div");
+            book.appendChild(getIdDiv(library[i].id));
+            book.appendChild(getTitleDiv(library[i].title));
+            book.appendChild(getPageseDiv(library[i].pages));
+            book.appendChild(getAuthorDiv(library[i].author));
+            book.appendChild(getReadDiv(library[i].read));
+            book.classList.add("book_card");
+            document.getElementById("library_container").appendChild(book);
+        }
     }
 }
 
 function clearLibrary () {
-    myLibrary = [];
+    library = [];
     let oldLibrary = document.getElementById("library_container");
     while (oldLibrary.firstChild)
     {
@@ -113,7 +126,7 @@ document.addEventListener("submit", function(event){
     let title = form.new_book_title_text.value;
     let pages = form.new_book_pages_text.value;
     let author = form.new_book_author_text.value;
-    addBookToLibrary (new book(title, pages, author));
+    addBookToLibrary (new book(library.length. title, pages, author));
     clearLibraryDisplay;
     displayLibrary();
     testLibrary();
