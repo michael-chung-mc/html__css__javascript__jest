@@ -37,10 +37,11 @@ function addBookToLibrary (book) {
 function removeBookFromLibrary (bookId) {
     let newLibrary = [];
     for (let i = 0; i < library.length; i++) {
-        if (String(library[i].id) != String(bookId)) {
+        if (String(i) != String(bookId)) {
             newLibrary.push(library[i]);
         }
     }
+    library = newLibrary;
 }
 
 function testLibrary () {
@@ -143,12 +144,18 @@ function clearLibrary () {
 // }
 
 function removeBook (id) {
-    const bookCards = document.getElementsByClassName("book_card");
-    for (let i = 0; i < bookCards.length; i++) {
-        if (bookCards[i].getAttribute("id") == id)
-        {
-            removeBookFromLibrary(id);
-        }
+    return function () {
+        console.log("removing book: " + id);
+        removeBookFromLibrary(id);
+        clearLibraryDisplay();
+        displayLibrary();
+        // const bookCards = document.getElementsByClassName("book_card");
+        // for (let i = 0; i < bookCards.length; i++) {
+        //     if (bookCards[i].getAttribute("id") == id)
+        //     {
+        //         removeBookFromLibrary(id);
+        //     }
+        // }
     }
 }
 
@@ -180,23 +187,24 @@ function displayLibrary () {
         removeButton.setAttribute("type", "submit");
         removeButton.setAttribute("class", "remove_button_submit");
         removeButton.innerHTML = "Remove Book";
-        removeButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            removeBook(newId);
-            // event.preventDefault();
-            // console.log("removing ...");
-            // const bookCards = document.getElementsByClassName("book_card");
-            // for (let j = 0; j < bookCards.length; j++) {
-            //     console.log("for "+i);
-            //     console.log(bookCards[j].getAttribute("id"));
-            //     if (bookCards[j].getAttribute("id") == String(library[i].id))
-            //     {
-            //         console.log("checking"+i);
-            //         library[i].info();
-            //         removeBookFromLibrary(library[i].id);
-            //     }
-            // }
-        })
+        removeButton.addEventListener("click", removeBook(newId), false);
+        // removeButton.addEventListener("click", function (event) {
+        //     event.preventDefault();
+        //     removeBook(newId);
+        //     event.preventDefault();
+        //     console.log("removing ...");
+        //     const bookCards = document.getElementsByClassName("book_card");
+        //     for (let j = 0; j < bookCards.length; j++) {
+        //         console.log("for "+i);
+        //         console.log(bookCards[j].getAttribute("id"));
+        //         if (bookCards[j].getAttribute("id") == String(library[i].id))
+        //         {
+        //             console.log("checking"+i);
+        //             library[i].info();
+        //             removeBookFromLibrary(library[i].id);
+        //         }
+        //     }
+        // })
         bookCard.appendChild(removeButton);
         // add ability to toggle read
         var readButton = document.createElement("button");
