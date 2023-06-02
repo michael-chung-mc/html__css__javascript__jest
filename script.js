@@ -35,11 +35,10 @@ function addBookToLibrary (book) {
 }
 
 function removeBookFromLibrary (bookId) {
+    let newLibrary = [];
     for (let i = 0; i < library.length; i++) {
-        if (String(library[i].id) == String(bookId)) {
-            console.log("removed")
-            console.log(library[i].info());
-            library[i] = "";
+        if (String(library[i].id) != String(bookId)) {
+            newLibrary.push(library[i]);
         }
     }
 }
@@ -155,7 +154,8 @@ function removeBook (id) {
 
 function readBook (id) {
     return function () {
-        library[id].read == not(library[id].read);
+        console.log("reading book: " + id);
+        library[id].read = !library[id].read;
         clearLibraryDisplay();
         displayLibrary();
     }
@@ -180,9 +180,8 @@ function displayLibrary () {
         removeButton.setAttribute("type", "submit");
         removeButton.setAttribute("class", "remove_button_submit");
         removeButton.innerHTML = "Remove Book";
-        removeButton.addEventListener("submit", function (event) {
+        removeButton.addEventListener("click", function (event) {
             event.preventDefault();
-            console.log("hello");
             removeBook(newId);
             // event.preventDefault();
             // console.log("removing ...");
@@ -204,7 +203,7 @@ function displayLibrary () {
         readButton.setAttribute("type", "submit");
         readButton.setAttribute("class", "read_button_submit");
         readButton.innerHTML = "Read Book";
-        readButton.addEventListener("submit", readBook(newId), false);
+        readButton.addEventListener("click", readBook(newId), false);
         // readButton.addEventListener("submit", function (event) {
         //     event.preventDefault();
         //     console.log("hello");
