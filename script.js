@@ -1,3 +1,7 @@
+function viewForm () {
+    document.getElementById("toggle_form").style.display = "grid";
+}
+
 let library = [];
 
 function book (id, title, pages, author){
@@ -26,11 +30,22 @@ function book (id, title, pages, author){
 
 function addBookToLibrary (book) {
     library.push(book);
+    // console.log("added")
     // console.log(book.info());
 }
 
+function removeBookFromLibrary (bookId) {
+    for (let i = 0; i < library.length; i++) {
+        if (String(library[i].id) == String(bookId)) {
+            console.log("removed")
+            console.log(library[i].info());
+            library[i] = "";
+        }
+    }
+}
+
 function testLibrary () {
-    for (let i = 0; i < library.length - 1; i += 1)
+    for (let i = 0; i < library.length; i += 1)
     {
         console.log(library[i].info());
     }
@@ -76,40 +91,6 @@ function getReadDiv (read) {
     return div;
 }
 
-function displayLibrary () {
-    let libraryContainer = document.getElementById("library_container");
-    let existingBooks = libraryContainer.childNodes;
-    let newAdditionSize = library.length - existingBooks.length;
-    if (newAdditionSize > 0) {
-        for (let i = library.length -1; i > existingBooks.length - 1; i--) {
-            // add book div
-            var book = document.createElement("div");
-            book.appendChild(getIdDiv(library[i].id));
-            book.appendChild(getTitleDiv(library[i].title));
-            book.appendChild(getPageseDiv(library[i].pages));
-            book.appendChild(getAuthorDiv(library[i].author));
-            book.appendChild(getReadDiv(library[i].read));
-            book.classList.add("book_card");
-            // add ability to remove book
-            let removeButton = document.createElement("input");
-            removeButton.setAttribute("type", "submit");
-            removeButton.setAttribute("id", "remove_button_submit");
-            removeButton.setAttribute("value", "Remove Book");
-            book.appendChild(removeButton);
-            document.getElementById("library_container").appendChild(book);
-        }
-    }
-}
-
-function clearLibrary () {
-    library = [];
-    let oldLibrary = document.getElementById("library_container");
-    while (oldLibrary.firstChild)
-    {
-        oldLibrary.removeChild(oldLibrary.firstChild)
-    }
-}
-
 function clearLibraryDisplay () {
     let oldLibrary = document.getElementById("library_container");
     while (oldLibrary.firstChild)
@@ -118,20 +99,131 @@ function clearLibraryDisplay () {
     }
 }
 
-// displayLibrary();
-
-function viewForm () {
-    document.getElementById("toggle_form").style.display = "grid";
+function clearLibrary () {
+    library = [];
+    clearLibraryDisplay();
 }
 
-document.addEventListener("submit", function(event){
+// function displayLibrary () {
+//     let libraryContainer = document.getElementById("library_container");
+//     let existingBooks = libraryContainer.childNodes;
+//     let newAdditionSize = library.length - existingBooks.length;
+//     if (newAdditionSize > 0) {
+//         for (let i = library.length -1; i > existingBooks.length - 1; i--) {
+//             // add book div
+//             var bookCard = document.createElement("div");
+//             bookCard.appendChild(getTitleDiv(library[i].title));
+//             bookCard.appendChild(getPageseDiv(library[i].pages));
+//             bookCard.appendChild(getAuthorDiv(library[i].author));
+//             bookCard.appendChild(getReadDiv(library[i].read));
+//             bookCard.classList.add("book_card");
+//             bookCard.setAttribute("id", library[i].id);
+//             // add ability to remove book
+//             var removeButton = document.createElement("button");
+//             removeButton.setAttribute("type", "submit");
+//             removeButton.setAttribute("class", "remove_button_submit");
+//             removeButton.innerHTML = "Remove Book";
+//             removeButton.addEventListener("submit", function (event) {
+//                 event.preventDefault();
+//                 console.log("removing ...");
+//                 const bookCards = document.getElementsByClassName("book_card");
+//                 for (let j = 0; j < bookCards.length; j++) {
+//                     console.log("for "+i);
+//                     bookCards[j].getAttribute("id");
+//                     if (bookCards[j].getAttribute("id") == String(library[i].id))
+//                     {
+//                         console.log("checking"+i);
+//                         library[i].info();
+//                         removeBookFromLibrary(library[i].id);
+//                     }
+//                 }
+//             })
+//             bookCard.appendChild(removeButton);
+//         }
+//     }
+// }
+
+function removeBook (id) {
+    const bookCards = document.getElementsByClassName("book_card");
+    for (let i = 0; i < bookCards.length; i++) {
+        if (bookCards[i].getAttribute("id") == id)
+        {
+            removeBookFromLibrary(id);
+        }
+    }
+}
+
+function readBook (id) {
+    return function () {
+        library[id].read == not(library[id].read);
+        clearLibraryDisplay();
+        displayLibrary();
+    }
+}
+
+function displayLibrary () {
+    let libraryContainer = document.getElementById("library_container");
+    for (let i = 0; i < library.length; i++) {
+        //update id if removed or altered library
+        let newId = i;
+        library[i].id = newId;
+        // add book div
+        var bookCard = document.createElement("div");
+        bookCard.appendChild(getTitleDiv(library[i].title));
+        bookCard.appendChild(getPageseDiv(library[i].pages));
+        bookCard.appendChild(getAuthorDiv(library[i].author));
+        bookCard.appendChild(getReadDiv(library[i].read));
+        bookCard.classList.add("book_card");
+        bookCard.setAttribute("id", newId);
+        // add ability to remove book
+        var removeButton = document.createElement("button");
+        removeButton.setAttribute("type", "submit");
+        removeButton.setAttribute("class", "remove_button_submit");
+        removeButton.innerHTML = "Remove Book";
+        removeButton.addEventListener("submit", function (event) {
+            event.preventDefault();
+            console.log("hello");
+            removeBook(newId);
+            // event.preventDefault();
+            // console.log("removing ...");
+            // const bookCards = document.getElementsByClassName("book_card");
+            // for (let j = 0; j < bookCards.length; j++) {
+            //     console.log("for "+i);
+            //     console.log(bookCards[j].getAttribute("id"));
+            //     if (bookCards[j].getAttribute("id") == String(library[i].id))
+            //     {
+            //         console.log("checking"+i);
+            //         library[i].info();
+            //         removeBookFromLibrary(library[i].id);
+            //     }
+            // }
+        })
+        bookCard.appendChild(removeButton);
+        // add ability to toggle read
+        var readButton = document.createElement("button");
+        readButton.setAttribute("type", "submit");
+        readButton.setAttribute("class", "read_button_submit");
+        readButton.innerHTML = "Read Book";
+        readButton.addEventListener("submit", readBook(newId), false);
+        // readButton.addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     console.log("hello");
+        //     readBook(newId);
+        // })
+        bookCard.appendChild(readButton);
+        // add to library container to view book card
+        libraryContainer.appendChild(bookCard);
+    }
+}
+
+document.getElementById("toggle_form", addEventListener("submit", function(event){
     event.preventDefault();
-    var form = document.getElementById("toggle_form");
+    const form = document.getElementById("toggle_form");
     let title = form.new_book_title_text.value;
     let pages = form.new_book_pages_text.value;
     let author = form.new_book_author_text.value;
-    addBookToLibrary (new book(library.length. title, pages, author));
-    clearLibraryDisplay;
+    addBookToLibrary (new book(library.length + 1, title, pages, author));
+    clearLibraryDisplay();
     displayLibrary();
     testLibrary();
-})
+}));
