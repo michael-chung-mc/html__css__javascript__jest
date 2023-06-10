@@ -4,14 +4,39 @@ function viewForm () {
 
 let library = [];
 
-function book (id, title, pages, author){
-    this.id = id
-    this.title = title
-    this.pages = pages
-    this.author = author
-    this.read = false
+// function book (id, title, pages, author){
+//     this.id = id
+//     this.title = title
+//     this.pages = pages
+//     this.author = author
+//     this.read = false
 
-    this.info = function() {
+//     this.info = function() {
+//         statusMessage = this.title + " by " + this.author + ", " + this.pages + " pages, ";
+//         // console.log(statusMessage);
+//         if (this.read) {
+//             statusMessage += "has been read";
+//         }
+//         else {
+//             statusMessage += "not read yet"
+//         }
+//         return statusMessage;
+//     }
+
+//     this.Explore = function() {
+//         this.read = true;
+//     }
+// }
+
+class book {
+    constructor (id, title, pages, author) {
+        this.id = id
+        this.title = title
+        this.pages = pages
+        this.author = author
+        this.read = false
+    }
+    info() {
         statusMessage = this.title + " by " + this.author + ", " + this.pages + " pages, ";
         // console.log(statusMessage);
         if (this.read) {
@@ -23,7 +48,7 @@ function book (id, title, pages, author){
         return statusMessage;
     }
 
-    this.Explore = function() {
+    explore() {
         this.read = true;
     }
 }
