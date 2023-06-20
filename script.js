@@ -18,5 +18,16 @@ var todo = function(name) {
     todo.setPriority = function(value) {todo.priority = value;}
     todo.setNotes = function(value) {todo.notes = value;}
     todo.setChecklist = function(value) {todo.checklist = value;}
-    return player;
+    return todo;
 }
+
+var project = function (name) {
+    var project = {};
+    project.name = name;
+    project.tasks = todo();
+    project.setTodo = function(todo) {
+        tasks += todo;
+    };
+}
+
+defaultProject = project("default");
