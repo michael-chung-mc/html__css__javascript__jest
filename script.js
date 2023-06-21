@@ -28,6 +28,11 @@ var project = function (name) {
     project.setTodo = function(todo) {
         tasks += todo;
     };
+    project.getName = function () { return name; };
+    return project
 }
 
+const defaultProjectDiv = document.createElement("div");
 defaultProject = project("default");
+defaultProjectDiv.innerHTML = defaultProject.getName();
+document.body.appendChild(defaultProjectDiv);
