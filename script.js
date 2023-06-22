@@ -34,5 +34,6 @@ var project = function (name) {
 
 const defaultProjectDiv = document.createElement("div");
 defaultProject = project("default");
+defaultProjectDiv.classList.add("project")
 defaultProjectDiv.innerHTML = defaultProject.getName();
 document.body.appendChild(defaultProjectDiv);
