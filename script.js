@@ -36,4 +36,5 @@ const defaultProjectDiv = document.createElement("div");
 defaultProject = project("default");
 defaultProjectDiv.classList.add("project")
 defaultProjectDiv.innerHTML = defaultProject.getName();
-document.body.appendChild(defaultProjectDiv);
+taskDiv = document.getElementById("task_inspector");
+taskDiv.append(defaultProjectDiv);

@@ -1,3 +1,14 @@
+.body {
+    grid-template-columns: 1fr 4fr
+}
+.menu {
+    grid-column: 1;
+}
+.content {
+    grid-column: 2;
+}
+#task_inspector {
+}
 .project {
     background-color: gray
 }
