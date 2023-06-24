@@ -1,16 +1,28 @@
 .body {
-    grid-template-columns: 1fr 4fr
+    display: grid;
+    grid-template-rows: 1fr 6fr;
 }
-.menu {
-    grid-column: 1;
+.header {
+    grid-row: 1;
+    background-color: green;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .content {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+.menu {
+    background-color: red;
+    grid-column: 1;
+}
+.inspector {
+    background-color: blue;
     grid-column: 2;
 }
-#task_inspector {
-}
 .project {
-    background-color: gray
+    background-color: gray;
 }
 .todo {
 
