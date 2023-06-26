@@ -1,6 +1,6 @@
 # odin-todo-list
 
-
+Prompt:
     Your ‘todos’ are going to be objects that you’ll want to dynamically create, which means either using factories or constructors/classes to generate them.
     Brainstorm what kind of properties your todo-items are going to have. At a minimum they should have a title, description, dueDate and priority. You might also want to include notes or even a checklist.
     Your todo list should have projects or separate lists of todos. When a user first opens the app, there should be some sort of ‘default’ project to which all of their todos are put. Users should be able to create new projects and choose which project their todos go into.
@@ -20,4 +20,55 @@
         localStorage (docs here) allows you to save data on the user’s computer. The downside here is that the data is ONLY accessible on the computer that it was created on. Even so, it’s pretty handy! Set up a function that saves the projects (and todos) to localStorage every time a new project (or todo) is created, and another function that looks for that data in localStorage when your app is first loaded. Additionally, here are a couple of quick tips to help you not get tripped up:
             Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there!
             localStorage uses JSON to send and store data, and when you retrieve the data, it will also be in JSON format. You will learn more about this language in a later lesson, but it doesn’t hurt to get your feet wet now. Keep in mind you cannot store functions in JSON, so you’ll have to figure out how to add methods back to your object properties once you fetch them. Good luck!
+
+Class Diagram
+                         ___________
+                        | <<CSS>>   |
+     _______________    | styles.css|
+    | <<HTML>>      |   |___________|
+    | index.html    | > | project   |
+    |_______________|   | todo      |
+                        | header    |
+                        | sidebar   |
+                        | inspector |
+                        |___________|
+     _________          ________             ___________
+    | <<HTML>>|        |<<HTML>>|           |<<HTML>>   |
+    | header  |        |sidebar |           |inspector  |
+    |_________|        |________|           |___________|
+    |_________|        |________|           |___________|
+    |_________|        |________|           |___________|
+
+
+                                                v setting todos as complete
+                                                v changing todo priority
+                    v view all projects         v expand todo
+                    v view all todos            v delete a todo
+
+     _______________________________________________________________________
+    |<<javascript>>                                                         |
+    |interface class                                                        |
+    |_______________________________________________________________________|
+    |_______________________________________________________________________|
+    |1.createProject()                                                      |
+    |_______________________________________________________________________|
+
+     _______________                         _______________
+    |<<javascript>> |                       |<<javascript>> |
+    |project class  |                       |todo class     |
+    |_______________|                       |_______________|
+    |name           | > view todos          |title          |
+    |todos          |                       |description    |
+    |_______________| < store               |dueDate        |
+    |addTodo()      |                       |priority       |
+    |_______________|                       |_______________|
+                                            |_______________|
+
+
+
+
+
+
+
+ 
 
