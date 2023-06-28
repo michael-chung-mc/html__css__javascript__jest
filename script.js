@@ -1,40 +1,87 @@
-var todo = function(name) {
-    var todo = {};
-    todo.title = name,
-    todo.description = "",
-    todo.deadline = "",
-    todo.priority = "",
-    todo.notes = "",
-    todo.checklist = "",
-    todo.getTitle = function() {return todo.title;},
-    todo.getDescription = function() {return todo.description;}
-    todo.getDeadline = function() {return todo.deadline;}
-    todo.getPriority = function() {return todo.priority;}
-    todo.getNotes = function() {return todo.notes;}
-    todo.getChecklist = function() {return todo.checklist;}
-    todo.setTitle = function(newName) {todo.title = newName;},
-    todo.setDescription = function(desc) {todo.description = desc;}
-    todo.setDeadline = function(date) {todo.deadline = date;}
-    todo.setPriority = function(value) {todo.priority = value;}
-    todo.setNotes = function(value) {todo.notes = value;}
-    todo.setChecklist = function(value) {todo.checklist = value;}
-    return todo;
+function taskFactory (name) {
+    return {
+        title : name,
+        description : "",
+        deadline : "",
+        priority : "",
+        notes : "",
+        checklist : "",
+        getTitle : function() {return this.title;},
+        getDescription : function() {return this.description;},
+        getDeadline : function() {return this.deadline;},
+        getPriority : function() {return this.priority;},
+        getNotes : function() {return this.notes;},
+        getChecklist : function() {return this.checklist;},
+        setTitle : function(newName) {this.title = newName;},
+        setDescription : function(desc) {this.description = desc;},
+        setDeadline : function(date) {this.deadline = date;},
+        setPriority : function(value) {this.priority = value;},
+        setNotes : function(value) {this.notes = value;},
+        setChecklist : function(value) {this.checklist = value;}
+    }
 }
 
-var project = function (name) {
-    var project = {};
-    project.name = name;
-    project.tasks = todo();
-    project.setTodo = function(todo) {
-        tasks += todo;
+function projectFactory (name) {
+    return {
+        projectName: name,
+        tasks: [],
+        getName: function () { return this.projectName; },
+        getTasks: function () { return this.tasks; },
+        addTask: function(task) { this.tasks.push(task); }
+    }
+}
+
+const interface = (() => {
+    let projects = [projectFactory("default")]
+    function clear (parent) {
+        while(parent.firstChild) { parent.removeChild(parent.firstChild); }
+    }
+    function display() {
+        //clear(document.body);
+        let inspectorDiv = document.getElementById("task_inspector");
+        console.log(inspectorDiv);
+        for (let i = 0; i < projects.length; i++)
+        {
+            const projectDiv = document.createElement("div");
+            projectDiv.classList.add(projects[i].getName())
+            projectDiv.innerHTML = projects[i].getName();
+            const projectTasks = projects[i].getTasks();
+            for(let j = 0; j < projectTasks.length; j++)
+            {
+                const taskDiv = document.createElement("div");
+                taskDiv.classList.add(projectTasks[j].getTitle())
+                taskDiv.innerHTML = projectTasks[j].getTitle();
+                projectDiv.append(taskDiv);
+                console.log("displaying project task:" + projectTasks[j].getTitle())
+            }
+            inspectorDiv.append(projectDiv);
+            console.log("displaying project:" + projects[i].getName())
+        }
+    }
+    function addProject(name) {
+        let newProject = projectFactory(name);
+        console.log("created project:" + newProject.getName())
+        projects.push(newProject);
+        console.log("added project:" + projects[1].getName())
+    }
+    function addTask(projectName, taskName) {
+        for (let i = 0; i < projects.length; i++)
+        {
+            if (projects[i].getName() == projectName)
+            {
+                let newTodo = taskFactory(taskName);
+                projects[i].addTask(newTodo);
+                console.log("added project task:" + projects[i].getName())
+            }
+        }
+    }
+    return {
+        display,
+        addProject,
+        addTask
     };
-    project.getName = function () { return name; };
-    return project
-}
+})();
 
-const defaultProjectDiv = document.createElement("div");
-defaultProject = project("default");
-defaultProjectDiv.classList.add("project")
-defaultProjectDiv.innerHTML = defaultProject.getName();
-taskDiv = document.getElementById("task_inspector");
-taskDiv.append(defaultProjectDiv);
+interface.addProject("testProject");
+interface.addTask("testProject", "testTask");
+interface.display();
