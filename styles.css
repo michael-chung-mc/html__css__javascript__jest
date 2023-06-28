@@ -24,15 +24,23 @@
     grid-column: 1;
     padding: 1rem;
 }
+.categories {
+    grid-template-rows: 1fr 1fr 1fr 1fr
+}
 .inspector {
     height:100%;
     background-color: blue;
     grid-column: 2;
     padding: 1rem;
 }
+.task_inspector {
+    display: grid;
+    gap: 1rem;
+}
 .project {
     background-color: gray;
+    padding: 1rem;
 }
-.todo {
-
+.task {
+    background-color: rgb(71, 71, 71);
 }

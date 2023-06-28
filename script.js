@@ -32,31 +32,43 @@ function projectFactory (name) {
 }
 
 const interface = (() => {
-    let projects = [projectFactory("default")]
+    let projects = [projectFactory("default-project")]
+    let filters = ["inbox", "favorite", "today", "upcoming"]
     function clear (parent) {
         while(parent.firstChild) { parent.removeChild(parent.firstChild); }
     }
-    function display() {
-        //clear(document.body);
+    function displayProjects(filter) {
         let inspectorDiv = document.getElementById("task_inspector");
+        clear(inspectorDiv);
         console.log(inspectorDiv);
         for (let i = 0; i < projects.length; i++)
         {
-            const projectDiv = document.createElement("div");
-            projectDiv.classList.add(projects[i].getName())
-            projectDiv.innerHTML = projects[i].getName();
-            const projectTasks = projects[i].getTasks();
-            for(let j = 0; j < projectTasks.length; j++)
+            if ((filter == filters[0] && projects[i].getPriority() == filters[0])
+            || (filter == filters[1] && projects[i].getPriority() == filters[1])
+            || (filter == filters[2] && projects[i].getPriority() == filters[2])
+            || (filter == filters[3] && projects[i].getPriority() == filters[3])
+            || filter == "")
             {
-                const taskDiv = document.createElement("div");
-                taskDiv.classList.add(projectTasks[j].getTitle())
-                taskDiv.innerHTML = projectTasks[j].getTitle();
-                projectDiv.append(taskDiv);
-                console.log("displaying project task:" + projectTasks[j].getTitle())
+                const projectDiv = document.createElement("div");
+                projectDiv.classList.add("project")
+                projectDiv.innerHTML = projects[i].getName();
+                const projectTasks = projects[i].getTasks();
+                for(let j = 0; j < projectTasks.length; j++)
+                {
+                    const taskDiv = document.createElement("div");
+                    taskDiv.classList.add(projectTasks[j].getTitle())
+                    taskDiv.classList.add("task")
+                    taskDiv.innerHTML = projectTasks[j].getTitle();
+                    projectDiv.append(taskDiv);
+                    console.log("displaying project task:" + projectTasks[j].getTitle())
+                }
+                inspectorDiv.append(projectDiv);
+                console.log("displaying project:" + projects[i].getName())
             }
-            inspectorDiv.append(projectDiv);
-            console.log("displaying project:" + projects[i].getName())
         }
+    }
+    function display() {
+        displayProjects("")
     }
     function addProject(name) {
         let newProject = projectFactory(name);
@@ -82,6 +94,6 @@ const interface = (() => {
     };
 })();
 
-interface.addProject("testProject");
-interface.addTask("testProject", "testTask");
+interface.addProject("test-project");
+interface.addTask("test-project", "test-task");
 interface.display();
