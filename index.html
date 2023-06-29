@@ -15,13 +15,31 @@
         <div class="content">
             <div class="menu" id="main_menu">
                 <div class="categories">
-                    <button class="Inbox" id="inboxButton">Inbox</button>
-                    <button class="today" id="todayButton">Today</button>
-                    <button class="upcoming" id="upcomingButton">Upcoming</button>
-                    <button class="filters" id="filtersButton">Filters</button>
+                    <div class="category" id="inbox">
+                        <button id="inboxButton">Inbox</button>
+                        <div id="inbox_list"></div>
+                    </div>
+                    <div class="category" id="today">
+                        <button id="todayButton">Today</button>
+                        <div id="today_list"></div>
+                    </div>
+                    <div class="category" id="upcoming">
+                        <button id="upcomingButton">Upcoming</button>
+                        <div id="upcoming_list"></div>
+                    </div>
+                    <div class="category" id="filters">
+                        <button id="filtersButton">Filters</button>
+                        <div id="filters_list"></div>
+                    </div>
                 </div>
-                <button class="favorites" id="favoritesButton">Favorites</button>
-                <button class="projects_list" id="projectsButton">Projects</button>
+                <div class="category" id="favorites">
+                    <button id="favoritesButton">Favorites</button>
+                    <div id="favorites_list"></div>
+                </div>
+                <div class="category" id="projects">
+                    <button id="projectsButton">Projects</button>
+                    <div id="projects_list"></div>
+                </div>
             </div>
             <div class="inspector">
                 <div class="task_inspector" id="task_inspector"></div>
