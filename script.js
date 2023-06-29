@@ -21,33 +21,45 @@ function taskFactory (name) {
     }
 }
 
-function projectFactory (name) {
+function projectFactory (name, tag) {
     return {
         projectName: name,
+        tags: [tag],
         tasks: [],
         getName: function () { return this.projectName; },
+        getTags: function () { return this.tags; },
         getTasks: function () { return this.tasks; },
+        getPriority: function () {
+            let highestPriority = 0;
+            for(let i = 0; i < this.tasks.length-1; i++) {
+                if (this.tasks[i].getPriority() > highestPriority)
+                {
+                    highestPriority = this.tasks[i];
+                }
+            }
+            return highestPriority;
+        },
         addTask: function(task) { this.tasks.push(task); }
     }
 }
 
 const interface = (() => {
-    let projects = [projectFactory("default-project")]
-    let filters = ["inbox", "favorite", "today", "upcoming"]
+    let filters = ["inbox", "favorite", "today", "upcoming", "project"]
+    let projects = [projectFactory("default-project", filters[0])]
     function clear (parent) {
         while(parent.firstChild) { parent.removeChild(parent.firstChild); }
     }
-    function displayProjects(filter) {
+    function display(filter) {
         let inspectorDiv = document.getElementById("task_inspector");
         clear(inspectorDiv);
         console.log(inspectorDiv);
         for (let i = 0; i < projects.length; i++)
         {
-            if ((filter == filters[0] && projects[i].getPriority() == filters[0])
-            || (filter == filters[1] && projects[i].getPriority() == filters[1])
-            || (filter == filters[2] && projects[i].getPriority() == filters[2])
-            || (filter == filters[3] && projects[i].getPriority() == filters[3])
-            || filter == "")
+            if ((filter == filters[0] && projects[i].getTags().includes(filters[0]))
+            || (filter == filters[1] && projects[i].getTags().includes(filters[1]))
+            || (filter == filters[2] && projects[i].getTags().includes(filters[2]))
+            || (filter == filters[3] && projects[i].getTags().includes(filters[3]))
+            || (filter == filters[4] && projects[i].getTags().includes(filters[4])))
             {
                 const projectDiv = document.createElement("div");
                 projectDiv.classList.add("project")
@@ -67,11 +79,18 @@ const interface = (() => {
             }
         }
     }
-    function display() {
-        displayProjects("")
+    function displayInbox () {
+        return () => {
+            display(filters[0])
+        }
+    }
+    function displayProjects () {
+        return () => {
+            display(filters[4])
+        }
     }
     function addProject(name) {
-        let newProject = projectFactory(name);
+        let newProject = projectFactory(name, filters[4]);
         console.log("created project:" + newProject.getName())
         projects.push(newProject);
         console.log("added project:" + projects[1].getName())
@@ -87,6 +106,8 @@ const interface = (() => {
             }
         }
     }
+    (document.getElementById("inboxButton")).addEventListener("click", displayInbox());
+    document.getElementById("projectsButton").addEventListener("click", displayProjects());
     return {
         display,
         addProject,
@@ -96,4 +117,4 @@ const interface = (() => {
 
 interface.addProject("test-project");
 interface.addTask("test-project", "test-task");
-interface.display();
+interface.display("project");
