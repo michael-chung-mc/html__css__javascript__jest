@@ -120,10 +120,13 @@ const interface = (() => {
         }
     }
     function addProject(name) {
-        let newProject = taskFactory(name, filters[5]);
-        console.log("created project:" + newProject.getName())
-        projects.push(newProject);
-        console.log("added project:" + projects[1].getName())
+        return () => {
+            let newProject = taskFactory(name, filters[5]);
+            console.log("created project:" + newProject.getName())
+            projects.push(newProject);
+            console.log("added project:" + projects[1].getName())
+            display(filters[5]);
+        }
     }
     function addTask(projectName, taskName) {
         for (let i = 0; i < projects.length; i++)
@@ -136,6 +139,7 @@ const interface = (() => {
             }
         }
     }
+    document.getElementById("add_project_button").addEventListener("click",addProject("new project"));
     document.getElementById("inbox_button").addEventListener("click", displayInbox());
     document.getElementById("today_button").addEventListener("click", displayToday());
     document.getElementById("upcoming_button").addEventListener("click", displayUpcoming());
@@ -149,6 +153,6 @@ const interface = (() => {
     };
 })();
 
-interface.addProject("test-project");
+interface.addProject("test-project")();
 interface.addTask("test-project", "test-task");
 interface.display("project");
