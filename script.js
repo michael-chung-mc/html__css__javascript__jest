@@ -1,15 +1,19 @@
-function taskFactory (name) {
+function taskFactory (name, tag) {
     return {
         title : name,
         description : "",
         deadline : "",
-        priority : "",
+        priority: 0,
+        tags: [tag],
         notes : "",
         checklist : "",
-        getTitle : function() {return this.title;},
+        tasks: [],
+        getName: function() {return this.title;},
         getDescription : function() {return this.description;},
         getDeadline : function() {return this.deadline;},
-        getPriority : function() {return this.priority;},
+        getTags: function () { return this.tags; },
+        getPriority: function () { return this.priority; },
+        getTasks: function () { return this.tasks; },
         getNotes : function() {return this.notes;},
         getChecklist : function() {return this.checklist;},
         setTitle : function(newName) {this.title = newName;},
@@ -17,35 +21,14 @@ function taskFactory (name) {
         setDeadline : function(date) {this.deadline = date;},
         setPriority : function(value) {this.priority = value;},
         setNotes : function(value) {this.notes = value;},
-        setChecklist : function(value) {this.checklist = value;}
-    }
-}
-
-function projectFactory (name, tag) {
-    return {
-        projectName: name,
-        tags: [tag],
-        tasks: [],
-        getName: function () { return this.projectName; },
-        getTags: function () { return this.tags; },
-        getTasks: function () { return this.tasks; },
-        getPriority: function () {
-            let highestPriority = 0;
-            for(let i = 0; i < this.tasks.length-1; i++) {
-                if (this.tasks[i].getPriority() > highestPriority)
-                {
-                    highestPriority = this.tasks[i];
-                }
-            }
-            return highestPriority;
-        },
+        setChecklist : function(value) {this.checklist = value;},
         addTask: function(task) { this.tasks.push(task); }
     }
 }
 
 const interface = (() => {
     let filters = ["inbox", "today", "upcoming", "filters", "favorite", "project"]
-    let projects = [projectFactory("default-project", filters[5])]
+    let projects = [taskFactory("default-project", filters[5])]
     function clear (parent) {
         while(parent.firstChild) { parent.removeChild(parent.firstChild); }
     }
@@ -95,11 +78,11 @@ const interface = (() => {
                 for(let j = 0; j < projectTasks.length; j++)
                 {
                     const taskDiv = document.createElement("div");
-                    taskDiv.classList.add(projectTasks[j].getTitle())
+                    taskDiv.classList.add(projectTasks[j].getName())
                     taskDiv.classList.add("task")
-                    taskDiv.innerHTML = projectTasks[j].getTitle();
+                    taskDiv.innerHTML = projectTasks[j].getName();
                     projectDiv.append(taskDiv);
-                    console.log("displaying project task:" + projectTasks[j].getTitle())
+                    console.log("displaying project task:" + projectTasks[j].getName())
                 }
                 inspectorDiv.append(projectDiv);
                 console.log("displaying project:" + projects[i].getName())
@@ -137,7 +120,7 @@ const interface = (() => {
         }
     }
     function addProject(name) {
-        let newProject = projectFactory(name, filters[5]);
+        let newProject = taskFactory(name, filters[5]);
         console.log("created project:" + newProject.getName())
         projects.push(newProject);
         console.log("added project:" + projects[1].getName())
