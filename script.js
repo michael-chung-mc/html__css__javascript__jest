@@ -153,12 +153,12 @@ const interface = (() => {
             }
         }
     }
-    document.getElementById("inboxButton").addEventListener("click", displayInbox());
-    document.getElementById("todayButton").addEventListener("click", displayToday());
-    document.getElementById("upcomingButton").addEventListener("click", displayUpcoming());
-    document.getElementById("filtersButton").addEventListener("click", displayFilters());
-    document.getElementById("favoritesButton").addEventListener("click", displayFavorites());
-    document.getElementById("projectsButton").addEventListener("click", displayProjects());
+    document.getElementById("inbox_button").addEventListener("click", displayInbox());
+    document.getElementById("today_button").addEventListener("click", displayToday());
+    document.getElementById("upcoming_button").addEventListener("click", displayUpcoming());
+    document.getElementById("filters_button").addEventListener("click", displayFilters());
+    document.getElementById("favorites_button").addEventListener("click", displayFavorites());
+    document.getElementById("projects_button").addEventListener("click", displayProjects());
     return {
         display,
         addProject,
