@@ -84,8 +84,15 @@ const interface = (() => {
                     projectDiv.append(taskDiv);
                     console.log("displaying project task:" + projectTasks[j].getName())
                 }
+                // add task button
+                const addTaskButton = document.createElement("button");
+                addTaskButton.innerHTML = "Add Task";
+                addTaskButton.addEventListener("click",addTask(projects[i].getName(),"default-task"));
+                projectDiv.append(addTaskButton);
+                // display
                 inspectorDiv.append(projectDiv);
                 console.log("displaying project:" + projects[i].getName())
+
             }
         }
     }
@@ -129,14 +136,17 @@ const interface = (() => {
         }
     }
     function addTask(projectName, taskName) {
-        for (let i = 0; i < projects.length; i++)
-        {
-            if (projects[i].getName() == projectName)
+        return () => {
+            for (let i = 0; i < projects.length; i++)
             {
-                let newTodo = taskFactory(taskName);
-                projects[i].addTask(newTodo);
-                console.log("added project task:" + projects[i].getName())
+                if (projects[i].getName() == projectName)
+                {
+                    let newTodo = taskFactory(taskName);
+                    projects[i].addTask(newTodo);
+                    console.log("added project task:" + projects[i].getName())
+                }
             }
+            display(filters[5]);
         }
     }
     document.getElementById("add_project_button").addEventListener("click",addProject("new project"));
@@ -154,5 +164,5 @@ const interface = (() => {
 })();
 
 interface.addProject("test-project")();
-interface.addTask("test-project", "test-task");
+interface.addTask("test-project", "test-task")();
 interface.display("project");
