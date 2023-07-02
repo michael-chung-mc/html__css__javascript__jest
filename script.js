@@ -28,7 +28,7 @@ function taskFactory (name, tag) {
 
 const interface = (() => {
     let filters = ["inbox", "today", "upcoming", "filters", "favorite", "project"]
-    let projects = [taskFactory("default-project", filters[5])]
+    let projects = []
     function clear (parent) {
         while(parent.firstChild) { parent.removeChild(parent.firstChild); }
     }
@@ -131,13 +131,13 @@ const interface = (() => {
             let newProject = taskFactory(name, filters[5]);
             console.log("created project:" + newProject.getName())
             projects.push(newProject);
-            console.log("added project:" + projects[1].getName())
+            console.log("added project:" + projects[projects.length-1].getName())
             display(filters[5]);
         }
     }
     function addTask(projectId, taskName) {
         return () => {
-            if (projectId > 0 && projectId < projects.length && projects[projectId] != null)
+            if (projectId >= 0 && projectId < projects.length && projects[projectId] != null)
             {
                 let newTodo = taskFactory(taskName);
                 projects[projectId].addTask(newTodo);
@@ -153,6 +153,8 @@ const interface = (() => {
     document.getElementById("filters_button").addEventListener("click", displayFilters());
     document.getElementById("favorites_button").addEventListener("click", displayFavorites());
     document.getElementById("projects_button").addEventListener("click", displayProjects());
+    addProject("default-project")();
+    addTask(0, "test-task")();
     return {
         display,
         addProject,
@@ -160,7 +162,4 @@ const interface = (() => {
     };
 })();
 
-interface.addProject("test-project")();
-interface.addTask(0, "test-task")();
-interface.addTask(1, "test-task")();
 interface.display("project");
