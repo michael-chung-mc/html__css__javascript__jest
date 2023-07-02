@@ -60,6 +60,7 @@
 .project {
     background-color: gray;
     padding: 1rem;
+    gap:1rem;
 }
 .task {
     background-color: rgb(71, 71, 71);
