@@ -22,7 +22,8 @@ function taskFactory (name, tag) {
         setPriority : function(value) {this.priority = value;},
         setNotes : function(value) {this.notes = value;},
         setChecklist : function(value) {this.checklist = value;},
-        addTask: function(task) { this.tasks.push(task); }
+        addTask: function(task) { this.tasks.push(task); },
+        deleteTask: function(taskId) {this.tasks.splice(taskId,1);}
     }
 }
 
@@ -74,6 +75,12 @@ const interface = (() => {
                 const projectDiv = document.createElement("div");
                 projectDiv.classList.add("project")
                 projectDiv.innerHTML = projects[i].getName();
+                // add task button
+                const addTaskButton = document.createElement("button");
+                addTaskButton.innerHTML = "Add Task";
+                addTaskButton.addEventListener("click",addTask(i,"default-task"));
+                projectDiv.append(addTaskButton);
+                // add tasks
                 const projectTasks = projects[i].getTasks();
                 for(let j = 0; j < projectTasks.length; j++)
                 {
@@ -81,14 +88,15 @@ const interface = (() => {
                     taskDiv.classList.add(projectTasks[j].getName())
                     taskDiv.classList.add("task")
                     taskDiv.innerHTML = projectTasks[j].getName();
+                    // delete task button
+                    const deleteTaskButton = document.createElement("button");
+                    deleteTaskButton.innerHTML = "Delete Task";
+                    deleteTaskButton.addEventListener("click",deleteTask(i,j));
+                    taskDiv.append(deleteTaskButton);
+                    // display task
                     projectDiv.append(taskDiv);
                     console.log("displaying project task:" + projectTasks[j].getName())
                 }
-                // add task button
-                const addTaskButton = document.createElement("button");
-                addTaskButton.innerHTML = "Add Task";
-                addTaskButton.addEventListener("click",addTask(i,"default-task"));
-                projectDiv.append(addTaskButton);
                 // display
                 inspectorDiv.append(projectDiv);
                 console.log("displaying project:" + projects[i].getName())
@@ -144,6 +152,24 @@ const interface = (() => {
                 console.log("added project task:" + projects[projectId].getName())
             }
             display(filters[5]);
+        }
+    }
+    function deleteTask (projectId, taskId){
+        return () => {
+            if (projectId >= 0 && projectId < projects.length && projects[projectId] != null
+                && taskId >= 0 && taskId < projects[projectId].getTasks().length && projects[projectId].getTasks()[taskId] != null)
+            {
+                projects[projectId].deleteTask(taskId);
+            }
+            display(filters[5]);
+        }
+    }
+    function editProjectName(projectId, newName) {
+        return () => {
+            if (projectId >= 0 && projectId < projects.length && projects[projectId] != null)
+            {
+                projects[projectId].setTitle(newName);
+            }
         }
     }
     document.getElementById("add_project_button").addEventListener("click",addProject("new project"));
