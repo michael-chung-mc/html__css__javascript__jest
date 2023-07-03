@@ -80,6 +80,11 @@ const interface = (() => {
                 addTaskButton.innerHTML = "Add Task";
                 addTaskButton.addEventListener("click",addTask(i,"default-task"));
                 projectDiv.append(addTaskButton);
+                // delete project button
+                const deleteProjectButton = document.createElement("button");
+                deleteProjectButton.innerHTML = "Delete Project";
+                deleteProjectButton.addEventListener("click",deleteProject(i));
+                projectDiv.append(deleteProjectButton);
                 // add tasks
                 const projectTasks = projects[i].getTasks();
                 for(let j = 0; j < projectTasks.length; j++)
@@ -160,6 +165,15 @@ const interface = (() => {
                 && taskId >= 0 && taskId < projects[projectId].getTasks().length && projects[projectId].getTasks()[taskId] != null)
             {
                 projects[projectId].deleteTask(taskId);
+            }
+            display(filters[5]);
+        }
+    }
+    function deleteProject (projectId) {
+        return () => {
+            if (projectId >= 0 && projectId < projects.length && projects[projectId] != null)
+            {
+                projects.splice(projectId,1);
             }
             display(filters[5]);
         }
