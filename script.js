@@ -89,7 +89,7 @@ const interface = (() => {
                 const projectTasks = projects[i].getTasks();
                 for(let j = 0; j < projectTasks.length; j++)
                 {
-                    const taskDiv = document.createElement("div");
+                    const taskDiv = document.createElement("li");
                     taskDiv.classList.add(projectTasks[j].getName())
                     taskDiv.classList.add("task")
                     taskDiv.innerHTML = projectTasks[j].getName();
