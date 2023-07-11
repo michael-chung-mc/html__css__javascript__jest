@@ -89,7 +89,11 @@ const interface = (() => {
                 const projectTasks = projects[i].getTasks();
                 for(let j = 0; j < projectTasks.length; j++)
                 {
-                    const taskDiv = document.createElement("li");
+                    const tasksDiv = document.createElement("div");
+                    tasksDiv.className = "taskView"
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    const taskDiv = document.createElement("div");
                     taskDiv.classList.add(projectTasks[j].getName())
                     taskDiv.classList.add("task")
                     taskDiv.innerHTML = projectTasks[j].getName();
@@ -99,7 +103,9 @@ const interface = (() => {
                     deleteTaskButton.addEventListener("click",deleteTask(i,j));
                     taskDiv.append(deleteTaskButton);
                     // display task
-                    projectDiv.append(taskDiv);
+                    tasksDiv.append(checkbox);
+                    tasksDiv.append(taskDiv)
+                    projectDiv.append(tasksDiv);
                     console.log("displaying project task:" + projectTasks[j].getName())
                 }
                 // display
