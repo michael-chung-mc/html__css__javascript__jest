@@ -53,12 +53,9 @@ classDiagram
     Interface <|-- header
     Interface <|-- sidebar : view all projects
     Interface <|-- inspector : view all todos
-    Interface <|-- inspector : set todos as complete
-    Interface <|-- inspector : change todos priority
-    Interface <|-- inspector : expand todo
-    Interface <|-- inspector : delete a todo
     Interface --|> Project
+    Interface --|> Todo : alter todo (complete/priority/delete)
     Project <|-- Todo : store
-    Project --|> Todo : view todo
+    Project --|> Todo : view todos
 
 ```
