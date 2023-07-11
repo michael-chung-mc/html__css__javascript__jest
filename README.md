@@ -26,10 +26,10 @@ title: TheOdinProject--ToDo--List
 ---
 classDiagram
     note "TheOdinProject"
-    class index.html~HTML~{
+    class index~HTML~{
 
     }
-    class styles.css~HTML~{
+    class styles~CSS~{
 
     }
     class header~HTML~{
