@@ -21,6 +21,8 @@ Prompt:
         - Make sure your app doesn’t crash if the data you may want to retrieve from localStorage isn’t there!
         - localStorage uses JSON to send and store data, and when you retrieve the data, it will also be in JSON format. You will learn more about this language in a later lesson, but it doesn’t hurt to get your feet wet now. Keep in mind you cannot store functions in JSON, so you’ll have to figure out how to add methods back to your object properties once you fetch them. Good luck!
 
+```mermaid
+
 ---
 title: TheOdinProject--ToDo--List
 ---
@@ -65,9 +67,4 @@ classDiagram
     Project <|-- Todo : store
     Project --|> Todo : view todo
 
-
-
-
-
- 
-
+```
