@@ -29,6 +29,7 @@ function taskFactory (name, tag) {
 
 const interface = (() => {
     let filters = ["inbox", "today", "upcoming", "filters", "favorite", "project"]
+    let currentFilter = filters[5];
     let projects = []
     function clear (parent) {
         while(parent.firstChild) { parent.removeChild(parent.firstChild); }
@@ -74,7 +75,11 @@ const interface = (() => {
             {
                 const projectDiv = document.createElement("div");
                 projectDiv.classList.add("project")
-                projectDiv.innerHTML = projects[i].getName();
+                // name = text field to allow changing of name
+                const projectName = document.createElement("input");
+                projectName.value = projects[i].getName();
+                projectName.addEventListener("input", (e) => (editProjectName(i, e.target.value)));
+                projectDiv.append(projectName);
                 // add task button
                 const addTaskButton = document.createElement("button");
                 addTaskButton.innerHTML = "Add Task";
@@ -96,7 +101,11 @@ const interface = (() => {
                     const taskDiv = document.createElement("div");
                     taskDiv.classList.add(projectTasks[j].getName())
                     taskDiv.classList.add("task")
-                    taskDiv.innerHTML = projectTasks[j].getName();
+                    // task as text to allow edit
+                    const taskName = document.createElement("input");
+                    taskName.value = projectTasks[j].getName();
+                    taskName.addEventListener("input", (e) => (editTaskName(i,j, e.target.value)));
+                    taskDiv.append(taskName);
                     // delete task button
                     const deleteTaskButton = document.createElement("button");
                     deleteTaskButton.innerHTML = "Delete Task";
@@ -117,32 +126,38 @@ const interface = (() => {
     }
     function displayInbox () {
         return () => {
-            display(filters[0])
+            currentFilter = filters[0];
+            display(currentFilter)
         }
     }
     function displayToday () {
         return () => {
-            display(filters[1])
+            currentFilter = filters[1];
+            display(currentFilter)
         }
     }
     function displayUpcoming () {
         return () => {
-            display(filters[2])
+            currentFilter = filters[2];
+            display(currentFilter)
         }
     }
     function displayFilters () {
         return () => {
-            display(filters[3])
+            currentFilter = filters[3];
+            display(currentFilter)
         }
     }
     function displayFavorites () {
         return () => {
-            display(filters[4])
+            currentFilter = filters[4];
+            display(currentFilter)
         }
     }
     function displayProjects () {
         return () => {
-            display(filters[5])
+            currentFilter = filters[5];
+            display(currentFilter)
         }
     }
     function addProject(name) {
@@ -151,7 +166,7 @@ const interface = (() => {
             console.log("created project:" + newProject.getName())
             projects.push(newProject);
             console.log("added project:" + projects[projects.length-1].getName())
-            display(filters[5]);
+            display(currentFilter);
         }
     }
     function addTask(projectId, taskName) {
@@ -162,7 +177,7 @@ const interface = (() => {
                 projects[projectId].addTask(newTodo);
                 console.log("added project task:" + projects[projectId].getName())
             }
-            display(filters[5]);
+            display(currentFilter);
         }
     }
     function deleteTask (projectId, taskId){
@@ -172,7 +187,7 @@ const interface = (() => {
             {
                 projects[projectId].deleteTask(taskId);
             }
-            display(filters[5]);
+            display(currentFilter);
         }
     }
     function deleteProject (projectId) {
@@ -181,16 +196,23 @@ const interface = (() => {
             {
                 projects.splice(projectId,1);
             }
-            display(filters[5]);
+            display(currentFilter);
         }
     }
     function editProjectName(projectId, newName) {
-        return () => {
-            if (projectId >= 0 && projectId < projects.length && projects[projectId] != null)
-            {
-                projects[projectId].setTitle(newName);
-            }
+        if (projectId >= 0 && projectId < projects.length && projects[projectId] != null)
+        {
+            projects[projectId].setTitle(newName);
         }
+        //display(currentFilter);
+    }
+    function editTaskName(projectId, taskId, newName) {
+        if (projectId >= 0 && projectId < projects.length && projects[projectId] != null
+            && taskId >= 0 && taskId < projects[projectId].getTasks().length && projects[projectId].getTasks()[taskId] != null)
+        {
+            projects[projectId].getTasks()[taskId].setTitle(newName);
+        }
+        //display(currentFilter);
     }
     document.getElementById("add_project_button").addEventListener("click",addProject("new project"));
     document.getElementById("inbox_button").addEventListener("click", displayInbox());
@@ -201,6 +223,7 @@ const interface = (() => {
     document.getElementById("projects_button").addEventListener("click", displayProjects());
     addProject("default-project")();
     addTask(0, "test-task")();
+    document.body.addEventListener("click",display(currentFilter));
     return {
         display,
         addProject,
