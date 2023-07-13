@@ -44,7 +44,7 @@ const interface = (() => {
         let projectsCategory = document.getElementById("projects_list");
         clear(inspectorDiv);
         clear(projectsCategory);
-        console.log(inspectorDiv);
+        //console.log(inspectorDiv);
         for (let i = 0; i < projects.length; i++)
         {
             let display = false;
@@ -99,7 +99,7 @@ const interface = (() => {
                     const checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
                     const taskDiv = document.createElement("div");
-                    taskDiv.classList.add(projectTasks[j].getName())
+                    //taskDiv.classList.add(projectTasks[j].getName())
                     taskDiv.classList.add("task")
                     // task as text to allow edit
                     const taskName = document.createElement("input");
@@ -115,11 +115,11 @@ const interface = (() => {
                     tasksDiv.append(checkbox);
                     tasksDiv.append(taskDiv)
                     projectDiv.append(tasksDiv);
-                    console.log("displaying project task:" + projectTasks[j].getName())
+                    //og("displaying project task:" + projectTasks[j].getName())
                 }
                 // display
                 inspectorDiv.append(projectDiv);
-                console.log("displaying project:" + projects[i].getName())
+                //console.log("displaying project:" + projects[i].getName())
 
             }
         }
@@ -163,10 +163,11 @@ const interface = (() => {
     function addProject(name) {
         return () => {
             let newProject = taskFactory(name, filters[5]);
-            console.log("created project:" + newProject.getName())
+            //console.log("created project:" + newProject.getName())
             projects.push(newProject);
-            console.log("added project:" + projects[projects.length-1].getName())
+            //console.log("added project:" + projects[projects.length-1].getName())
             display(currentFilter);
+            setStorage();
         }
     }
     function addTask(projectId, taskName) {
@@ -175,9 +176,10 @@ const interface = (() => {
             {
                 let newTodo = taskFactory(taskName);
                 projects[projectId].addTask(newTodo);
-                console.log("added project task:" + projects[projectId].getName())
+                //console.log("added project task:" + projects[projectId].getName())
             }
             display(currentFilter);
+            setStorage();
         }
     }
     function deleteTask (projectId, taskId){
@@ -188,6 +190,7 @@ const interface = (() => {
                 projects[projectId].deleteTask(taskId);
             }
             display(currentFilter);
+            setStorage();
         }
     }
     function deleteProject (projectId) {
@@ -197,6 +200,7 @@ const interface = (() => {
                 projects.splice(projectId,1);
             }
             display(currentFilter);
+            setStorage();
         }
     }
     function editProjectName(projectId, newName) {
@@ -205,6 +209,7 @@ const interface = (() => {
             projects[projectId].setTitle(newName);
         }
         //display(currentFilter);
+        setStorage();
     }
     function editTaskName(projectId, taskId, newName) {
         if (projectId >= 0 && projectId < projects.length && projects[projectId] != null
@@ -213,6 +218,45 @@ const interface = (() => {
             projects[projectId].getTasks()[taskId].setTitle(newName);
         }
         //display(currentFilter);
+        setStorage();
+    }
+    function setStorage () {
+        window.localStorage.clear();
+        // for (let i = 0; i < projects.length; i++)
+        // {
+        //     window.localStorage.setItem(filters[5], JSON.stringify(projects[i]));
+        // }
+        window.localStorage.setItem(filters[5], JSON.stringify(projects));
+        console.log("set");
+    }
+    function synchStorage () {
+        projects = [];
+        let data = window.localStorage.getItem(filters[5])
+        if (data)
+        {
+            console.log("synching")
+            const jsonData = JSON.parse(data);
+            console.log(jsonData)
+            for (let i = 0; i < jsonData.length; i++)
+            {
+                let newProject = taskFactory(jsonData[i].title, filters[5]);
+                for (let j = 0; j < jsonData[i].tasks.length; j++)
+                {
+                    let newTodo = taskFactory(jsonData[i].tasks[j].title);
+                    newProject.addTask(newTodo);
+                }
+                console.log(newProject)
+                projects.push(newProject);
+                console.log(projects)
+                display(currentFilter);
+                console.log("synched")
+            }
+        }
+        else
+        {
+            addProject("default-project")();
+            addTask(0, "test-task")();
+        }
     }
     document.getElementById("add_project_button").addEventListener("click",addProject("new project"));
     document.getElementById("inbox_button").addEventListener("click", displayInbox());
@@ -221,14 +265,13 @@ const interface = (() => {
     document.getElementById("filters_button").addEventListener("click", displayFilters());
     document.getElementById("favorites_button").addEventListener("click", displayFavorites());
     document.getElementById("projects_button").addEventListener("click", displayProjects());
-    addProject("default-project")();
-    addTask(0, "test-task")();
-    document.body.addEventListener("click",display(currentFilter));
+    //document.body.addEventListener("click",display(currentFilter));
     return {
         display,
         addProject,
-        addTask
+        addTask,
+        synchStorage
     };
 })();
-
+interface.synchStorage();
 interface.display("project");
