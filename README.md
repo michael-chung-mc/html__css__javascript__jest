@@ -13,3 +13,5 @@ To get to the data we need to drill down through the layers of the object until 
 8. Add a button that fetches a new image without refreshing the page
 
 9. Add a search box so users can search for specific gifs. You should also investigate adding a .catch() to the end of the promise chain in case Giphy doesn’t find any gifs with the searched keyword. Add a default image, or an error message if the search fails.
+
+10. convert the promise based code into async/await compatible code
