@@ -10,5 +10,6 @@ To get to the data we need to drill down through the layers of the object until 
 7. If all goes well, you should see a new image on the page every time you refresh.
 
   - While we are pushing this API key to the frontend, this isn’t something you should do with any key that is not free. Keys used on the client-side are considered public knowledge, so caution must be taken with sensitive and non-free keys. Handling keys without pushing them to the frontend will be taught in later sections if you haven’t already learned it in the Ruby course.
+8. Add a button that fetches a new image without refreshing the page
 
-8. Add a search box so users can search for specific gifs. You should also investigate adding a .catch() to the end of the promise chain in case Giphy doesn’t find any gifs with the searched keyword. Add a default image, or an error message if the search fails.
+9. Add a search box so users can search for specific gifs. You should also investigate adding a .catch() to the end of the promise chain in case Giphy doesn’t find any gifs with the searched keyword. Add a default image, or an error message if the search fails.

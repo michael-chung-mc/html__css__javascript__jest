@@ -5,7 +5,28 @@
         <title>Document</title>
     </head>
     <body>
+        <button id="refresh-gif-button">Refresh</button>
+        <input id="search-bar"></body>
         <img src = '#'>
-        <script></script>
+        <script>
+            const img = document.querySelector('img');
+            let term = "cat"
+            function refresh () {
+                return (
+                    fetch('https://api.giphy.com/v1/gifs/translate?api_key=KEY='+term, {mode: 'cors'})
+                        .then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(response) {
+                            img.src = response.data.images.original.url;
+                        })
+                )
+            }
+            let button = document.getElementById("refresh-gif-button");
+            button.addEventListener("click", refresh);
+            let search = document.getElementById("search-bar");
+            search.addEventListener("input", (e)=> {term = e.target.value})
+            refresh();
+        </script>
     </body>
 </html>
