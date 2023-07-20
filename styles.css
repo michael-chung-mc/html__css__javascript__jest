@@ -1,0 +1,18 @@
+.content {
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+}
+.leftArrow {
+    display: grid;
+    grid-column: 1;
+}
+.rightArrow {
+    display: grid;
+    grid-column: 3;
+
+}
+.imageContainer {
+    display: grid;
+    grid-column: 2;
+
+}
