@@ -28,14 +28,14 @@ function main () {
     }
     function shiftLeft () {
         return () => {
-            console.log(imgCar.focus);
+            //console.log(imgCar.focus);
             imgCar.left();
             display();
         }
     }
     function shiftRight () {
         return () => {
-            console.log(imgCar.focus);
+            //console.log(imgCar.focus);
             imgCar.right();
             display();
         }
@@ -85,5 +85,6 @@ function main () {
     let right = document.getElementById('rightArrow');
     right.addEventListener('click', shiftRight());
     display();
+    window.setInterval(shiftRight(), 5000);
 }
 main();
