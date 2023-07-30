@@ -254,8 +254,23 @@ document.getElementById("toggle_form", addEventListener("submit", function(event
     let title = form.new_book_title_text.value;
     let pages = form.new_book_pages_text.value;
     let author = form.new_book_author_text.value;
-    addBookToLibrary (new book(library.length + 1, title, pages, author));
-    clearLibraryDisplay();
-    displayLibrary();
-    testLibrary();
+    if (title == "")
+    {
+        this.alert("Title is empty");
+    }
+    else if (pages == "")
+    {
+        this.alert("Pages is empty");
+    }
+    else if (author == "")
+    {
+        this.alert("AUthor is empty");
+    }
+    else
+    {
+        addBookToLibrary (new book(library.length + 1, title, pages, author));
+        clearLibraryDisplay();
+        displayLibrary();
+        testLibrary();
+    }
 }));
