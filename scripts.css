@@ -1,0 +1,8 @@
+.formSignIn {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto-fit;
+}
+.formInput {
+    grid-column: 1;
+}
