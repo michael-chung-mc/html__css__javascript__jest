@@ -1,24 +1,26 @@
 # theodinproject--form-validation
-
+<a name="readme-top"></a>
 <details>
     <summary>Table of Contents</summary>
     <ol>
         <li>
             <a href="#about-the-project">About the Project</a>
             <ul>
-                <li><a href="#built-width"></li>
+                <li><a href="#built-width">Built With</li>
             </ul>
         </li>
-        <li><a href="#roadmap"></li>
-        <li><a href="#acknowledgements"></li>
+        <li><a href="#roadmap">Roadmap</li>
+        <li><a href="#acknowledgements">Acknowledgements</li>
     </ol>
 </details>
 
 ## About The Project
-Assignment Details:
+The Odin Project Form Validation Assignment Details:
+
 Build a browser form which collects Email, Country, Zip Code, Password and Password Confirmation fields. It should use live inline validation to inform the user whether a field is properly filled in or not. That means highlighting a field red and providing a helpful error message until it has been filled in properly.
 
 The form doesn’t need to actually submit, but you should give an error message if the button is pushed with any active errors or unfilled required fields. For the sake of this lesson, make sure all of the validation occurs in the JavaScript file. If all is well and the form is “submitted”, give the user a high five.
+
 ### Built With
 * HTML
 * Javascript
@@ -34,4 +36,4 @@ The form doesn’t need to actually submit, but you should give an error message
 
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com/)
-<p align="right">(<a href="#readme-top">backto top </a>)</p>
+<p align="right">(<a href="#readme-top">backt o top </a>)</p>
