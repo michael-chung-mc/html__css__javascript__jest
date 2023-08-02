@@ -11,7 +11,8 @@ let pathImageX = "./assets/google_fonts__cancel_FILL0_wght400_GRAD0_opsz48.png"
 let pathImageY = "./assets/google_fonts__check_circle_FILL0_wght400_GRAD0_opsz48.png"
 
 //init
-let valid = false;
+let valid = 0;
+let checkValid = 4;
 let inputPass = ""
 const imgO = document.createElement("img");
 imgO.src = pathImageO;
@@ -37,6 +38,7 @@ function checkPasswordConfirm (value) {
 function validateEmail (value) {
     if (checkEmail(value))
     {
+        valid += 1;
         // :valid
         console.log("email confirm");
         inputEmail.setCustomValidity("");
@@ -48,7 +50,8 @@ function validateEmail (value) {
     }
     else
     {
-        // :valid
+        valid -= 1;
+        // :invalid
         console.log("invalid email");
         inputEmail.setCustomValidity("invalid");
         // image
@@ -61,6 +64,7 @@ function validateEmail (value) {
 function validateCountry(value) {
     if (checkCountry(value))
     {
+        valid += 1;
         // :valid
         console.log("country confirm");
         inputCountry.setCustomValidity("");
@@ -72,7 +76,8 @@ function validateCountry(value) {
     }
     else
     {
-        // :valid
+        valid -= 1;
+        // :invalid
         console.log("invalid zip");
         inputCountry.setCustomValidity("invalid");
         // image
@@ -85,6 +90,7 @@ function validateCountry(value) {
 function validateZipCode (value) {
     if (checkZipCode(value))
     {
+        valid += 1;
         // :valid
         console.log("zip confirm");
         inputZipCode.setCustomValidity("");
@@ -96,7 +102,8 @@ function validateZipCode (value) {
     }
     else
     {
-        // :valid
+        valid -= 1;
+        // :invalid
         console.log("invalid zip");
         inputZipCode.setCustomValidity("invalid");
         // image
@@ -110,6 +117,7 @@ function validatePasswordConfirm (value)
 {
     if (checkPasswordConfirm(value))
     {
+        valid += 1;
         // :valid
         console.log("pass confirm");
         inputPassConfirm.setCustomValidity("");
@@ -121,7 +129,8 @@ function validatePasswordConfirm (value)
     }
     else
     {
-        // :valid
+        valid -= 1;
+        // :invalid
         console.log("invalid pass confirm");
         inputPassConfirm.setCustomValidity("invalid");
         // image
@@ -151,11 +160,13 @@ document.getElementById("inputPassword").addEventListener("focusout", (e)=> {
 const inputPassConfirm = document.getElementById("inputPasswordConfirmation");
 const inputPassConfirmMark = document.getElementById("inputPasswordConfirmationMark")
 inputPassConfirm.addEventListener("focusout", (e)=> { validatePasswordConfirm(e.target.value); })
+
+// submit
 const submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", ()=> {
-    if (valid)
+    if (valid >= checkValid)
     {
-
+        alert("Virtual High Five");
     }
     else
     {
