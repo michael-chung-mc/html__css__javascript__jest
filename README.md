@@ -30,6 +30,7 @@ Basic HTML and CSS and Javascript
 * VirtualBox
 * Git
 ### Roadmap
+- [x] dom manipulation exercises
 - [x] signup page
     - [x] sidebar design
     - [x] form validation
