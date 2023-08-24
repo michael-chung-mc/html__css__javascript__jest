@@ -44,19 +44,25 @@ https://michael-chung-mc.github.io/practice__html__css__javascript/
 ### Roadmap
 - [x] dom manipulation exercises
 - [x] signup page
-    - [x] sidebar design
-    - [x] form validation
+  - [x] sidebar design
+  - [x] form validation
 - [x] drop down menu
 - [x] form validation regex
-    - [x] JavaScript checks validation as the user progresses through the form. When a user leaves a form field, it should automatically validate that field.
-    - [ ] Test out all possible cases.
-    - [x] style validations with CSS by using the :valid and :invalid pseudo-classes
+  - [x] JavaScript checks validation as the user progresses through the form. When a user leaves a form field, it should automatically validate that field.
+  - [ ] Test out all possible cases.
+  - [x] style validations with CSS by using the :valid and :invalid pseudo-classes
 - [ ] resolve signup page form validation and form validation regex
 - [x] image carousel
-    - [x] next & previous to slide images
-    - [x] arrow buttons to cycle images
-    - [x] navigation dots to show image and also slide
-    - [x] timeout to advance every 5 seconds
+  - [x] next & previous to slide images
+  - [x] arrow buttons to cycle images
+  - [x] navigation dots to show image and also slide
+  - [x] timeout to advance every 5 seconds
+- [x] library app
+  - [x] display book
+  - [x] add new book
+  - [x] remove books
+  - [x] read book
+  - [x] form validation
 - [ ] style main index.html
 ## Usage
 ### Install
