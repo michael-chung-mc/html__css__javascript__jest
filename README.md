@@ -20,6 +20,7 @@
 ## Goals
 Basic HTML and CSS and Javascript
 ### About
+preview: https://michael-chung-mc.github.io/practice__html__css__javascript/
 ## Design
 ### Tools
 * HTML
