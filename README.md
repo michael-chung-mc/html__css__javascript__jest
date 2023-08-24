@@ -17,7 +17,8 @@
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#installation">Installation</li>
+                <li><a href="#install">Install</li>
+                <li><a href="#run">Run</li>
             </ul>
         </li>
         <li><a href="#acknowledgements">Acknowledgements</li>
@@ -56,7 +57,8 @@ https://michael-chung-mc.github.io/practice__html__css__javascript/
     - [x] timeout to advance every 5 seconds
 - [ ] style main index.html
 ## Usage
-### Installation
+### Install
+### Run
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)
