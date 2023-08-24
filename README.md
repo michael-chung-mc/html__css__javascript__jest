@@ -40,6 +40,12 @@ Basic HTML and CSS and Javascript
     - [ ] Test out all possible cases.
     - [x] style validations with CSS by using the :valid and :invalid pseudo-classes
 - [ ] resolve signup page form validation and form validation regex
+- [x] image carousel
+    - [x] next & previous to slide images
+    - [x] arrow buttons to cycle images
+    - [x] navigation dots to show image and also slide
+    - [x] timeout to advance every 5 seconds
+- [ ] style main index.html
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)

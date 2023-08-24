@@ -6,9 +6,9 @@ let colorWhite = "FFFFFA";
 let colorError = "FF312E";
 
 // asset
-let pathImageO = "./assets/google_fonts__radio_button_unchecked_FILL0_wght400_GRAD0_opsz48.png"
-let pathImageX = "./assets/google_fonts__cancel_FILL0_wght400_GRAD0_opsz48.png"
-let pathImageY = "./assets/google_fonts__check_circle_FILL0_wght400_GRAD0_opsz48.png"
+let pathImageO = "../data/google_fonts__radio_button_unchecked_FILL0_wght400_GRAD0_opsz48.png"
+let pathImageX = "../data/google_fonts__cancel_FILL0_wght400_GRAD0_opsz48.png"
+let pathImageY = "../data/google_fonts__check_circle_FILL0_wght400_GRAD0_opsz48.png"
 
 //init
 let valid = 0;
