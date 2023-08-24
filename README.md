@@ -20,13 +20,6 @@
 ## Goals
 Basic HTML and CSS and Javascript
 ### About
-
-<p float="left">
-    <img src="/data/form_example.png" width="30%" />
-    <img src="/data/form_example__invalid.png" width="30%" />
-    <img src="/data/form_example__valid.png" width="30%" />
-</p>
-
 ## Design
 ### Tools
 * HTML
