@@ -6,6 +6,7 @@
         <li><a href="#goals">Goals</a>
             <ul>
                 <li><a href="#about">About</li>
+                <li><a href="#preview">Preview</li>
             </ul>
         </li>
         <li><a href="#design">Design</li>
@@ -16,7 +17,7 @@
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#preview">Preview</li>
+                <li><a href="#installation">Installation</li>
             </ul>
         </li>
         <li><a href="#acknowledgements">Acknowledgements</li>
@@ -26,6 +27,8 @@
 ## Goals
 Basic HTML and CSS and Javascript
 ### About
+### Preview
+https://michael-chung-mc.github.io/practice__html__css__javascript/
 ## Design
 ### Tools
 * HTML
@@ -53,8 +56,7 @@ Basic HTML and CSS and Javascript
     - [x] timeout to advance every 5 seconds
 - [ ] style main index.html
 ## Usage
-### Preview
-https://michael-chung-mc.github.io/practice__html__css__javascript/
+### Installation
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)
