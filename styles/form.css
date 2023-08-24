@@ -1,0 +1,21 @@
+body {
+    display: grid;
+    justify-content: center;
+    
+}
+.form {
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    grid-template-rows: 1fr auto-fit;
+    gap: 1vh;
+}
+.formInput {
+    grid-column: 1;
+}
+.formInputMark {
+    grid-column: 2;
+}
+input:invalid
+{
+    border-color: red;
+}
