@@ -7,11 +7,17 @@
             <ul>
                 <li><a href="#about">About</li>
             </ul>
+        </li>
         <li><a href="#design">Design</li>
           <ul>
             <li><a href="#tools">Tools</li>
             <li><a href="#roadmap">Roadmap</li>
           </ul>
+        </li>
+        <li><a href="#usage">Usage</a>
+            <ul>
+                <li><a href="#preview">Preview</li>
+            </ul>
         </li>
         <li><a href="#acknowledgements">Acknowledgements</li>
     </ol>
@@ -20,7 +26,6 @@
 ## Goals
 Basic HTML and CSS and Javascript
 ### About
-preview: https://michael-chung-mc.github.io/practice__html__css__javascript/
 ## Design
 ### Tools
 * HTML
@@ -47,6 +52,9 @@ preview: https://michael-chung-mc.github.io/practice__html__css__javascript/
     - [x] navigation dots to show image and also slide
     - [x] timeout to advance every 5 seconds
 - [ ] style main index.html
+## Usage
+### Preview
+https://michael-chung-mc.github.io/practice__html__css__javascript/
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)
