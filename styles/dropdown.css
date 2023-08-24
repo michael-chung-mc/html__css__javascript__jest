@@ -1,0 +1,220 @@
+<<<<<<< HEAD
+@font-face {
+    font-family: norse-bold;
+    src: url(./fonts/Norse-Bold.otf);
+}
+
+
+input {
+    border:3px solid #E5E7EB;
+}
+
+.error {
+    border: 3px solid red;
+}
+
+input:focus {
+    border: 3px solid rgb(0, 162, 255);
+    box-shadow: 1px rgb(0, 162, 255);
+}
+
+body {
+    /*to allow overlay of elements*/
+    position: relative;
+    /*image and text/form side by side*/
+    display: flex;
+    flex-direction: row;
+    /*set to viewport dimensions*/
+    width:100vw;
+    height:100vh;
+    /*clear margin for cleaner looking result*/
+    margin:0;
+}
+
+#image_page {
+    /*to allow overlay of elements*/
+    position: relative;
+    /*50% of body width & as tall as body height*/
+    width:50%;
+    height:100%;
+    /*set to justify left when changing window size*/
+    left: 0;
+    /*banner & attribution on top of each other*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+#bg {
+    /*to allow overlay of elements*/
+    position: relative;
+    /*stretch image to cover entirely of left half of viewport*/
+    max-width:100%;
+    min-height:100%;
+    /*set to justify left when changing window size*/
+    left: 0;
+}
+
+#bg_image {
+    /*stretch image to cover entirely of left half of viewport*/
+    max-width:100%;
+    min-height:100%;
+    background-size: cover;
+    /*rotate image to make raven face the text*/
+    transform: rotateY(180deg);
+}
+
+#banner {
+    /*to allow overlay of elements*/
+    position: absolute;
+    /*set to justify top right of half of viewport*/
+    right: 5px;
+    top: 5px;
+    /*translucent background*/
+    background-color: rgba(19, 19, 37, 0.795);
+    /*logo & text side by side with centered text*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    width:40%;
+    /*prevent covering image of raven of bg*/
+    max-height:20%;
+    /*prevent text from clipping through banner*/
+    min-height:8vw;
+}
+
+#logo {
+    /*center image*/
+    display: flex;
+    align-content: center;
+    /*miniscule padding to prevent perceived clipping of logo & border*/
+    padding: 4px;
+}
+
+#logo_image {
+    max-width:100%;
+    max-height:100%;
+    background-size: contain;
+}
+
+#banner_text {
+    font-family: norse-bold;
+    padding: 10%;
+    font-size: 5vw;
+    color:white;
+}
+
+#attribution_footer {
+    /*set attribution to bottom left corner*/
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    font-size: 1vw;
+}
+
+#text_page {
+    /*to allow overlay of elements*/
+    position:absolute;
+    /*max height to viewport*/
+    max-height:100vw;
+    /*positioned to left of half of viewport*/
+    left:50%;
+    /*stack text & form*/
+    display: flex;
+    flex-direction: column;
+    /*space out text and form*/
+    justify-content: space-between;
+    align-content: space-between;
+    /*pad text*/
+    padding: 10% 5% 5% 5%;
+    /*adaptive font size*/
+    font-size: 2vw;
+}
+
+#acount_creation_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-between;
+    right:50%;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(22, 19, 31, 0.795);
+    /*adaptive font size*/
+    font-size: 1vw;
+}
+
+.user_name {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#user_name_first {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+#user_name_last {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+
+.contact_info {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#contact_info_email {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+#contact_info_phone_number {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+
+#user_password_box {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#user_password_first {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+#user_password_confirmation {
+    /*format field to have input under prompt*/
+    display: flex;
+    flex-direction: column;
+}
+
+#account_creation_button {
+    color: white;
+    background-color: #061418d5;
+    /*adaptive font size*/
+    font-size: 2vw;
+}
+=======
+.content {
+    display: inline-block;
+    position: relative;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+>>>>>>> theodinproject--drop-down-menu/main
