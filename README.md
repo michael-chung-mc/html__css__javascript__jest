@@ -36,5 +36,5 @@ Basic HTML and CSS and Javascript
 - [x] drop down menu
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com)
-* [All Recipes](https://www.allrecipes.com)
+* [Unsplash](https://www.unsplash.com)
 <p align="right">(<a href="#readme-top">back to top </a>)</p>
