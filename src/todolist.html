@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" href="./styles/todolist.css">
+        <script src="./scripts/todolist.js" defer></script>
+    </head>
+    <body>
+        <div class="header">
+            <button id="add_project_button">Add Project</button>
+        </div>
+        <div class="content">
+            <div class="menu" id="main_menu">
+                <div class="categories">
+                    <div class="category" id="inbox">
+                        <button id="inbox_button">Inbox</button>
+                        <div id="inbox_list"></div>
+                    </div>
+                    <div class="category" id="today">
+                        <button id="today_button">Today</button>
+                        <div id="today_list"></div>
+                    </div>
+                    <div class="category" id="upcoming">
+                        <button id="upcoming_button">Upcoming</button>
+                        <div id="upcoming_list"></div>
+                    </div>
+                    <div class="category" id="filters">
+                        <button id="filters_button">Filters</button>
+                        <div id="filters_list"></div>
+                    </div>
+                </div>
+                <div class="category" id="favorites">
+                    <button id="favorites_button">Favorites</button>
+                    <div id="favorites_list"></div>
+                </div>
+                <div class="category" id="projects">
+                    <button id="projects_button">Projects</button>
+                    <div id="projects_list"></div>
+                </div>
+            </div>
+            <div class="inspector">
+                <div class="task_inspector" id="task_inspector"></div>
+            </div> 
+        </div>
+    </body>
+</html>
