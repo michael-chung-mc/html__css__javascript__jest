@@ -48,6 +48,7 @@ https://michael-chung-mc.github.io/practice__html__css__javascript/
 [x] api weather key  
 [ ] resolve signup page form validation and form validation regex  
 [ ] style main index.html  
+[x] calculator app
 <details>
 </summary>signup page</summary>
 
