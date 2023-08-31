@@ -44,6 +44,8 @@ https://michael-chung-mc.github.io/practice__html__css__javascript/
 ### Roadmap
 [x] dom manipulation theodinproject exercises  
 [x] drop down menu  
+[x] api giphy key  
+[x] api weather key  
 [ ] resolve signup page form validation and form validation regex  
 [ ] style main index.html  
 <details>
@@ -89,4 +91,5 @@ https://michael-chung-mc.github.io/practice__html__css__javascript/
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)
 * [Unsplash](https://www.unsplash.com)
+* [Open Meteo](https://www.open-meteo.com)
 <p align="right">(<a href="#readme-top">back to top </a>)</p>
