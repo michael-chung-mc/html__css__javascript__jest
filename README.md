@@ -27,10 +27,10 @@
 </details>
 
 ## Goals
-Basic HTML and CSS and Javascript
+Practice Basic HTML and CSS and Javascript
 ### About
 ### Preview
-https://michael-chung-mc.github.io/practice__html__css__javascript/
+https://michael-chung-mc.github.io/wip__html__css__javascript/
 ## Design
 ### Requirements
 ### Tools
