@@ -2,25 +2,31 @@
 <html lang="en">
     <head>
         <meta charset="UTF8">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0" />
         <title>Document</title>
     </head>
     <body>
-        <button id="refresh-gif-button">Refresh</button>
-        <input id="search-bar"></body>
-        <img src = '#'>
-        <script>
-            const img = document.querySelector('img');
-            let term = "cat";
-            async function refresh() {
-                const response = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=KEY='+term, {mode: 'cors'});
-                const gif = await response.json();
-                img.src = gif.data.images.original.url;
-            }
-            let button = document.getElementById("refresh-gif-button");
-            button.addEventListener("click", refresh);
-            let search = document.getElementById("search-bar");
-            search.addEventListener("input", (e)=> {term = e.target.value})
-            refresh();
-        </script>
+        <header>
+            Giphy Search
+        </header>
+        <main>
+            <button id="refresh-gif-button">Refresh</button>
+            <input id="search-bar"></body>
+            <img src = '#'>
+            <script>
+                const img = document.querySelector('img');
+                let term = "cat";
+                async function refresh() {
+                    const response = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=KEY='+term, {mode: 'cors'});
+                    const gif = await response.json();
+                    img.src = gif.data.images.original.url;
+                }
+                let button = document.getElementById("refresh-gif-button");
+                button.addEventListener("click", refresh);
+                let search = document.getElementById("search-bar");
+                search.addEventListener("input", (e)=> {term = e.target.value})
+                refresh();
+            </script>
+        </main>
     </body>
 </html>

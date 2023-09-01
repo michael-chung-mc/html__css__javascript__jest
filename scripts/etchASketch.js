@@ -1,6 +1,10 @@
 const button = document.querySelector('button');
 const grid = document.querySelector('.grid');
 
+const sizeDefault = 16;
+const sizeMax = 101;
+const sizeMin = 20;
+
 var cellHeight = 8;
 var cellWidth = 8;
 // 0 = bw && 1 = color && 2 = opacity
@@ -113,16 +117,20 @@ function resizeGrid () {
 }
 
 //default grid
-setGrid(16,16);
+setGrid(sizeDefault,sizeDefault);
+//display size
+document.getElementById("boardSizeDisplay").innerHTML=`${sizeDefault} x ${sizeDefault}`;
 //dynamically adjust grid size
 window.addEventListener('resize', function(event) { 
     resizeGrid();
 });
+
 //let button resize and clear grid
 const resizeButton = document.getElementById('resizeButton');
 resizeButton.addEventListener('click', function(event) {
     let cellCount = prompt('Number of squares for new grid?')
-    if (cellCount < 101)
+    // handle improper
+    if (cellCount > sizeMin && cellCount < sizeMax)
     {
         clearGrid();
         setGrid(cellCount, cellCount);
@@ -134,6 +142,8 @@ resizeButton.addEventListener('click', function(event) {
         {
             maximizeOpacity();
         }
+        //display size
+        document.getElementById("boardSizeDisplay").innerHTML=`${cellCount} x ${cellCount}`;
     }
 });
 //color button options

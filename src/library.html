@@ -6,27 +6,27 @@
         <link rel="stylesheet" href="../styles/library.css">
     </head>
     <body>
-        <div class="content_container">
-            <div class = "form_container">
-                <button type="button" class="new_book" onclick="viewForm()">NEW BOOK</button>
-                <form name="new_book_form" id="toggle_form">
-                    <div class="new_book_title form_field">
-                        <label for="new_book_title_text">Title</label>
-                        <input type="text" id="new_book_title_text" required>
+        <main class="content-container">
+            <div class = "form-container">
+                <button type="button" class="book" onclick="viewForm()">NEW BOOK</button>
+                <form name="book-form" id="toggle-form">
+                    <div class="book-title form-field">
+                        <label for="book-title-text">Title</label>
+                        <input type="text" id="book-title-text" required>
                     </div>
-                    <div class="new_book_author form_field">
-                        <label for="new_book_author_text">Author</label>
-                        <input type="text" id="new_book_author_text" required>
+                    <div class="book-author form-field">
+                        <label for="book-author-text">Author</label>
+                        <input type="text" id="book-author-text" required>
                     </div>
-                    <div class="new_book_pages form_field">
-                        <label for="new_book_pages_text">Pages</label>
-                        <input type="text" id="new_book_pages_text" required>
+                    <div class="book-pages form-field">
+                        <label for="book-pages-text">Pages</label>
+                        <input type="text" id="book-pages-text" required>
                     </div>
-                    <input type="submit" id="new_book_submit" value="Add New Book">
+                    <input type="submit" id="book-submit" value="Add New Book">
                 </form>
             </div>
-            <div id="library_container"></div>
-        </div>
+            <div id="library-container"></div>
+        </main>
     </body>
 </html>
 </DOCTYPE>

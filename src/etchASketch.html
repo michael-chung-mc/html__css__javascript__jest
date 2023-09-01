@@ -2,18 +2,23 @@
 <html lang="en">
     <head>
         <meta charset ="utf8">
-        <link rel="stylesheet" href="style.css">
-        <script src="javascript.js" defer> </script>
-        <title></title>
+        <meta name="viewport" content="width=device-width", initial-scale="1.0" />
+        <link rel="stylesheet" href="../styles/etchASketch.css">
+        <script src="../scripts/etchASketch.js" defer> </script>
+        <title>Etch-A-Sketch</title>
     </head>
     <body>
-        <h1>Odin Etch a Sketch</h1>
-        <button type ="button" id = "resizeButton">Set Size</button>
-        <div class ="colorOptions">
-            <button type ="button" id = "buttonBW">White to Black</button>
-            <button type ="button" id = "buttonRandomColor">RGB</button>
-            <button type ="button" id = "buttonOpacity">White Increment to Black</button>
-        </div>
-        <div class ="grid"></div>
+        <header>
+            <h1 id="boardSizeDisplay">Etch a Sketch</h1>
+        </header>
+        <main>
+            <button type ="button" id = "resizeButton">Set Size</button>
+            <div class ="colorOptions">
+                <button type ="button" id = "buttonBW">White to Black</button>
+                <button type ="button" id = "buttonRandomColor">RGB</button>
+                <button type ="button" id = "buttonOpacity">White Increment to Black</button>
+            </div>
+            <div class ="grid"></div>
+        </main>
     </body>
 </html>

@@ -1,5 +1,5 @@
 function viewForm () {
-    document.getElementById("toggle_form").style.display = "grid";
+    document.getElementById("toggle-form").style.display = "grid";
 }
 
 let library = [];
@@ -117,7 +117,7 @@ function getReadDiv (read) {
 }
 
 function clearLibraryDisplay () {
-    let oldLibrary = document.getElementById("library_container");
+    let oldLibrary = document.getElementById("library-container");
     while (oldLibrary.firstChild)
     {
         oldLibrary.removeChild(oldLibrary.firstChild)
@@ -130,7 +130,7 @@ function clearLibrary () {
 }
 
 // function displayLibrary () {
-//     let libraryContainer = document.getElementById("library_container");
+//     let libraryContainer = document.getElementById("library-container");
 //     let existingBooks = libraryContainer.childNodes;
 //     let newAdditionSize = library.length - existingBooks.length;
 //     if (newAdditionSize > 0) {
@@ -141,17 +141,17 @@ function clearLibrary () {
 //             bookCard.appendChild(getPageseDiv(library[i].pages));
 //             bookCard.appendChild(getAuthorDiv(library[i].author));
 //             bookCard.appendChild(getReadDiv(library[i].read));
-//             bookCard.classList.add("book_card");
+//             bookCard.classList.add("book-card");
 //             bookCard.setAttribute("id", library[i].id);
 //             // add ability to remove book
 //             var removeButton = document.createElement("button");
 //             removeButton.setAttribute("type", "submit");
-//             removeButton.setAttribute("class", "remove_button_submit");
+//             removeButton.setAttribute("class", "remove-button-submit");
 //             removeButton.innerHTML = "Remove Book";
 //             removeButton.addEventListener("submit", function (event) {
 //                 event.preventDefault();
 //                 console.log("removing ...");
-//                 const bookCards = document.getElementsByClassName("book_card");
+//                 const bookCards = document.getElementsByClassName("book-card");
 //                 for (let j = 0; j < bookCards.length; j++) {
 //                     console.log("for "+i);
 //                     bookCards[j].getAttribute("id");
@@ -174,7 +174,7 @@ function removeBook (id) {
         removeBookFromLibrary(id);
         clearLibraryDisplay();
         displayLibrary();
-        // const bookCards = document.getElementsByClassName("book_card");
+        // const bookCards = document.getElementsByClassName("book-card");
         // for (let i = 0; i < bookCards.length; i++) {
         //     if (bookCards[i].getAttribute("id") == id)
         //     {
@@ -194,7 +194,7 @@ function readBook (id) {
 }
 
 function displayLibrary () {
-    let libraryContainer = document.getElementById("library_container");
+    let libraryContainer = document.getElementById("library-container");
     for (let i = 0; i < library.length; i++) {
         //update id if removed or altered library
         let newId = i;
@@ -205,12 +205,12 @@ function displayLibrary () {
         bookCard.appendChild(getPageseDiv(library[i].pages));
         bookCard.appendChild(getAuthorDiv(library[i].author));
         bookCard.appendChild(getReadDiv(library[i].read));
-        bookCard.classList.add("book_card");
+        bookCard.classList.add("book-card");
         bookCard.setAttribute("id", newId);
         // add ability to remove book
         var removeButton = document.createElement("button");
         removeButton.setAttribute("type", "submit");
-        removeButton.setAttribute("class", "remove_button_submit");
+        removeButton.setAttribute("class", "remove-button-submit");
         removeButton.innerHTML = "Remove Book";
         removeButton.addEventListener("click", removeBook(newId), false);
         // removeButton.addEventListener("click", function (event) {
@@ -218,7 +218,7 @@ function displayLibrary () {
         //     removeBook(newId);
         //     event.preventDefault();
         //     console.log("removing ...");
-        //     const bookCards = document.getElementsByClassName("book_card");
+        //     const bookCards = document.getElementsByClassName("book-card");
         //     for (let j = 0; j < bookCards.length; j++) {
         //         console.log("for "+i);
         //         console.log(bookCards[j].getAttribute("id"));
@@ -234,7 +234,7 @@ function displayLibrary () {
         // add ability to toggle read
         var readButton = document.createElement("button");
         readButton.setAttribute("type", "submit");
-        readButton.setAttribute("class", "read_button_submit");
+        readButton.setAttribute("class", "read-button-submit");
         readButton.innerHTML = "Read Book";
         readButton.addEventListener("click", readBook(newId), false);
         // readButton.addEventListener("submit", function (event) {
@@ -248,12 +248,12 @@ function displayLibrary () {
     }
 }
 
-document.getElementById("toggle_form", addEventListener("submit", function(event){
+document.getElementById("toggle-form", addEventListener("submit", function(event){
     event.preventDefault();
-    const form = document.getElementById("toggle_form");
-    let title = form.new_book_title_text.value;
-    let pages = form.new_book_pages_text.value;
-    let author = form.new_book_author_text.value;
+    const form = document.getElementById("toggle-form");
+    let title = document.getElementById("book-title-text").value;
+    let pages = document.getElementById("book-pages-text").value;
+    let author = document.getElementById("book-author-text").value;
     if (title == "")
     {
         this.alert("Title is empty");

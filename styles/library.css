@@ -2,14 +2,14 @@ body {
     margin: 0;
 }
 
-.content_container {
+.content-container {
     height: 100vh;
     width: 100vw;
     display: grid;
     grid-template-columns: 1fr 4fr;
 }
 
-#library_container {
+#library-container {
     grid-column: 2 / span 1;
     padding: 1rem;
     display: grid;
@@ -19,18 +19,18 @@ body {
     grid-template-rows: .125fr repeat (autofit, minmax(.125fr, .25fr));
 }
 
-.book_card {
+.book-card {
     background-color: gray;
     padding: 1rem;
     display: grid;
     grid-template-rows: 2fr 1fr 1fr 1fr;
 }
 
-#toggle_form {
+#toggle-form {
     display: none;
 }
 
-.form_field {
+.form-field {
     display: grid;
     grid-template-columns: 1fr 3fr;
 }

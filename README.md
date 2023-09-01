@@ -92,5 +92,6 @@ https://michael-chung-mc.github.io/wip__html__css__javascript/
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)
 * [Unsplash](https://www.unsplash.com)
+* [Giphy API](https://www.giphy.com)
 * [Open Meteo](https://www.open-meteo.com)
 <p align="right">(<a href="#readme-top">back to top </a>)</p>
