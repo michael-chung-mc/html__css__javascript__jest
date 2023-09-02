@@ -1,4 +1,4 @@
-# practice__html_css__javascript
+# practice__html_css__javascript__jest
 <a name="readme-top"></a>
 <details>
     <summary>Table of Contents</summary>
@@ -27,10 +27,10 @@
 </details>
 
 ## Goals
-Practice Basic HTML and CSS and Javascript
+Practice Basic HTML and CSS and Javascript with Jest
 ### About
 ### Preview
-https://michael-chung-mc.github.io/wip__html__css__javascript/
+https://michael-chung-mc.github.io/wip__html__css__javascript__jest/
 ## Design
 ### Requirements
 ### Tools
