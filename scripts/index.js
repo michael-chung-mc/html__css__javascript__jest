@@ -6,13 +6,16 @@ const server = http.createServer((req, res)=> {
     let path = '../src/';
     switch(req.url) {
         case '/':
-            path += 'dom.html';
+            path += 'index.html';
             break;
         case '/about':
-            path += 'signup.html';
+            path += 'about.html';
+            break;
+        case '/contact-me':
+            path += 'contact.html';
             break;
         default:
-            path += 'error404.html';
+            path += '404.html';
             break;
     }
     // res.setHeader('Content-Type','text/plain');
@@ -31,6 +34,6 @@ const server = http.createServer((req, res)=> {
     })
 });
 
-server.listen(3000, 'localhost', ()=> {
-    console.log('listening for requests on port 3000');
+server.listen(8080, 'localhost', ()=> {
+    console.log('listening for requests on port 8080');
 });

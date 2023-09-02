@@ -49,6 +49,7 @@ https://michael-chung-mc.github.io/wip__html__css__javascript__jest/
 [ ] resolve signup page form validation and form validation regex  
 [ ] style main index.html  
 [x] calculator app
+[x] nodejs basic site
 <details>
 </summary>signup page</summary>
 
