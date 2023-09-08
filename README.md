@@ -1,1 +1,1 @@
-# app__ppm_reader
+# app__ppm_viewer
