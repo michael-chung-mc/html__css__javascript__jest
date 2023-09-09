@@ -9,9 +9,10 @@
                 <li><a href="#preview">Preview</li>
             </ul>
         </li>
-        <li><a href="#design">Design</li>
+        <li><a href="#methodology">Methodology</li>
           <ul>
-            <li><a href="#requirements">Tools</li>
+            <li><a href="#requirements">Requirements</li>
+            <li><a href="#design">Design</li>
             <li><a href="#tools">Tools</li>
             <li><a href="#roadmap">Roadmap</li>
           </ul>
@@ -30,8 +31,18 @@
 No installation required ppm image viewer using a browser
 ### About
 ### Preview
-## Design
+## Methodology
 ### Requirements
+### Design
+|-- data/ == hold image files
+|   |-- .gitignore == ignore image files
+|-- scripts/
+|   |-- main.js == canvas & main
+|-- styles/
+|   |-- index.css = style index.html
+|-- .gitignore
+|-- index.html
+|-- README.md 
 ### Tools
 * Javascript
 * HTML
