@@ -34,6 +34,7 @@ No installation required ppm image viewer using a browser
 ## Methodology
 ### Requirements
 ### Design
+```
 |-- data/ == hold image files
 |   |-- .gitignore == ignore image files
 |-- scripts/
@@ -43,6 +44,8 @@ No installation required ppm image viewer using a browser
 |-- .gitignore
 |-- index.html
 |-- README.md 
+```
+
 ### Tools
 * Javascript
 * HTML
