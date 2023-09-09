@@ -83,6 +83,10 @@ function Main () {
         return true;
     }
     function parsePPM (data) {
+        if (data === NaN || data === null)
+        {
+            throw new Error("Null PPM data");
+        }
         let lines = data.split('\n');
         let headerLength = 0;
         for (let i = 0; i < lines.length; i++)
@@ -100,8 +104,7 @@ function Main () {
                 let height = parseInt(dimensions[1].trim());
                 if (width == NaN || height == NaN)
                 {
-                    console.log(`incorrect ppm header dimensions <${lines[i]}>`);
-                    return;
+                    throw new Error(`incorrect ppm header dimensions <${lines[i]}>`);
                 }
                 cvs.reset(width, height);
             }
@@ -110,8 +113,7 @@ function Main () {
                 let colorDepth = parseInt(lines[i].trim());
                 if (colorDepth == NaN)
                 {
-                    console.log(`incorrect ppm header color <${lines[i]}>`);
-                    return;
+                    throw new Error(`incorrect ppm header color <${lines[i]}>`);
                 }
                 cvs.setDepth(colorDepth);
                 headerLength += lines[i].length+1;
@@ -142,7 +144,10 @@ function Main () {
         let file = fileList[0];
         let reader = new FileReader();
         reader.readAsText(file);
-        reader.onload = () => { parsePPM(reader.result); }
+        reader.onload = () => { 
+            try { parsePPM(reader.result);}
+            catch (e) { console.error(e)};
+        }
     }
     return {
         init,
