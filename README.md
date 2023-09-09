@@ -18,7 +18,7 @@
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#install">Install</li>
+                <li><a href="#setup">Setup</li>
                 <li><a href="#run">Run</li>
             </ul>
         </li>
@@ -49,7 +49,7 @@ No installation required ppm image viewer using a browser
     * [ ] drag and drop for image files
     * [ ] image carousel through data folder within repo
 ## Usage
-### Install
+### Setup
 * [ ] Clone repo
 ### Run
 * [ ] Open index.html in browser
