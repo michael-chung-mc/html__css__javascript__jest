@@ -5,11 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home</title>
         <script src="./src/main.js" defer></script>
-    </head>
+        <link rel="stylesheet" href="./styles/index.css">
     <body>
         <header>
+            <nav class="problem-tabs">
+                <button class="tab" id="arithmetic-tab">Arithmetic</button>
+                <div class="options invisible" id="arithmetic-options">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                </div>
+            </nav>
         </header>
         <main>
+            <section class="canvas" id="problem-canvas"></section>
         </main>
     </body>
 </html>

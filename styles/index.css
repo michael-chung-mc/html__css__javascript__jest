@@ -1,0 +1,12 @@
+.content {
+    display: inline-block;
+    position: relative;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
