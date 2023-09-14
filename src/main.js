@@ -28,14 +28,31 @@ function init () {
     document.body.addEventListener("hover",dropup())
 }
 
+function arithmeticProblem () {
+    let x = 1;
+    let y = 1;
+    let op = "+";
+    return {x:x, y:y, op: op};
+}
+
+function arithmetic ()
+{
+    let canvas = document.getElementById("problem-canvas");
+    let input = document.createElement("input");
+    let question = document.createElement("section");
+    let problem = arithmeticProblem();
+    question.innerHTML = problem.x + problem.op + problem.y;
+    canvas.appendChild(question);
+    canvas.appendChild(input);
+}
+
 function main () {
     let modes = ["arithmetic"];
     let mode = modes[0];
     init();
     if (mode == modes[0])
     {
-        let canvas = document.getElementById("problem-canvas");
-        canvas.innerHTML="Hello World";
+        arithmetic();
     }
 }
 
