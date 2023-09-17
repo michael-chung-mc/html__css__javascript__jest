@@ -28,22 +28,124 @@ function init () {
     document.body.addEventListener("hover",dropup())
 }
 
-function arithmeticProblem () {
-    let x = 1;
-    let y = 1;
-    let op = "+";
-    return {x:x, y:y, op: op};
-}
-
 function arithmetic ()
 {
-    let canvas = document.getElementById("problem-canvas");
-    let input = document.createElement("input");
-    let question = document.createElement("section");
-    let problem = arithmeticProblem();
-    question.innerHTML = problem.x + problem.op + problem.y;
-    canvas.appendChild(question);
-    canvas.appendChild(input);
+    const operators = ["+","-","*","/"];
+    const precisions = ['i','d','f'];
+    const max = 100;
+    const min = 1;
+    let score = 0;
+    let xnumerator;
+    let xdenominator;
+    let ynumerator;
+    let ydenominator;
+    let operator;
+    let precision;
+    let answer;
+    function init ()
+    {
+        render();
+    }
+    function render()
+    {
+        let canvas = document.getElementById("problem-canvas");
+        while(canvas.firstChild)
+        {
+            canvas.removeChild(canvas.firstChild);
+        }
+        let question = document.createElement("section");
+        resetProblem();
+        question.innerHTML = "operand range:" + max + ":" + min;
+        question.innerHTML += "score" + score;
+        question.innerHTML += "answer" + answer;
+        question.innerHTML += precision == precisions[2] ? xnumerator+'/'+xdenominator+' '+operator+' '+ynumerator+'/'+ydenominator
+        :  xnumerator+' '+operator+' '+ynumerator;
+        canvas.appendChild(question);
+        let input = document.createElement("input");
+        input.addEventListener("input",(e)=>{handleInput(e)});
+        canvas.appendChild(input);
+        input.focus();
+    }
+    function handleInput (e)
+    {
+        if (Math.abs(e.target.value-answer)<.0001)
+        {
+            console.log("true");
+            score += 1;
+            render();
+        }
+    }
+    function resetProblem () {
+        const roll = Math.random() * 100;
+        const newOperator = operators[Math.floor(roll/25)];
+        // int or float or fractional arithmetic operation
+        const format = precisions[Math.floor(roll/33)];
+        let nx = Math.random()*(max-min);
+        let dx = Math.random()*(max-min);
+        let ny = Math.random()*(max-min);
+        let dy = Math.random()*(max-min);
+        // parse based on operator to avoid too difficult questions
+        if (newOperator == "/" && nx < ny)
+        {
+            const tmp = nx;
+            nx = ny;
+            ny = tmp;
+        }
+        else if (newOperator == "*")
+        {
+            while (nx > 20 && ny > 20)
+            {
+                ny=ny/10;
+            }
+        }
+        //format values based on precision of question
+        if (format == precisions[2])
+        {
+            nx = Math.floor(nx);
+            ny = Math.floor(ny);
+            dx = Math.floor(dx);
+            dy = Math.floor(dy);
+        }
+        else if (format == precisions[1])
+        {
+            nx = nx.toFixed(2);
+            ny = ny.toFixed(2);
+            dx = 1;
+            dy = 1;
+        }
+        else if (format == precisions[0])
+        {
+            nx = Math.floor(nx);
+            ny = Math.floor(ny);
+            dx = 1;
+            dy = 1;
+        }
+        operator = newOperator;
+        xnumerator = nx;
+        xdenominator = dx;
+        ynumerator = ny;
+        ydenominator = dy;
+        precision = format;
+        if (newOperator==operators[0])
+        {
+            answer = (nx*dy)+(ny*dx);
+        }
+        else if (newOperator==operators[1])
+        {
+            answer = (nx*dy)-(ny*dx);
+        }
+        else if (newOperator==operators[2])
+        {
+            answer = (nx*dy)*(ny*dx);
+        }
+        else if(newOperator==operators[3])
+        {
+            answer = (nx*dy)/(ny*dx);
+        }
+    }
+    return {
+        init,
+    }
 }
 
 function main () {
@@ -52,7 +154,7 @@ function main () {
     init();
     if (mode == modes[0])
     {
-        arithmetic();
+        arithmetic().init();
     }
 }
 
