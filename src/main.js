@@ -310,7 +310,7 @@ function arithmetic ()
             varDomCanvas.removeChild(varDomCanvas.firstChild);
         }
         let question = document.createElement("section");
-        //question.innerHTML += "answer" + answer;
+        //question.innerHTML += "answer" + answer + "----";
         question.innerHTML += varPrecision == varPrecisions[2] ? xnumerator+'/'+xdenominator+' '+varOperator+' '+ynumerator+'/'+ydenominator
         :  xnumerator+' '+varOperator+' '+ynumerator;
         varDomCanvas.appendChild(question);
@@ -320,76 +320,69 @@ function arithmetic ()
         input.focus();
     }
     function resetProblem () {
-        let nx = Math.random()*(max-min);
-        let dx = Math.random()*(max-min);
-        let ny = Math.random()*(max-min);
-        let dy = Math.random()*(max-min);
+        xnumerator = Math.random()*(max-min);
+        xdenominator = Math.random()*(max-min);
+        ynumerator = Math.random()*(max-min);
+        ydenominator = Math.random()*(max-min);
         updateOperator();
         updatePrecision();
-        // parse based on operator to avoid too difficult questions
-        if (varOperator == "/")
+        //format values based on operation
+        if (varOperator == varOperations[3])
         {
-            if (dx == 0 || dy == 0)
+            xdenominator = xdenominator == 0 ? 1 : xdenominator;
+            ydenominator = ydenominator == 0 ? 1 : ydenominator;
+            if (xnumerator < ynumerator)
             {
-                dx += 1;
-                dy += 1;
-            }
-            if (nx < ny)
-            {
-                const tmp = nx;
-                nx = ny;
-                ny = tmp;
+                const tmp = xnumerator;
+                xnumerator = ynumerator;
+                ynumerator = tmp;
             }
         }
-        else if (varOperator == "*")
+        else if (varOperator == varOperations[2])
         {
-            while (nx > 20 && ny > 20)
+            while (xnumerator > 20 && ynumerator > 20)
             {
-                ny=ny/10;
+                ynumerator=ynumerator/10;
             }
         }
-        //format values based on precision of question
-        if (varPrecision == varEnabledPrecisions[2])
+        //format values based on precision
+        if (varPrecision == varPrecisions[2])
         {
-            nx = Math.floor(nx);
-            ny = Math.floor(ny);
-            dx = Math.floor(dx);
-            dy = Math.floor(dy);
+            xnumerator = Math.floor(xnumerator);
+            ynumerator = Math.floor(ynumerator);
+            xdenominator = Math.floor(xdenominator);
+            ydenominator = Math.floor(ydenominator);
         }
-        else if (varPrecision == varEnabledPrecisions[1])
+        else if (varPrecision == varPrecisions[1])
         {
-            nx = nx.toFixed(2);
-            ny = ny.toFixed(2);
-            dx = 1;
-            dy = 1;
+            xnumerator = xnumerator.toFixed(2);
+            ynumerator = ynumerator.toFixed(2);
+            xdenominator = 1;
+            ydenominator = 1;
         }
-        else if (varPrecision == varEnabledPrecisions[0])
+        else if (varPrecision == varPrecisions[0])
         {
-            nx = Math.floor(nx);
-            ny = Math.floor(ny);
-            dx = 1;
-            dy = 1;
+            xnumerator = Math.floor(xnumerator);
+            ynumerator = Math.floor(ynumerator);
+            xdenominator = 1;
+            ydenominator = 1;
+            xnumerator = xnumerator % ynumerator != 0 ? xnumerator * ynumerator : xnumerator;
         }
-        varOperator = varOperator;
-        xnumerator = nx;
-        xdenominator = dx;
-        ynumerator = ny;
-        ydenominator = dy;
-        if (varOperator==varEnabledOperations[0])
+        if (varOperator==varOperations[0])
         {
-            answer = (nx*dy)+(ny*dx);
+            answer = (xnumerator*ydenominator)+(ynumerator*xdenominator);
         }
-        else if (varOperator==varEnabledOperations[1])
+        else if (varOperator==varOperations[1])
         {
-            answer = (nx*dy)-(ny*dx);
+            answer = (xnumerator*ydenominator)-(ynumerator*xdenominator);
         }
-        else if (varOperator==varEnabledOperations[2])
+        else if (varOperator==varOperations[2])
         {
-            answer = (nx*dy)*(ny*dx);
+            answer = (xnumerator*ydenominator)*(ynumerator*xdenominator);
         }
-        else if(varOperator==varEnabledOperations[3])
+        else if(varOperator==varOperations[3])
         {
-            answer = (nx*dy)/(ny*dx);
+            answer = (xnumerator*ydenominator)/(ynumerator*xdenominator);
         }
     }
     return {
