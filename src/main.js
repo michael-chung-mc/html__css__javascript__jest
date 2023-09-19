@@ -53,9 +53,10 @@ function arithmetic ()
     let varDomMin;
     let varDomScore;
     let varDomCanvas;
+    let varDomActivatedOperations;
 
     const varOperations = ["+","-","*","/"];
-    let activatedOperations = varOperations;
+    let varActivatedOperations = varOperations;
     const precisions = ['i','d','f'];
     let chosenPrecision;
 
@@ -66,7 +67,7 @@ function arithmetic ()
     let xdenominator;
     let ynumerator;
     let ydenominator;
-    let operator;
+    let varOperator;
     let precision;
     let answer;
 
@@ -85,18 +86,47 @@ function arithmetic ()
         varElemOperandRange.appendChild(varDomMin);
         varDomOptions.appendChild(varElemOperandRange);
 
+        varDomActivatedOperations = document.createElement("div")
+        varDomActivatedOperations.id = "option-activated-operations";
+        varDomOptions.appendChild(varDomActivatedOperations);
+
         render();
     }
-    function enableOperation(index) { activatedOperations = varOperations[index] in activatedOperations ? activatedOperations : [...activatedOperations,varOperations[index]]; }
+    function enableOperation(index) { varActivatedOperations = varOperations[index] in varActivatedOperations ? varActivatedOperations : [...varActivatedOperations,varOperations[index]]; }
     function enableAddition() { enableOperation(0); }
     function enableSubtraction() { enableOperation(1); }
     function enableMultiplication() { enableOperation(2); }
     function enableDivision() { enableOperation(3); }
-    function disableOperation(index) {activatedOperations = activatedOperations.filter((i)=>i!==varOperations[index]);}
+    function disableOperation(index) { varActivatedOperations = varActivatedOperations.length > 1 ? varActivatedOperations.filter((i)=>i!==varOperations[index]) : varActivatedOperations ;}
     function disableAddition() { disableOperation(0); }
     function disableSubtraction() { disableOperation(1); }
     function disableMultiplication() { disableOperation(2); }
     function disableDivision() { disableOperation(3); }
+    function updateActivatedOperations() {
+        while(varDomActivatedOperations.firstChild)
+        {
+            varDomActivatedOperations.removeChild(varDomActivatedOperations.firstChild);
+        }
+        varActivatedOperations.forEach((op) =>
+        {
+            let varDomOp = document.createElement("button");
+            varDomOp.id = op.toString();
+            varDomOp.innerHTML = op.toString();
+            varDomOp.addEventListener("click",()=>
+            {
+                disableOperation(varOperations.indexOf(op))
+                render();
+            });
+            varDomActivatedOperations.appendChild(varDomOp);
+        })
+    }
+    function updateOperator ()
+    {
+        const varMaxRoll = 100;
+        const roll = Math.random() * varMaxRoll;
+        let index = Math.floor(roll/(varMaxRoll/varActivatedOperations.length));
+        varOperator = varActivatedOperations[index];
+    }
     function updateOperandRange()  {
         varDomMax.defaultValue = max;
         varDomMin.defaultValue = min;
@@ -104,12 +134,11 @@ function arithmetic ()
     function updateScore() {
         varDomScore.innerHTML = "score:" + score;
     }
-
-
     function render()
     {
         resetProblem();
         updateOperandRange();
+        updateActivatedOperations();
         updateScore();
         while(varDomCanvas.firstChild)
         {
@@ -117,8 +146,8 @@ function arithmetic ()
         }
         let question = document.createElement("section");
         //question.innerHTML += "answer" + answer;
-        question.innerHTML += precision == precisions[2] ? xnumerator+'/'+xdenominator+' '+operator+' '+ynumerator+'/'+ydenominator
-        :  xnumerator+' '+operator+' '+ynumerator;
+        question.innerHTML += precision == precisions[2] ? xnumerator+'/'+xdenominator+' '+varOperator+' '+ynumerator+'/'+ydenominator
+        :  xnumerator+' '+varOperator+' '+ynumerator;
         varDomCanvas.appendChild(question);
         let input = document.createElement("input");
         input.addEventListener("input",(e)=>{handleInput(e)});
@@ -136,7 +165,7 @@ function arithmetic ()
     }
     function resetProblem () {
         const roll = Math.random() * 100;
-        const newOperator = activatedOperations[Math.floor(roll/25)];
+        updateOperator();
         // int or float or fractional arithmetic operation
         const format = precisions[Math.floor(roll/33)];
         let nx = Math.random()*(max-min);
@@ -144,13 +173,13 @@ function arithmetic ()
         let ny = Math.random()*(max-min);
         let dy = Math.random()*(max-min);
         // parse based on operator to avoid too difficult questions
-        if (newOperator == "/" && nx < ny)
+        if (varOperator == "/" && nx < ny)
         {
             const tmp = nx;
             nx = ny;
             ny = tmp;
         }
-        else if (newOperator == "*")
+        else if (varOperator == "*")
         {
             while (nx > 20 && ny > 20)
             {
@@ -179,25 +208,25 @@ function arithmetic ()
             dx = 1;
             dy = 1;
         }
-        operator = newOperator;
+        varOperator = varOperator;
         xnumerator = nx;
         xdenominator = dx;
         ynumerator = ny;
         ydenominator = dy;
         precision = format;
-        if (newOperator==activatedOperations[0])
+        if (varOperator==varActivatedOperations[0])
         {
             answer = (nx*dy)+(ny*dx);
         }
-        else if (newOperator==activatedOperations[1])
+        else if (varOperator==varActivatedOperations[1])
         {
             answer = (nx*dy)-(ny*dx);
         }
-        else if (newOperator==activatedOperations[2])
+        else if (varOperator==varActivatedOperations[2])
         {
             answer = (nx*dy)*(ny*dx);
         }
-        else if(newOperator==activatedOperations[3])
+        else if(varOperator==varActivatedOperations[3])
         {
             answer = (nx*dy)/(ny*dx);
         }
