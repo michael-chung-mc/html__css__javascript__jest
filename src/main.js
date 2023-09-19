@@ -55,11 +55,14 @@ function arithmetic ()
     let varDomCanvas;
     let varDomEnabledOperations;
     let varDomDisabledOperations;
+    let varDomEnabledPrecisions;
+    let varDomDisabledPrecisions;
+
 
     const varOperations = ["+","-","*","/"];
-    let varActivatedOperations = varOperations;
-    const precisions = ['i','d','f'];
-    let chosenPrecision;
+    let varEnabledOperations = varOperations;
+    const varPrecisions = ['i','d','f'];
+    let varEnabledPrecisions = varPrecisions;
 
     let max = 50;
     let min = 1;
@@ -69,7 +72,7 @@ function arithmetic ()
     let ynumerator;
     let ydenominator;
     let varOperator;
-    let precision;
+    let varPrecision;
     let answer;
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard) {
@@ -94,14 +97,21 @@ function arithmetic ()
         varDomDisabledOperations.id = "option-disabled-operations";
         varDomOptions.appendChild(varDomDisabledOperations);
 
+        varDomEnabledPrecisions = document.createElement("div")
+        varDomEnabledPrecisions.id = "option-activated-precisions";
+        varDomOptions.appendChild(varDomEnabledPrecisions);
+        varDomDisabledPrecisions = document.createElement("div")
+        varDomDisabledPrecisions.id = "option-disabled-precisions";
+        varDomOptions.appendChild(varDomDisabledPrecisions);
+
         render();
     }
-    function enableOperation(index) { varActivatedOperations = varOperations[index] in varActivatedOperations ? varActivatedOperations : [...varActivatedOperations,varOperations[index]]; }
+    function enableOperation(index) { varEnabledOperations = varOperations[index] in varEnabledOperations ? varEnabledOperations : [...varEnabledOperations,varOperations[index]]; }
     function enableAddition() { enableOperation(0); }
     function enableSubtraction() { enableOperation(1); }
     function enableMultiplication() { enableOperation(2); }
     function enableDivision() { enableOperation(3); }
-    function disableOperation(index) { varActivatedOperations = varActivatedOperations.length > 1 ? varActivatedOperations.filter((i)=>i!==varOperations[index]) : varActivatedOperations ;}
+    function disableOperation(index) { varEnabledOperations = varEnabledOperations.length > 1 ? varEnabledOperations.filter((i)=>i!==varOperations[index]) : varEnabledOperations ;}
     function disableAddition() { disableOperation(0); }
     function disableSubtraction() { disableOperation(1); }
     function disableMultiplication() { disableOperation(2); }
@@ -120,7 +130,7 @@ function arithmetic ()
             let varDomOp = document.createElement("button");
             varDomOp.id = op.toString();
             varDomOp.innerHTML = op.toString();
-            if (!varActivatedOperations.includes(op))
+            if (!varEnabledOperations.includes(op))
             {
                 varDomOp.addEventListener("click",()=>
                 {
@@ -144,37 +154,61 @@ function arithmetic ()
     {
         const varMaxRoll = 100;
         const roll = Math.random() * varMaxRoll;
-        let index = Math.floor(roll/(varMaxRoll/varActivatedOperations.length));
-        varOperator = varActivatedOperations[index];
+        let index = Math.floor(roll/(varMaxRoll/varEnabledOperations.length));
+        varOperator = varEnabledOperations[index];
     }
     function updateOperandRange()  {
         varDomMax.defaultValue = max;
         varDomMin.defaultValue = min;
     }
+    function enablePrecision(index) { varEnabledPrecisions = varPrecisions[index] in varEnabledPrecisions ? varEnabledPrecisions : [...varEnabledPrecisions,varPrecisions[index]]; }
+    function disablePrecision(index) { varEnabledPrecisions = varEnabledPrecisions.length > 1 ? varEnabledPrecisions.filter((i)=>i!==varPrecisions[index]) : varEnabledPrecisions ;}
+    function updatePrecisions()
+    {
+        while(varDomEnabledPrecisions.firstChild)
+        {
+            varDomEnabledPrecisions.removeChild(varDomEnabledPrecisions.firstChild);
+        }
+        while(varDomDisabledPrecisions.firstChild)
+        {
+            varDomDisabledPrecisions.removeChild(varDomDisabledPrecisions.firstChild);
+        }
+        varPrecisions.forEach((op) =>
+        {
+            let varDomPrecision = document.createElement("button");
+            varDomPrecision.id = op.toString();
+            varDomPrecision.innerHTML = op.toString();
+            if (!varEnabledPrecisions.includes(op))
+            {
+                varDomPrecision.addEventListener("click",()=>
+                {
+                    enablePrecision(varPrecisions.indexOf(op))
+                    render();
+                });
+                varDomDisabledPrecisions.appendChild(varDomPrecision);
+            }
+            else
+            {
+                varDomPrecision.addEventListener("click",()=>
+                {
+                    disablePrecision(varPrecisions.indexOf(op))
+                    render();
+                });
+                varDomEnabledPrecisions.appendChild(varDomPrecision);
+            }
+        })
+    }
+    function updatePrecision ()
+    {
+        const varMaxRoll = 100;
+        const roll = Math.random() * varMaxRoll;
+        let index = Math.floor(roll/(varMaxRoll/varEnabledPrecisions.length));
+        varPrecision = varEnabledPrecisions[index];
+    }
     function updateScore() {
         varDomScore.innerHTML = "score:" + score;
     }
-    function render()
-    {
-        resetProblem();
-        updateOperandRange();
-        updateOperations();
-        updateScore();
-        while(varDomCanvas.firstChild)
-        {
-            varDomCanvas.removeChild(varDomCanvas.firstChild);
-        }
-        let question = document.createElement("section");
-        //question.innerHTML += "answer" + answer;
-        question.innerHTML += precision == precisions[2] ? xnumerator+'/'+xdenominator+' '+varOperator+' '+ynumerator+'/'+ydenominator
-        :  xnumerator+' '+varOperator+' '+ynumerator;
-        varDomCanvas.appendChild(question);
-        let input = document.createElement("input");
-        input.addEventListener("input",(e)=>{handleInput(e)});
-        varDomCanvas.appendChild(input);
-        input.focus();
-    }
-    function handleInput (e)
+    function checkAnswer (e)
     {
         if (Math.abs(e.target.value-answer)<.0001)
         {
@@ -183,11 +217,31 @@ function arithmetic ()
             render();
         }
     }
+    function render()
+    {
+        resetProblem();
+        updateOperandRange();
+        updateOperations();
+        updatePrecisions();
+        updateScore();
+        while(varDomCanvas.firstChild)
+        {
+            varDomCanvas.removeChild(varDomCanvas.firstChild);
+        }
+        let question = document.createElement("section");
+        //question.innerHTML += "answer" + answer;
+        question.innerHTML += varPrecision == varPrecisions[2] ? xnumerator+'/'+xdenominator+' '+varOperator+' '+ynumerator+'/'+ydenominator
+        :  xnumerator+' '+varOperator+' '+ynumerator;
+        varDomCanvas.appendChild(question);
+        let input = document.createElement("input");
+        input.addEventListener("input",(e)=>{checkAnswer(e)});
+        varDomCanvas.appendChild(input);
+        input.focus();
+    }
     function resetProblem () {
         const roll = Math.random() * 100;
         updateOperator();
         // int or float or fractional arithmetic operation
-        const format = precisions[Math.floor(roll/33)];
         let nx = Math.random()*(max-min);
         let dx = Math.random()*(max-min);
         let ny = Math.random()*(max-min);
@@ -207,21 +261,21 @@ function arithmetic ()
             }
         }
         //format values based on precision of question
-        if (format == precisions[2])
+        if (varPrecision == varEnabledPrecisions[2])
         {
             nx = Math.floor(nx);
             ny = Math.floor(ny);
             dx = Math.floor(dx);
             dy = Math.floor(dy);
         }
-        else if (format == precisions[1])
+        else if (varPrecision == varEnabledPrecisions[1])
         {
             nx = nx.toFixed(2);
             ny = ny.toFixed(2);
             dx = 1;
             dy = 1;
         }
-        else if (format == precisions[0])
+        else if (varPrecision == varEnabledPrecisions[0])
         {
             nx = Math.floor(nx);
             ny = Math.floor(ny);
@@ -233,20 +287,19 @@ function arithmetic ()
         xdenominator = dx;
         ynumerator = ny;
         ydenominator = dy;
-        precision = format;
-        if (varOperator==varActivatedOperations[0])
+        if (varOperator==varEnabledOperations[0])
         {
             answer = (nx*dy)+(ny*dx);
         }
-        else if (varOperator==varActivatedOperations[1])
+        else if (varOperator==varEnabledOperations[1])
         {
             answer = (nx*dy)-(ny*dx);
         }
-        else if (varOperator==varActivatedOperations[2])
+        else if (varOperator==varEnabledOperations[2])
         {
             answer = (nx*dy)*(ny*dx);
         }
-        else if(varOperator==varActivatedOperations[3])
+        else if(varOperator==varEnabledOperations[3])
         {
             answer = (nx*dy)/(ny*dx);
         }
