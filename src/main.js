@@ -13,14 +13,16 @@ function ticker ()
         varDoubleInterval = argTimerInterval;
         varDom = argDom;
         varTick = 0;
+        if (varDom) varDom.innerHTML = 0;
     }
     function tick() {
+        //console.log(`tick ${varTick}`);
         varDateTimeNow = Date.now();
         let varDoubleDelta =  varDateTimeNow - varDateTimeNowExpected;
         // if (varDoubleDelta > varDoubleInterval) {
         //     console.log("timer().step() >> skipped a step");
         // }
-        if (varDateTimeNow >= varDateTimeEnd)
+        if (varDateTimeNow >= varDateTimeEnd || varTick >= varDoubleLimit)
         {
             stop();
         }
@@ -29,29 +31,39 @@ function ticker ()
             varTick +=1;
             if (varDom) varDom.innerHTML = varDoubleLimit - varTick;
             varDateTimeNowExpected += varDoubleInterval;
-            setTimeout(tick,Math.max(0,varDoubleInterval-varDoubleDelta));
+            if (varTimeout) { clearTimeout(varTimeout); }
+            varTimeout = setTimeout(tick,Math.max(0,varDoubleInterval-varDoubleDelta));
         }
     }
     function start(argDoubleSeconds)
     {
+        console.log(`start ${varTick}`);
         varDoubleLimit = argDoubleSeconds;
         varDateTimeNow = Date.now();
         varDateTimeEnd = varDateTimeNow + argDoubleSeconds*1000;
         varDateTimeNowExpected = varDateTimeNow + varDoubleInterval;
+        if (varTimeout) { clearTimeout(varTimeout); }
         varTimeout = setTimeout(tick,varDoubleInterval);
         varTick = 0;
         if (varDom) varDom.innerHTML = varDoubleLimit - varTick;
     }
     function stop()
     {
-        clearTimeout(varTimeout);
+        //console.log(`stop ${varTick}`);
+        if (varTimeout) { clearTimeout(varTimeout); }
         varTick = 0;
+        if (varDom) varDom.innerHTML = varTick;
+    }
+    function getTick()
+    {
+        return varTick;
     }
     return {
         varTick,
         init,
         start,
         stop,
+        getTick,
     }
 }
 
@@ -187,7 +199,7 @@ function arithmetic ()
             varDomOp.innerHTML = op.toString();
             if (!varEnabledOperations.includes(op))
             {
-                varDomOp.addEventListener("click",()=>
+                varDomOp.addEventListener("click", function()
                 {
                     enableOperation(varOperations.indexOf(op))
                     resetScore();
@@ -239,20 +251,22 @@ function arithmetic ()
             varDomPrecision.innerHTML = op.toString();
             if (!varEnabledPrecisions.includes(op))
             {
-                varDomPrecision.addEventListener("click",()=>
+                varDomPrecision.addEventListener("click", function()
                 {
                     enablePrecision(varPrecisions.indexOf(op))
                     resetScore();
+                    varTimer.stop();
                     render();
                 });
                 varDomDisabledPrecisions.appendChild(varDomPrecision);
             }
             else
             {
-                varDomPrecision.addEventListener("click",()=>
+                varDomPrecision.addEventListener("click", function()
                 {
                     disablePrecision(varPrecisions.indexOf(op))
                     resetScore();
+                    varTimer.stop();
                     render();
                 });
                 varDomEnabledPrecisions.appendChild(varDomPrecision);
@@ -276,7 +290,7 @@ function arithmetic ()
     {
         if (Math.abs(e.target.value-answer)<.0001)
         {
-            if (varTimer.varTick == 0)
+            if (varTimer.getTick() === 0)
             {
                 varTimer.start(varTimerLimit);
             }
