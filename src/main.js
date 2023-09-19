@@ -81,12 +81,9 @@ function arithmetic ()
         varDomOptions = argDomOptions;
         varDomScore = argDomScoreBoard;
 
-        let varDomOption = document.createElement("div")
-        varDomOption.className="option";
         let varDomText = document.createElement("div");
-        varDomText.innerHTML = "Range:";
-        varDomOption.appendChild(varDomText);
         varDomOperandRange = document.createElement("div")
+        varDomOperandRange.className="option";
         varDomOperandRange.id = "option-operand-range";
         varDomMax = document.createElement("input");
         varDomMax.id = "option-operand-range-max";
@@ -94,17 +91,19 @@ function arithmetic ()
         varDomMin.id = "option-operand-range-min";
         varDomOperandRange.appendChild(varDomMax);
         varDomText = document.createElement("div");
-        varDomText.innerHTML = "-To-";
+        varDomText.innerHTML = "=Max--Min=";
         varDomOperandRange.appendChild(varDomText);
         varDomOperandRange.appendChild(varDomMin);
-        varDomOption.appendChild(varDomOperandRange);
-        varDomOptions.appendChild(varDomOption);
+        varDomOptions.appendChild(varDomOperandRange);
 
-        varDomOption = document.createElement("div")
+        let varDomOption = document.createElement("div")
         varDomOption.className="option";
         varDomEnabledOperations = document.createElement("div")
         varDomEnabledOperations.id = "option-activated-operations";
         varDomOption.appendChild(varDomEnabledOperations);
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "=Enabled--Disabled=";
+        varDomOption.appendChild(varDomText);
         varDomDisabledOperations = document.createElement("div")
         varDomDisabledOperations.id = "option-disabled-operations";
         varDomOption.appendChild(varDomDisabledOperations);
@@ -115,6 +114,9 @@ function arithmetic ()
         varDomEnabledPrecisions = document.createElement("div")
         varDomEnabledPrecisions.id = "option-activated-precisions";
         varDomOption.appendChild(varDomEnabledPrecisions);
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "=Enabled--Disabled=";
+        varDomOption.appendChild(varDomText);
         varDomDisabledPrecisions = document.createElement("div")
         varDomDisabledPrecisions.id = "option-disabled-precisions";
         varDomOption.appendChild(varDomDisabledPrecisions);

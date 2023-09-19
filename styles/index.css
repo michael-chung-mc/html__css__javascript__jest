@@ -1,3 +1,16 @@
-.header {
-    
+body {
+    max-height:100vh;
+    max-width:100vw;
+}
+
+.problem-options {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.option {
+    display: inline-flex;
+    white-space: nowrap;
+    justify-content: space-between;
 }
