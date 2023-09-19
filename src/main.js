@@ -239,19 +239,27 @@ function arithmetic ()
         input.focus();
     }
     function resetProblem () {
-        const roll = Math.random() * 100;
         updateOperator();
+        updatePrecision();
         // int or float or fractional arithmetic operation
         let nx = Math.random()*(max-min);
         let dx = Math.random()*(max-min);
         let ny = Math.random()*(max-min);
         let dy = Math.random()*(max-min);
         // parse based on operator to avoid too difficult questions
-        if (varOperator == "/" && nx < ny)
+        if (varOperator == "/")
         {
-            const tmp = nx;
-            nx = ny;
-            ny = tmp;
+            if (dx || dy == 0)
+            {
+                dx += 1;
+                dy += 1;
+            }
+            if (nx < ny)
+            {
+                const tmp = nx;
+                nx = ny;
+                ny = tmp;
+            }
         }
         else if (varOperator == "*")
         {
