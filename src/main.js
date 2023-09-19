@@ -1,17 +1,20 @@
-function timer ()
+function ticker ()
 {
-    let varDomElement;
+    let varDom;
+    let varDoubleLimit;
     let varDoubleInterval;
     let varDateTimeNowExpected;
     let varDateTimeNow;
     let varDateTimeEnd;
     let varTimeout;
-    let varTicking;
-    function init (argDomElement, argTimerInterval) {
-        varDomElement = argDomElement;
+    let varTick = 0;
+
+    function init (argTimerInterval, argDom) {
         varDoubleInterval = argTimerInterval;
+        varDom = argDom;
+        varTick = 0;
     }
-    function step() {
+    function tick() {
         varDateTimeNow = Date.now();
         let varDoubleDelta =  varDateTimeNow - varDateTimeNowExpected;
         // if (varDoubleDelta > varDoubleInterval) {
@@ -23,26 +26,29 @@ function timer ()
         }
         else
         {
-            varDomElement.innerHTML =  varDateTimeNow;
+            varTick +=1;
+            if (varDom) varDom.innerHTML = varDoubleLimit - varTick;
             varDateTimeNowExpected += varDoubleInterval;
-            setTimeout(step,Math.max(0,varDoubleInterval-varDoubleDelta));
+            setTimeout(tick,Math.max(0,varDoubleInterval-varDoubleDelta));
         }
     }
-    function start(argDoubleTimerLength)
+    function start(argDoubleSeconds)
     {
+        varDoubleLimit = argDoubleSeconds;
         varDateTimeNow = Date.now();
-        varDateTimeEnd = varDateTimeNow + argDoubleTimerLength;
+        varDateTimeEnd = varDateTimeNow + argDoubleSeconds*1000;
         varDateTimeNowExpected = varDateTimeNow + varDoubleInterval;
-        varDomElement.innerHTML = varDateTimeNow;
-        varTimeout = setTimeout(step,varDoubleInterval);
-        varTicking = true;
+        varTimeout = setTimeout(tick,varDoubleInterval);
+        varTick = 0;
+        if (varDom) varDom.innerHTML = varDoubleLimit - varTick;
     }
     function stop()
     {
         clearTimeout(varTimeout);
-        varTicking = false;
+        varTick = 0;
     }
     return {
+        varTick,
         init,
         start,
         stop,
@@ -62,7 +68,10 @@ function arithmetic ()
     let varDomEnabledPrecisions;
     let varDomDisabledPrecisions;
 
+    let varDomTimerLimit;
     let varTimer;
+    let varTimerIncrement = 1000;
+    let varTimerLimit = 60;
 
     const varOperations = ["+","-","*","/"];
     let varEnabledOperations = varOperations;
@@ -80,12 +89,10 @@ function arithmetic ()
     let varPrecision;
     let answer;
 
-    function init (argDomCanvas, argDomOptions, argDomScoreBoard, argTimer) {
+    function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
         varDomOptions = argDomOptions;
         varDomScore = argDomScoreBoard;
-
-        varTimer = argTimer;
 
         let varDomText = document.createElement("div");
         varDomOperandRange = document.createElement("div")
@@ -93,22 +100,28 @@ function arithmetic ()
         varDomOperandRange.id = "option-operand-range";
         varDomMax = document.createElement("input");
         varDomMax.id = "option-operand-range-max";
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "Max:";
+        varDomOperandRange.appendChild(varDomText);
+        varDomOperandRange.appendChild(varDomMax);
         varDomMin = document.createElement("input");
         varDomMin.id = "option-operand-range-min";
-        varDomOperandRange.appendChild(varDomMax);
         varDomText = document.createElement("div");
-        varDomText.innerHTML = "=Max--Min=";
+        varDomText.innerHTML = "Min:";
         varDomOperandRange.appendChild(varDomText);
         varDomOperandRange.appendChild(varDomMin);
         varDomOptions.appendChild(varDomOperandRange);
 
         let varDomOption = document.createElement("div")
         varDomOption.className="option";
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "Enabled:";
+        varDomOption.appendChild(varDomText);
         varDomEnabledOperations = document.createElement("div")
         varDomEnabledOperations.id = "option-activated-operations";
         varDomOption.appendChild(varDomEnabledOperations);
         varDomText = document.createElement("div");
-        varDomText.innerHTML = "=Enabled--Disabled=";
+        varDomText.innerHTML = "Disabled:";
         varDomOption.appendChild(varDomText);
         varDomDisabledOperations = document.createElement("div")
         varDomDisabledOperations.id = "option-disabled-operations";
@@ -117,16 +130,34 @@ function arithmetic ()
 
         varDomOption = document.createElement("div")
         varDomOption.className="option";
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "Enabled:";
+        varDomOption.appendChild(varDomText);
         varDomEnabledPrecisions = document.createElement("div")
         varDomEnabledPrecisions.id = "option-activated-precisions";
         varDomOption.appendChild(varDomEnabledPrecisions);
         varDomText = document.createElement("div");
-        varDomText.innerHTML = "=Enabled--Disabled=";
+        varDomText.innerHTML = "Disabled:";
         varDomOption.appendChild(varDomText);
         varDomDisabledPrecisions = document.createElement("div")
         varDomDisabledPrecisions.id = "option-disabled-precisions";
         varDomOption.appendChild(varDomDisabledPrecisions);
         varDomOptions.appendChild(varDomOption);
+
+        
+        varDomOption = document.createElement("div")
+        varDomOption.className="option";
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "Time Limit:";
+        varDomOption.appendChild(varDomText);
+        varDomTimerLimit = document.createElement("input");
+        varDomTimerLimit.id = "option-timer-limit";
+        varDomTimerLimit.defaultValue = varTimerLimit;
+        varDomOption.appendChild(varDomTimerLimit);
+        varDomOptions.appendChild(varDomOption);
+
+        varTimer = ticker();
+        varTimer.init(varTimerIncrement, argDomTimer);
 
         render();
     }
@@ -159,6 +190,8 @@ function arithmetic ()
                 varDomOp.addEventListener("click",()=>
                 {
                     enableOperation(varOperations.indexOf(op))
+                    resetScore();
+                    varTimer.stop();
                     render();
                 });
                 varDomDisabledOperations.appendChild(varDomOp);
@@ -168,6 +201,8 @@ function arithmetic ()
                 varDomOp.addEventListener("click",()=>
                 {
                     disableOperation(varOperations.indexOf(op))
+                    resetScore();
+                    varTimer.stop();
                     render();
                 });
                 varDomEnabledOperations.appendChild(varDomOp);
@@ -207,6 +242,7 @@ function arithmetic ()
                 varDomPrecision.addEventListener("click",()=>
                 {
                     enablePrecision(varPrecisions.indexOf(op))
+                    resetScore();
                     render();
                 });
                 varDomDisabledPrecisions.appendChild(varDomPrecision);
@@ -216,6 +252,7 @@ function arithmetic ()
                 varDomPrecision.addEventListener("click",()=>
                 {
                     disablePrecision(varPrecisions.indexOf(op))
+                    resetScore();
                     render();
                 });
                 varDomEnabledPrecisions.appendChild(varDomPrecision);
@@ -229,6 +266,9 @@ function arithmetic ()
         let index = Math.floor(roll/(varMaxRoll/varEnabledPrecisions.length));
         varPrecision = varEnabledPrecisions[index];
     }
+    function resetScore() {
+        score = 0;
+    }
     function updateScore() {
         varDomScore.innerHTML = "score:" + score;
     }
@@ -236,9 +276,9 @@ function arithmetic ()
     {
         if (Math.abs(e.target.value-answer)<.0001)
         {
-            if (!varTimer.varTicking)
+            if (varTimer.varTick == 0)
             {
-                varTimer.start();
+                varTimer.start(varTimerLimit);
             }
             score += 1;
             render();
@@ -275,7 +315,7 @@ function arithmetic ()
         // parse based on operator to avoid too difficult questions
         if (varOperator == "/")
         {
-            if (dx || dy == 0)
+            if (dx == 0 || dy == 0)
             {
                 dx += 1;
                 dy += 1;
@@ -347,14 +387,12 @@ function main () {
     let varDomCanvas = document.getElementById("problem-canvas");
     let varDomScore = document.getElementById("problem-score");
     let varDomOptions = document.getElementById("arithmetic-options");
-    let varTimer = timer();
-    let varDomElementTimer = document.getElementById("problem-timer");
+    let varDomTimer = document.getElementById("problem-timer");
     let modes = ["arithmetic"];
     let mode = modes[0];
     if (mode == modes[0])
     {
-        varTimer.init(varDomElementTimer,1000);
-        arithmetic().init(varDomCanvas,varDomOptions,varDomScore,varTimer);
+        arithmetic().init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
     }
 }
 
