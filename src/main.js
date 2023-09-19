@@ -6,6 +6,7 @@ function timer ()
     let varDateTimeNow;
     let varDateTimeEnd;
     let varTimeout;
+    let varTicking;
     function init (argDomElement, argTimerInterval) {
         varDomElement = argDomElement;
         varDoubleInterval = argTimerInterval;
@@ -34,10 +35,12 @@ function timer ()
         varDateTimeNowExpected = varDateTimeNow + varDoubleInterval;
         varDomElement.innerHTML = varDateTimeNow;
         varTimeout = setTimeout(step,varDoubleInterval);
+        varTicking = true;
     }
     function stop()
     {
         clearTimeout(varTimeout);
+        varTicking = false;
     }
     return {
         init,
@@ -59,6 +62,7 @@ function arithmetic ()
     let varDomEnabledPrecisions;
     let varDomDisabledPrecisions;
 
+    let varTimer;
 
     const varOperations = ["+","-","*","/"];
     let varEnabledOperations = varOperations;
@@ -76,10 +80,12 @@ function arithmetic ()
     let varPrecision;
     let answer;
 
-    function init (argDomCanvas, argDomOptions, argDomScoreBoard) {
+    function init (argDomCanvas, argDomOptions, argDomScoreBoard, argTimer) {
         varDomCanvas = argDomCanvas;
         varDomOptions = argDomOptions;
         varDomScore = argDomScoreBoard;
+
+        varTimer = argTimer;
 
         let varDomText = document.createElement("div");
         varDomOperandRange = document.createElement("div")
@@ -230,7 +236,10 @@ function arithmetic ()
     {
         if (Math.abs(e.target.value-answer)<.0001)
         {
-            console.log("true");
+            if (!varTimer.varTicking)
+            {
+                varTimer.start();
+            }
             score += 1;
             render();
         }
@@ -345,7 +354,7 @@ function main () {
     if (mode == modes[0])
     {
         varTimer.init(varDomElementTimer,1000);
-        arithmetic().init(varDomCanvas,varDomOptions,varDomScore);
+        arithmetic().init(varDomCanvas,varDomOptions,varDomScore,varTimer);
     }
 }
 
