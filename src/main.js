@@ -49,6 +49,7 @@ function timer ()
 function arithmetic ()
 {
     let varDomOptions;
+    let varDomOperandRange;
     let varDomMax;
     let varDomMin;
     let varDomScore;
@@ -64,7 +65,7 @@ function arithmetic ()
     const varPrecisions = ['i','d','f'];
     let varEnabledPrecisions = varPrecisions;
 
-    let max = 50;
+    let max = 20;
     let min = 1;
     let score = 0;
     let xnumerator;
@@ -80,29 +81,44 @@ function arithmetic ()
         varDomOptions = argDomOptions;
         varDomScore = argDomScoreBoard;
 
-        let varElemOperandRange = document.createElement("div")
-        varElemOperandRange.id = "option-operand-range";
+        let varDomOption = document.createElement("div")
+        varDomOption.className="option";
+        let varDomText = document.createElement("div");
+        varDomText.innerHTML = "Range:";
+        varDomOption.appendChild(varDomText);
+        varDomOperandRange = document.createElement("div")
+        varDomOperandRange.id = "option-operand-range";
         varDomMax = document.createElement("input");
         varDomMax.id = "option-operand-range-max";
         varDomMin = document.createElement("input");
         varDomMin.id = "option-operand-range-min";
-        varElemOperandRange.appendChild(varDomMax);
-        varElemOperandRange.appendChild(varDomMin);
-        varDomOptions.appendChild(varElemOperandRange);
+        varDomOperandRange.appendChild(varDomMax);
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "-To-";
+        varDomOperandRange.appendChild(varDomText);
+        varDomOperandRange.appendChild(varDomMin);
+        varDomOption.appendChild(varDomOperandRange);
+        varDomOptions.appendChild(varDomOption);
 
+        varDomOption = document.createElement("div")
+        varDomOption.className="option";
         varDomEnabledOperations = document.createElement("div")
         varDomEnabledOperations.id = "option-activated-operations";
-        varDomOptions.appendChild(varDomEnabledOperations);
+        varDomOption.appendChild(varDomEnabledOperations);
         varDomDisabledOperations = document.createElement("div")
         varDomDisabledOperations.id = "option-disabled-operations";
-        varDomOptions.appendChild(varDomDisabledOperations);
+        varDomOption.appendChild(varDomDisabledOperations);
+        varDomOptions.appendChild(varDomOption);
 
+        varDomOption = document.createElement("div")
+        varDomOption.className="option";
         varDomEnabledPrecisions = document.createElement("div")
         varDomEnabledPrecisions.id = "option-activated-precisions";
-        varDomOptions.appendChild(varDomEnabledPrecisions);
+        varDomOption.appendChild(varDomEnabledPrecisions);
         varDomDisabledPrecisions = document.createElement("div")
         varDomDisabledPrecisions.id = "option-disabled-precisions";
-        varDomOptions.appendChild(varDomDisabledPrecisions);
+        varDomOption.appendChild(varDomDisabledPrecisions);
+        varDomOptions.appendChild(varDomOption);
 
         render();
     }
@@ -239,13 +255,12 @@ function arithmetic ()
         input.focus();
     }
     function resetProblem () {
-        updateOperator();
-        updatePrecision();
-        // int or float or fractional arithmetic operation
         let nx = Math.random()*(max-min);
         let dx = Math.random()*(max-min);
         let ny = Math.random()*(max-min);
         let dy = Math.random()*(max-min);
+        updateOperator();
+        updatePrecision();
         // parse based on operator to avoid too difficult questions
         if (varOperator == "/")
         {
