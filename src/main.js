@@ -333,6 +333,7 @@ function arithmetic ()
         :  xnumerator+' '+varOperator+' '+ynumerator;
         varDomCanvas.appendChild(question);
         let input = document.createElement("input");
+        input.id = "input-answer";
         input.addEventListener("input",(e)=>{checkAnswer(e)});
         varDomCanvas.appendChild(input);
         if ((varTimer.getTick()==0 && score == 1) || varTimer.getTick()!==0) input.focus();
