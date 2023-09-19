@@ -53,7 +53,8 @@ function arithmetic ()
     let varDomMin;
     let varDomScore;
     let varDomCanvas;
-    let varDomActivatedOperations;
+    let varDomEnabledOperations;
+    let varDomDisabledOperations;
 
     const varOperations = ["+","-","*","/"];
     let varActivatedOperations = varOperations;
@@ -86,9 +87,12 @@ function arithmetic ()
         varElemOperandRange.appendChild(varDomMin);
         varDomOptions.appendChild(varElemOperandRange);
 
-        varDomActivatedOperations = document.createElement("div")
-        varDomActivatedOperations.id = "option-activated-operations";
-        varDomOptions.appendChild(varDomActivatedOperations);
+        varDomEnabledOperations = document.createElement("div")
+        varDomEnabledOperations.id = "option-activated-operations";
+        varDomOptions.appendChild(varDomEnabledOperations);
+        varDomDisabledOperations = document.createElement("div")
+        varDomDisabledOperations.id = "option-disabled-operations";
+        varDomOptions.appendChild(varDomDisabledOperations);
 
         render();
     }
@@ -102,22 +106,38 @@ function arithmetic ()
     function disableSubtraction() { disableOperation(1); }
     function disableMultiplication() { disableOperation(2); }
     function disableDivision() { disableOperation(3); }
-    function updateActivatedOperations() {
-        while(varDomActivatedOperations.firstChild)
+    function updateOperations() {
+        while(varDomEnabledOperations.firstChild)
         {
-            varDomActivatedOperations.removeChild(varDomActivatedOperations.firstChild);
+            varDomEnabledOperations.removeChild(varDomEnabledOperations.firstChild);
         }
-        varActivatedOperations.forEach((op) =>
+        while(varDomDisabledOperations.firstChild)
+        {
+            varDomDisabledOperations.removeChild(varDomDisabledOperations.firstChild);
+        }
+        varOperations.forEach((op) =>
         {
             let varDomOp = document.createElement("button");
             varDomOp.id = op.toString();
             varDomOp.innerHTML = op.toString();
-            varDomOp.addEventListener("click",()=>
+            if (!varActivatedOperations.includes(op))
             {
-                disableOperation(varOperations.indexOf(op))
-                render();
-            });
-            varDomActivatedOperations.appendChild(varDomOp);
+                varDomOp.addEventListener("click",()=>
+                {
+                    enableOperation(varOperations.indexOf(op))
+                    render();
+                });
+                varDomDisabledOperations.appendChild(varDomOp);
+            }
+            else
+            {
+                varDomOp.addEventListener("click",()=>
+                {
+                    disableOperation(varOperations.indexOf(op))
+                    render();
+                });
+                varDomEnabledOperations.appendChild(varDomOp);
+            }
         })
     }
     function updateOperator ()
@@ -138,7 +158,7 @@ function arithmetic ()
     {
         resetProblem();
         updateOperandRange();
-        updateActivatedOperations();
+        updateOperations();
         updateScore();
         while(varDomCanvas.firstChild)
         {
