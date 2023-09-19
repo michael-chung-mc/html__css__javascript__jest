@@ -1,39 +1,37 @@
-function init () {
-    function dropdown (id) {
-        return () => {
-            console.log("down")
-            let element = document.getElementById(id);
-            element.classList.remove("invisible");
-            element.classList.add("visible");
+function timer ()
+{
+    let varDomElement;
+    let varDoubleInterval;
+    let varDateTimeExpected;
+    function init (argDomElement, argDoubleTimerLength) {
+        varDomElement = argDomElement;
+        varDoubleInterval = 1000;
+        varDateTimeExpected = Date.now() + argDoubleTimerLength;
+        setTimeout(step,varDoubleInterval);
+        varDomElement.innerHTML = Date.now();
+    }
+    function step() {
+        var varDoubleDelta = Date.now() - varDateTimeExpected;
+        if (varDoubleDelta > varDoubleInterval) {
+            //console.log("timer().step() >> doh");
         }
+        varDomElement.innerHTML = Date.now();
+        varDateTimeExpected += varDoubleInterval;
+        setTimeout(step,Math.max(0,varDoubleInterval-varDoubleDelta));
     }
-    function dropup (id)
-    {
-        return () => {
-            console.log("up")
-            let element = document.getElementById(id);
-            element.classList.remove("visible");
-            element.classList.add("invisible");
-        }
+    return {
+        init,
+        step,
     }
-    let elems = document.getElementsByClassName("problem-tabs");
-    for (let i = 0; i < elems.length; i++)
-    {
-        let childMenu = elems[i].getElementsByClassName("options")[0];
-        elems[i].addEventListener("mouseover", dropdown(childMenu.id));
-        elems[i].addEventListener("mouseleave", dropup(childMenu.id));
-        elems[i].addEventListener("click", dropdown(childMenu.id));
-    }
-    
-    document.body.addEventListener("hover",dropup())
 }
 
 function arithmetic ()
 {
     const operators = ["+","-","*","/"];
     const precisions = ['i','d','f'];
-    const max = 100;
+    const max = 50;
     const min = 1;
+
     let score = 0;
     let xnumerator;
     let xdenominator;
@@ -42,21 +40,37 @@ function arithmetic ()
     let operator;
     let precision;
     let answer;
+
     function init ()
     {
+        let options = document.getElementById("arithmetic-options");
+        let varElemOperandRange = document.createElement("div")
+        varElemOperandRange
+        varElemOperandRange.id = "option-operand-range";
+        let varElemMax = document.createElement("input");
+        varElemMax.id = "option-operand-range-max";
+        let varElemMin = document.createElement("input");
+        varElemMin.id = "option-operand-range-min";
+        options.appendChild(varElemOperandRange);
+        varElemOperandRange.appendChild(varElemMax);
+        varElemOperandRange.appendChild(varElemMin);
         render();
     }
+
     function render()
     {
+        resetProblem();
+        updateOperandRange();
+        let options = document.getElementById("arithmetic-options");
+        let varElemScore = document.createElement("option")
+        varElemScore.innerHTML = "score:" + score;
+        options.appendChild(varElemScore);
         let canvas = document.getElementById("problem-canvas");
         while(canvas.firstChild)
         {
             canvas.removeChild(canvas.firstChild);
         }
         let question = document.createElement("section");
-        resetProblem();
-        question.innerHTML = "operand range:" + max + ":" + min;
-        question.innerHTML += "score" + score;
         question.innerHTML += "answer" + answer;
         question.innerHTML += precision == precisions[2] ? xnumerator+'/'+xdenominator+' '+operator+' '+ynumerator+'/'+ydenominator
         :  xnumerator+' '+operator+' '+ynumerator;
@@ -65,6 +79,13 @@ function arithmetic ()
         input.addEventListener("input",(e)=>{handleInput(e)});
         canvas.appendChild(input);
         input.focus();
+    }
+    function updateOperandRange()
+    {
+        let varElemMax = document.getElementById("option-operand-range-max");
+        varElemMax.defaultValue = max;
+        let varElemMin = document.getElementById("option-operand-range-min");
+        varElemMin.defaultValue = min;
     }
     function handleInput (e)
     {
@@ -149,11 +170,12 @@ function arithmetic ()
 }
 
 function main () {
+    let varDomElementTimer = document.getElementById("problem-timer");
     let modes = ["arithmetic"];
     let mode = modes[0];
-    init();
     if (mode == modes[0])
     {
+        timer().init(varDomElementTimer,1);
         arithmetic().init();
     }
 }
