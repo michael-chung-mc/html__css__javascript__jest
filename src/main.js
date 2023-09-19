@@ -2,26 +2,47 @@ function timer ()
 {
     let varDomElement;
     let varDoubleInterval;
-    let varDateTimeExpected;
-    function init (argDomElement, argDoubleTimerLength) {
+    let varDateTimeNowExpected;
+    let varDateTimeNow;
+    let varDateTimeEnd;
+    let varTimeout;
+    function init (argDomElement, argTimerInterval) {
         varDomElement = argDomElement;
-        varDoubleInterval = 1000;
-        varDateTimeExpected = Date.now() + argDoubleTimerLength;
-        setTimeout(step,varDoubleInterval);
-        varDomElement.innerHTML = Date.now();
+        varDoubleInterval = argTimerInterval;
     }
     function step() {
-        var varDoubleDelta = Date.now() - varDateTimeExpected;
-        if (varDoubleDelta > varDoubleInterval) {
-            //console.log("timer().step() >> doh");
+        varDateTimeNow = Date.now();
+        let varDoubleDelta =  varDateTimeNow - varDateTimeNowExpected;
+        // if (varDoubleDelta > varDoubleInterval) {
+        //     console.log("timer().step() >> skipped a step");
+        // }
+        if (varDateTimeNow >= varDateTimeEnd)
+        {
+            stop();
         }
-        varDomElement.innerHTML = Date.now();
-        varDateTimeExpected += varDoubleInterval;
-        setTimeout(step,Math.max(0,varDoubleInterval-varDoubleDelta));
+        else
+        {
+            varDomElement.innerHTML =  varDateTimeNow;
+            varDateTimeNowExpected += varDoubleInterval;
+            setTimeout(step,Math.max(0,varDoubleInterval-varDoubleDelta));
+        }
+    }
+    function start(argDoubleTimerLength)
+    {
+        varDateTimeNow = Date.now();
+        varDateTimeEnd = varDateTimeNow + argDoubleTimerLength;
+        varDateTimeNowExpected = varDateTimeNow + varDoubleInterval;
+        varDomElement.innerHTML = varDateTimeNow;
+        varTimeout = setTimeout(step,varDoubleInterval);
+    }
+    function stop()
+    {
+        clearTimeout(varTimeout);
     }
     return {
         init,
-        step,
+        start,
+        stop,
     }
 }
 
@@ -170,12 +191,14 @@ function arithmetic ()
 }
 
 function main () {
+    let varTimer = timer();
     let varDomElementTimer = document.getElementById("problem-timer");
     let modes = ["arithmetic"];
     let mode = modes[0];
     if (mode == modes[0])
     {
-        timer().init(varDomElementTimer,1);
+        varTimer.init(varDomElementTimer,1000);
+        varTimer.start(2000);
         arithmetic().init();
     }
 }
