@@ -37,7 +37,7 @@ function ticker ()
     }
     function start(argDoubleSeconds)
     {
-        console.log(`start ${varTick}`);
+        //console.log(`start ${varTick}`);
         varDoubleLimit = argDoubleSeconds;
         varDateTimeNow = Date.now();
         varDateTimeEnd = varDateTimeNow + argDoubleSeconds*1000;
@@ -110,14 +110,16 @@ function arithmetic ()
         varDomOperandRange = document.createElement("div")
         varDomOperandRange.className="option";
         varDomOperandRange.id = "option-operand-range";
-        varDomMax = document.createElement("input");
-        varDomMax.id = "option-operand-range-max";
         varDomText = document.createElement("div");
         varDomText.innerHTML = "Max:";
         varDomOperandRange.appendChild(varDomText);
+        varDomMax = document.createElement("input");
+        varDomMax.id = "option-operand-range-max";
+        varDomMax.addEventListener("input", (e)=>{updateMax(e.target.value)});
         varDomOperandRange.appendChild(varDomMax);
         varDomMin = document.createElement("input");
         varDomMin.id = "option-operand-range-min";
+        varDomMin.addEventListener("input", (e)=>{updateMin(e.target.value)});
         varDomText = document.createElement("div");
         varDomText.innerHTML = "Min:";
         varDomOperandRange.appendChild(varDomText);
@@ -232,6 +234,16 @@ function arithmetic ()
         varDomMax.defaultValue = max;
         varDomMin.defaultValue = min;
     }
+    function updateMax(value)
+    {
+        max = value > min ? value : max;
+        render();
+    }
+    function updateMin(value)
+    {
+        min = value < max ? value : min;
+        render();
+    }
     function enablePrecision(index) { varEnabledPrecisions = varPrecisions[index] in varEnabledPrecisions ? varEnabledPrecisions : [...varEnabledPrecisions,varPrecisions[index]]; }
     function disablePrecision(index) { varEnabledPrecisions = varEnabledPrecisions.length > 1 ? varEnabledPrecisions.filter((i)=>i!==varPrecisions[index]) : varEnabledPrecisions ;}
     function updatePrecisions()
@@ -317,13 +329,15 @@ function arithmetic ()
         let input = document.createElement("input");
         input.addEventListener("input",(e)=>{checkAnswer(e)});
         varDomCanvas.appendChild(input);
-        input.focus();
+        if ((varTimer.getTick()==0 && score == 1) || varTimer.getTick()!==0) input.focus();
     }
     function resetProblem () {
+        // console.log(max);
+        // console.log(min);
         xnumerator = Math.random()*(max-min);
-        xdenominator = Math.random()*(max-min);
+        xdenominator = Math.random()*(max-min)+1;
         ynumerator = Math.random()*(max-min);
-        ydenominator = Math.random()*(max-min);
+        ydenominator = Math.random()*(max-min)+1;
         updateOperator();
         updatePrecision();
         //format values based on operation
@@ -367,6 +381,10 @@ function arithmetic ()
             xdenominator = 1;
             ydenominator = 1;
             xnumerator = xnumerator % ynumerator != 0 ? xnumerator * ynumerator : xnumerator;
+            while (xnumerator > 20 && ynumerator > 20)
+            {
+                ynumerator=ynumerator/10;
+            }
         }
         if (varOperator==varOperations[0])
         {
