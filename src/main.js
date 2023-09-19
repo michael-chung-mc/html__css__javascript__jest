@@ -167,6 +167,7 @@ function arithmetic ()
         varDomTimerLimit = document.createElement("input");
         varDomTimerLimit.id = "option-timer-limit";
         varDomTimerLimit.defaultValue = varTimerLimit;
+        varDomTimerLimit.addEventListener("input", (e)=>{updateTimerLimit(e.target.value)});
         varDomOption.appendChild(varDomTimerLimit);
         varDomOptions.appendChild(varDomOption);
 
@@ -297,6 +298,11 @@ function arithmetic ()
     }
     function updateScore() {
         varDomScore.innerHTML = "score:" + score;
+    }
+    function updateTimerLimit(value)
+    {
+        varTimerLimit = value > 0 ? value : varTimerLimit;
+        render();
     }
     function checkAnswer (e)
     {
