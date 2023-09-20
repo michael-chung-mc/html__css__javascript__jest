@@ -336,7 +336,7 @@ function arithmetic ()
         }
         let question = document.createElement("section");
         let varQuestionString = ""
-        varQuestionString += "answer:" + answer + "----";
+        //varQuestionString += "answer:" + answer + "----";
         for (let i = 0; i < varRange.length; i++)
         {
             varQuestionString += varPrecision == varPrecisions[2] ? numerators[i]+'/'+denominators[i]: numerators[i];
