@@ -9,16 +9,17 @@
                 <li><a href="#preview">Preview</li>
             </ul>
         </li>
-        <li><a href="#design">Design</li>
+        <li><a href="#methodology">Methodology</li>
           <ul>
-            <li><a href="#requirements">Tools</li>
+            <li><a href="#requirements">Requirements</li>
+            <li><a href="#design">Design</li>
             <li><a href="#tools">Tools</li>
             <li><a href="#roadmap">Roadmap</li>
           </ul>
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#install">Install</li>
+                <li><a href="#setup">Setup</li>
                 <li><a href="#run">Run</li>
             </ul>
         </li>
@@ -27,23 +28,60 @@
 </details>
 
 ## Goals
+
+No installation or signup required brain stretching exercises
+
 ### About
 ### Preview
-## Design
+## Methodology
 ### Requirements
+
+- [ ] Mental Math
+- [ ] Memory
+- [ ] Color
+
+### Design
 ### Tools
+
 * React
-* ViteJS
 * Jest
-* React-Testing-Library
 * Visual Studio Code
 * Xubuntu
 * VirtualBox
 * Git
+
 ### Roadmap
+
+- [x] Arithmetic Speed Drill
+    - [x] Operand Range Modification
+    - [x] Integer Arithmetic
+        - [x] Addition
+        - [x] Subtraction
+        - [x] Multiplication
+        - [x] Division
+    - [x] Decimal Arithmetic
+        - [x] Addition
+        - [x] Subtraction
+        - [x] Multiplication
+        - [x] Division
+    - [x] Fractional Arithmetic
+        - [x] Addition
+        - [x] Subtraction
+        - [x] Multiplication
+        - [x] Division
+    - [x] Timer
+        - [x] Timer Limit Modification
+    - [x] Scoring
+
 ## Usage
-### Install
+
+### Setup
+
+- [ ] Clone Repo
+
 ### Run
+
+- [ ] Open index.html in browser of choice
+
 ## Acknowledgements
-* [ViteJs](https://vitejs.dev)
 <p align="right">(<a href="#readme-top">back to top </a>)</p>
