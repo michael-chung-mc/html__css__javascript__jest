@@ -55,25 +55,26 @@ No installation or signup required brain stretching exercises
 
 </summary>Arithmetic Speed Drill</summary>
 <details>
-    - [x] Operand Range Modification
-    - [x] Integer Arithmetic
-        - [x] Addition
-        - [x] Subtraction
-        - [x] Multiplication
-        - [x] Division
-    - [x] Decimal Arithmetic
-        - [x] Addition
-        - [x] Subtraction
-        - [x] Multiplication
-        - [x] Division
-    - [x] Fractional Arithmetic
-        - [x] Addition
-        - [x] Subtraction
-        - [x] Multiplication
-        - [x] Division
-    - [x] Timer
-        - [x] Timer Limit Modification
-    - [x] Scoring
+
+- [x] Operand Range Modification
+- [x] Integer Arithmetic
+    - [x] Addition
+    - [x] Subtraction
+    - [x] Multiplication
+    - [x] Division
+- [x] Decimal Arithmetic
+    - [x] Addition
+    - [x] Subtraction
+    - [x] Multiplication
+    - [x] Division
+- [x] Fractional Arithmetic
+    - [x] Addition
+    - [x] Subtraction
+    - [x] Multiplication
+    - [x] Division
+- [x] Timer
+    - [x] Timer Limit Modification
+- [x] Scoring
 </details>
 
 ## Usage
