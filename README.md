@@ -52,7 +52,10 @@ No installation or signup required brain stretching exercises
 
 ### Roadmap
 
-- [x] Arithmetic Speed Drill
+
+<details>
+</summary>Arithmetic Speed Drill</summary>
+
     - [x] Operand Range Modification
     - [x] Integer Arithmetic
         - [x] Addition
@@ -72,6 +75,7 @@ No installation or signup required brain stretching exercises
     - [x] Timer
         - [x] Timer Limit Modification
     - [x] Scoring
+<details>
 
 ## Usage
 
