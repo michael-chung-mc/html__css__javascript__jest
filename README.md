@@ -75,7 +75,7 @@ No installation or signup required brain stretching exercises
     - [x] Timer
         - [x] Timer Limit Modification
     - [x] Scoring
-<details>
+	<details>
 
 ## Usage
 
