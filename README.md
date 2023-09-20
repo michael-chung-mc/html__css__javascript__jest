@@ -43,7 +43,9 @@ No installation or signup required brain stretching exercises
 ### Design
 ### Tools
 
-* React
+* Javascript
+* HTML
+* CSS
 * Jest
 * Visual Studio Code
 * Xubuntu
