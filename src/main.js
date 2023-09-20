@@ -347,17 +347,7 @@ function arithmetic ()
         ydenominator = Math.random()*(varMax-varMin+1) + varMin;
         updateOperator();
         updatePrecision();
-        //format values based on operation
-        if (varOperator == varOperations[3])
-        {
-            if (xnumerator < ynumerator)
-            {
-                const tmp = xnumerator;
-                xnumerator = ynumerator;
-                ynumerator = tmp;
-            }
-        }
-        //format values based on precision
+        //enforce precision
         if (varPrecision == varPrecisions[2])
         {
             xnumerator = Math.floor(xnumerator);
@@ -367,7 +357,10 @@ function arithmetic ()
         }
         else if (varPrecision == varPrecisions[1])
         {
-            xnumerator = xnumerator.toFixed(2);
+            // allow integers
+            let flip = Math.random();
+            xnumerator = flip > .5 ? xnumerator.toFixed(2) : Math.floor(xnumerator);
+            flip = Math.random() * 10;
             ynumerator = ynumerator.toFixed(2);
             xdenominator = 1;
             ydenominator = 1;
@@ -386,6 +379,21 @@ function arithmetic ()
         while (xnumerator > varMax && ynumerator > varMax)
         {
             ynumerator=ynumerator/10;
+        }
+        //format values based on operation
+        if (varOperator == varOperations[3])
+        {
+            if (xnumerator < ynumerator)
+            {
+                const tmp = xnumerator;
+                xnumerator = ynumerator;
+                ynumerator = tmp;
+            }
+            // ban decimal/decimal
+            xnumerator = Math.floor(xnumerator);
+            ynumerator = Math.floor(ynumerator);
+            xdenominator = Math.floor(xdenominator);
+            ydenominator = Math.floor(ydenominator);
         }
         if (varOperator==varOperations[0])
         {
