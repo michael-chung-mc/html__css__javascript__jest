@@ -87,11 +87,11 @@ function arithmetic ()
 
     const varOperations = ["+","-","*","/"];
     let varEnabledOperations = varOperations;
-    const varPrecisions = ['i','d','f'];
+    const varPrecisions = ['integer','decimal','fraction'];
     let varEnabledPrecisions = varPrecisions;
 
-    let max = 20;
-    let min = 1;
+    let varMax = 100;
+    let varMin = 2;
     let score = 0;
     let xnumerator;
     let xdenominator;
@@ -232,17 +232,17 @@ function arithmetic ()
         varOperator = varEnabledOperations[index];
     }
     function updateOperandRange()  {
-        varDomMax.defaultValue = max;
-        varDomMin.defaultValue = min;
+        varDomMax.defaultValue = varMax;
+        varDomMin.defaultValue = varMin;
     }
     function updateMax(value)
     {
-        max = value > min ? value : max;
+        varMax = value > varMin ? value : varMax;
         render();
     }
     function updateMin(value)
     {
-        min = value < max ? value : min;
+        varMin = value < varMax ? value : varMin;
         render();
     }
     function enablePrecision(index) { varEnabledPrecisions = varPrecisions[index] in varEnabledPrecisions ? varEnabledPrecisions : [...varEnabledPrecisions,varPrecisions[index]]; }
@@ -341,29 +341,20 @@ function arithmetic ()
     function resetProblem () {
         // console.log(max);
         // console.log(min);
-        xnumerator = Math.random()*(max-min);
-        xdenominator = Math.random()*(max-min)+1;
-        ynumerator = Math.random()*(max-min);
-        ydenominator = Math.random()*(max-min)+1;
+        xnumerator = Math.random()*(varMax-varMin+1) + varMin;
+        xdenominator = Math.random()*(varMax-varMin+1) + varMin;
+        ynumerator = Math.random()*(varMax-varMin+1) + varMin;
+        ydenominator = Math.random()*(varMax-varMin+1) + varMin;
         updateOperator();
         updatePrecision();
         //format values based on operation
         if (varOperator == varOperations[3])
         {
-            xdenominator = xdenominator == 0 ? 1 : xdenominator;
-            ydenominator = ydenominator == 0 ? 1 : ydenominator;
             if (xnumerator < ynumerator)
             {
                 const tmp = xnumerator;
                 xnumerator = ynumerator;
                 ynumerator = tmp;
-            }
-        }
-        else if (varOperator == varOperations[2])
-        {
-            while (xnumerator > 20 && ynumerator > 20)
-            {
-                ynumerator=ynumerator/10;
             }
         }
         //format values based on precision
@@ -387,11 +378,14 @@ function arithmetic ()
             ynumerator = Math.floor(ynumerator);
             xdenominator = 1;
             ydenominator = 1;
-            xnumerator = xnumerator % ynumerator != 0 ? xnumerator * ynumerator : xnumerator;
-            while (xnumerator > 20 && ynumerator > 20)
+            for (let i = 1; xnumerator % ynumerator != 0 && xnumerator < varMax; i++)
             {
-                ynumerator=ynumerator/10;
+                xnumerator = ynumerator * i + 1;
             }
+        }
+        while (xnumerator > varMax && ynumerator > varMax)
+        {
+            ynumerator=ynumerator/10;
         }
         if (varOperator==varOperations[0])
         {
