@@ -71,8 +71,6 @@ function arithmetic ()
 {
     let varDomOptions;
     let varDomOperandRange;
-    let varDomMax;
-    let varDomMin;
     let varDomScore;
     let varDomCanvas;
     let varDomEnabledOperations;
@@ -90,13 +88,11 @@ function arithmetic ()
     const varPrecisions = ['integer','decimal','fraction'];
     let varEnabledPrecisions = varPrecisions;
 
-    let varMax = 100;
-    let varMin = 2;
+    const varRange = [{max:100,min:2},{max:100,min:2}];
     let score = 0;
-    let xnumerator;
-    let xdenominator;
-    let ynumerator;
-    let ydenominator;
+    let varDecimalPrecision = 2;
+    let numerators;
+    let denominators;
     let varOperator;
     let varPrecision;
     let answer;
@@ -110,20 +106,6 @@ function arithmetic ()
         varDomOperandRange = document.createElement("div")
         varDomOperandRange.className="option";
         varDomOperandRange.id = "option-operand-range";
-        varDomText = document.createElement("div");
-        varDomText.innerHTML = "Max:";
-        varDomOperandRange.appendChild(varDomText);
-        varDomMax = document.createElement("input");
-        varDomMax.id = "option-operand-range-max";
-        varDomMax.addEventListener("input", (e)=>{updateMax(e.target.value)});
-        varDomOperandRange.appendChild(varDomMax);
-        varDomMin = document.createElement("input");
-        varDomMin.id = "option-operand-range-min";
-        varDomMin.addEventListener("input", (e)=>{updateMin(e.target.value)});
-        varDomText = document.createElement("div");
-        varDomText.innerHTML = "Min:";
-        varDomOperandRange.appendChild(varDomText);
-        varDomOperandRange.appendChild(varDomMin);
         varDomOptions.appendChild(varDomOperandRange);
 
         let varDomOption = document.createElement("div")
@@ -232,17 +214,42 @@ function arithmetic ()
         varOperator = varEnabledOperations[index];
     }
     function updateOperandRange()  {
-        varDomMax.defaultValue = varMax;
-        varDomMin.defaultValue = varMin;
+        while(varDomOperandRange.firstChild)
+        {
+            varDomOperandRange.removeChild(varDomOperandRange.firstChild);
+        }
+        for (let i = 0; i < varRange.length; i++)
+        {
+            let varDomText = document.createElement("div");
+            varDomText.innerHTML = "Max "+ (i + 1) + ":";
+            varDomOperandRange.appendChild(varDomText);
+            let varDomMax = document.createElement("input");
+            varDomMax.className = "range-input";
+            varDomMax.id = "option-operand-range-max-" + i;
+            varDomMax.addEventListener("input", (e)=>{updateMax(i, e.target.value)});
+            varDomMax.defaultValue = varRange[i].max;
+            varDomMax.style.width = varDomMax.defaultValue.length + 'ch';
+            varDomOperandRange.appendChild(varDomMax);
+            varDomText = document.createElement("div");
+            varDomText.innerHTML = "Min "+ (i + 1) + ":";
+            varDomOperandRange.appendChild(varDomText);
+            let varDomMin = document.createElement("input");
+            varDomMin.className = "range-input";
+            varDomMin.id = "option-operand-range-min-" + i;
+            varDomMin.addEventListener("input", (e)=>{updateMin(i, e.target.value)});
+            varDomMin.defaultValue = varRange[i].min;
+            varDomMin.style.width = varDomMin.defaultValue.length + 'ch';
+            varDomOperandRange.appendChild(varDomMin);
+        }
     }
-    function updateMax(value)
+    function updateMax(index, value)
     {
-        varMax = value > varMin ? value : varMax;
+        varRange[index].max = value > varRange[index].min ? value : varRange[index].max;
         render();
     }
-    function updateMin(value)
+    function updateMin(index, value)
     {
-        varMin = value < varMax ? value : varMin;
+        varRange[index].min = value < varRange[index].max ? value : varRange[index].min;
         render();
     }
     function enablePrecision(index) { varEnabledPrecisions = varPrecisions[index] in varEnabledPrecisions ? varEnabledPrecisions : [...varEnabledPrecisions,varPrecisions[index]]; }
@@ -328,9 +335,14 @@ function arithmetic ()
             varDomCanvas.removeChild(varDomCanvas.firstChild);
         }
         let question = document.createElement("section");
-        //question.innerHTML += "answer" + answer + "----";
-        question.innerHTML += varPrecision == varPrecisions[2] ? xnumerator+'/'+xdenominator+' '+varOperator+' '+ynumerator+'/'+ydenominator
-        :  xnumerator+' '+varOperator+' '+ynumerator;
+        let varQuestionString = ""
+        varQuestionString += "answer:" + answer + "----";
+        for (let i = 0; i < varRange.length; i++)
+        {
+            varQuestionString += varPrecision == varPrecisions[2] ? numerators[i]+'/'+denominators[i]: numerators[i];
+            varQuestionString += i == varRange.length-1 ? '' : ' '+varOperator+' ';
+        }
+        question.innerHTML += varQuestionString;
         varDomCanvas.appendChild(question);
         let input = document.createElement("input");
         input.id = "input-answer";
@@ -341,75 +353,117 @@ function arithmetic ()
     function resetProblem () {
         // console.log(max);
         // console.log(min);
-        xnumerator = Math.random()*(varMax-varMin+1) + varMin;
-        xdenominator = Math.random()*(varMax-varMin+1) + varMin;
-        ynumerator = Math.random()*(varMax-varMin+1) + varMin;
-        ydenominator = Math.random()*(varMax-varMin+1) + varMin;
+        numerators = [];
+        for (let i = 0; i < varRange.length; i++)
+        {
+            numerators.push(Math.random()*(varRange[i].max-varRange[i].min+1) + varRange[i].min);
+        }
+        denominators = [];
+        for (let i = 0; i < varRange.length; i++)
+        {
+            denominators.push(Math.random()*(varRange[i].max-varRange[i].min+1) + varRange[i].min);
+        }
         updateOperator();
         updatePrecision();
         //enforce precision
         if (varPrecision == varPrecisions[2])
         {
-            xnumerator = Math.floor(xnumerator);
-            ynumerator = Math.floor(ynumerator);
-            xdenominator = Math.floor(xdenominator);
-            ydenominator = Math.floor(ydenominator);
+            for (let i = 0; i < numerators.length; i++)
+            {
+                numerators[i] = Math.floor(numerators[i]);
+            }
+            for (let i = 0; i < denominators.length; i++)
+            {
+                denominators[i] = Math.floor(denominators[i]);
+            }
         }
         else if (varPrecision == varPrecisions[1])
         {
             // allow integers
-            let flip = Math.random();
-            xnumerator = flip > .5 ? xnumerator.toFixed(2) : Math.floor(xnumerator);
-            flip = Math.random() * 10;
-            ynumerator = ynumerator.toFixed(2);
-            xdenominator = 1;
-            ydenominator = 1;
+            for (let i = 0; i < numerators.length; i++)
+            {
+                let flip = Math.random();
+                numerators[i] = flip > .5 ? numerators[i].toFixed(varDecimalPrecision) : Math.floor(numerators[i]);
+            }
+            for (let i = 0; i < denominators.length; i++)
+            {
+                denominators[i] = 1;
+            }
         }
         else if (varPrecision == varPrecisions[0])
         {
-            xnumerator = Math.floor(xnumerator);
-            ynumerator = Math.floor(ynumerator);
-            xdenominator = 1;
-            ydenominator = 1;
-            for (let i = 1; xnumerator % ynumerator != 0 && xnumerator < varMax; i++)
+            for (let i = 0; i < numerators.length; i++)
             {
-                xnumerator = ynumerator * i + 1;
+                numerators[i] = Math.floor(numerators[i]);
+            }
+            for (let i = 0; i < denominators.length; i++)
+            {
+                denominators[i] = 1;
+            }
+            // division to get integers
+            for (let i = 0; numerators[0] % numerators[1] != 0 && numerators[0] < varRange[0].max; i++)
+            {
+                numerators[0] = numerators[1] * i + 1;
             }
         }
-        while (xnumerator > varMax && ynumerator > varMax)
+        for (let i = 0; i < numerators.length; i++)
         {
-            ynumerator=ynumerator/10;
+            while (numerators[i] > varRange[i].max)
+            {
+                numerators[i]=numerators[i]/10;
+            }
         }
         //format values based on operation
         if (varOperator == varOperations[3])
         {
-            if (xnumerator < ynumerator)
-            {
-                const tmp = xnumerator;
-                xnumerator = ynumerator;
-                ynumerator = tmp;
-            }
             // ban decimal/decimal
-            xnumerator = Math.floor(xnumerator);
-            ynumerator = Math.floor(ynumerator);
-            xdenominator = Math.floor(xdenominator);
-            ydenominator = Math.floor(ydenominator);
+            for (let i = 0; i < numerators.length; i++)
+            {
+                numerators[i] = Math.floor(numerators[i]);
+            }
+            for (let i = 0; i < denominators.length; i++)
+            {
+                denominators[i] = Math.floor(denominators[i]);
+            }
+            // sort for easier operations
+            if (numerators[0] < numerators[1])
+            {
+                const tmp = numerators[0];
+                numerators[0] = numerators[1];
+                numerators[1] = tmp;
+            }
         }
         if (varOperator==varOperations[0])
         {
-            answer = (xnumerator*ydenominator)+(ynumerator*xdenominator);
+            answer = 0;
+            for (let i = 0; i < varRange.length-1; i+=2)
+            {
+                answer += (numerators[i]*denominators[i+1])+(numerators[i+1]*denominators[i]);
+            }
         }
         else if (varOperator==varOperations[1])
         {
-            answer = (xnumerator*ydenominator)-(ynumerator*xdenominator);
+            answer = 0;
+            for (let i = 0; i < varRange.length-1; i+=2)
+            {
+                answer += (numerators[i]*denominators[i+1])-(numerators[i+1]*denominators[i]);
+            }
         }
         else if (varOperator==varOperations[2])
         {
-            answer = (xnumerator*ydenominator)*(ynumerator*xdenominator);
+            answer = 0;
+            for (let i = 0; i < varRange.length-1; i+=2)
+            {
+                answer += (numerators[i]*denominators[i+1])*(numerators[i+1]*denominators[i]);
+            }
         }
         else if(varOperator==varOperations[3])
         {
-            answer = (xnumerator*ydenominator)/(ynumerator*xdenominator);
+            answer = 0;
+            for (let i = 0; i < varRange.length-1; i+=2)
+            {
+                answer += (numerators[i]*denominators[i+1])/(numerators[i+1]*denominators[i]);
+            }
         }
     }
     return {

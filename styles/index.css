@@ -21,9 +21,14 @@ header {
 }
 
 .option {
+    width: 75%;
     display: inline-flex;
     white-space: nowrap;
     justify-content: space-between;
+}
+
+.range-input {
+    width: fit-content;
 }
 
 main {
