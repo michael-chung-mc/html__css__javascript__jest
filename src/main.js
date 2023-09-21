@@ -22,6 +22,7 @@ function findFactor(argArrayNumbers)
         if (found)
         {
             answer == attempt;
+            break;
         }
     }
     return answer;
@@ -273,11 +274,15 @@ function arithmetic ()
     function updateMax(index, value)
     {
         varRange[index].max = value > varRange[index].min ? value : varRange[index].max;
+        resetScore();
+        varTimer.stop();
         render();
     }
     function updateMin(index, value)
     {
         varRange[index].min = value < varRange[index].max ? value : varRange[index].min;
+        resetScore();
+        varTimer.stop();
         render();
     }
     function enablePrecision(index) { varEnabledPrecisions = varPrecisions[index] in varEnabledPrecisions ? varEnabledPrecisions : [...varEnabledPrecisions,varPrecisions[index]]; }
