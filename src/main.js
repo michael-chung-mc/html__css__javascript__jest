@@ -1,3 +1,31 @@
+function findFactor(argArrayNumbers)
+{
+    //onsole.log(`find-factor`);
+    let answer = 0;
+    let attempt = 1;
+    let found = false;
+    let breakpoint = 0;
+    argArrayNumbers.forEach(num => {breakpoint = Math.max(num,breakpoint);});
+    //console.log(`find-factor: ${breakpoint}`);
+    while (attempt < breakpoint)
+    {
+        attempt+=1;
+        found = true;
+        //console.log(`find-factor: ${attempt}`);
+        argArrayNumbers.forEach(num =>
+        {
+            if (num%attempt!=0)
+            {
+                found = false;
+            }
+        })
+        if (found)
+        {
+            answer == attempt;
+        }
+    }
+    return answer;
+}
 function ticker ()
 {
     let varDom;
@@ -400,11 +428,6 @@ function arithmetic ()
             {
                 denominators[i] = 1;
             }
-            // division to get integers
-            for (let i = 0; numerators[0] % numerators[1] != 0 && numerators[0] < varRange[0].max; i++)
-            {
-                numerators[0] = numerators[1] * i + 1;
-            }
         }
         for (let i = 0; i < numerators.length; i++)
         {
@@ -416,6 +439,7 @@ function arithmetic ()
         //format values based on operation
         if (varOperator == varOperations[3])
         {
+            //console.log(`division`);
             // ban decimal/decimal
             for (let i = 0; i < numerators.length; i++)
             {
@@ -424,6 +448,14 @@ function arithmetic ()
             for (let i = 0; i < denominators.length; i++)
             {
                 denominators[i] = Math.floor(denominators[i]);
+            }
+            //console.log(`division banned decimal/decimal`);
+            // easy division to get integers
+            let factor = findFactor(numerators);
+            factor = factor == 0 && numerators[0] < numerators[1] ? numerators[0] : numerators[1];
+            for (let i = 0; i < numerators.length; i++)
+            {
+                numerators[i] = numerators[i] - numerators[i] % factor;
             }
             // sort for easier operations
             if (numerators[0] < numerators[1])
