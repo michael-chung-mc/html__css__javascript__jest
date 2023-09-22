@@ -25,6 +25,9 @@ header {
     margin:0;
 }
 
+.tab {
+    border-style: solid;
+}
 
 .option {
     width: 75%;
