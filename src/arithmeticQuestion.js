@@ -340,8 +340,9 @@ function arithmetic ()
         {
             while (numerators[i] > varRange[i].max)
             {
-                numerators[i]=numerators[i]/10;
+                numerators[i]=numerators[i]/varRange[i].min;
             }
+            if (numerators[i] < varRange[i].min) {numerators[i] = varRange[i].min;}
         }
         //format values based on operation
         if (varOperator == varOperations[3])
