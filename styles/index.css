@@ -14,11 +14,17 @@ header {
     grid-column:2;
 }
 
+.problem-tabs {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .problem-options {
     display: grid;
     justify-content: center;
     margin:0;
 }
+
 
 .option {
     width: 75%;
