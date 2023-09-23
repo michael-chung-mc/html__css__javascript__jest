@@ -35,12 +35,12 @@ function arithmetic ()
 
         let varDomText = document.createElement("div");
         varDomOperandRange = document.createElement("div")
-        varDomOperandRange.className="option";
+        varDomOperandRange.classList.add("option");
         varDomOperandRange.id = "option-operand-range";
         varDomOptions.appendChild(varDomOperandRange);
 
         let varDomOption = document.createElement("div")
-        varDomOption.className="option";
+        varDomOption.classList.add("option");
         varDomText = document.createElement("div");
         varDomText.innerHTML = "Enabled:";
         varDomOption.appendChild(varDomText);
@@ -56,7 +56,7 @@ function arithmetic ()
         varDomOptions.appendChild(varDomOption);
 
         varDomOption = document.createElement("div")
-        varDomOption.className="option";
+        varDomOption.classList.add("option");
         varDomText = document.createElement("div");
         varDomText.innerHTML = "Enabled:";
         varDomOption.appendChild(varDomText);
@@ -73,7 +73,7 @@ function arithmetic ()
 
         
         varDomOption = document.createElement("div")
-        varDomOption.className="option";
+        varDomOption.classList.add("option");
         varDomText = document.createElement("div");
         varDomText.innerHTML = "Time Limit:";
         varDomOption.appendChild(varDomText);

@@ -13,7 +13,7 @@ function ticker ()
         varDoubleInterval = argTimerInterval;
         varDom = argDom;
         varTick = 0;
-        if (varDom) varDom.innerHTML = 0;
+        render();
     }
     function tick() {
         //console.log(`tick ${varTick}`);
@@ -29,7 +29,7 @@ function ticker ()
         else
         {
             varTick +=1;
-            if (varDom) varDom.innerHTML = varDoubleLimit - varTick;
+            render();
             varDateTimeNowExpected += varDoubleInterval;
             if (varTimeout) { clearTimeout(varTimeout); }
             varTimeout = setTimeout(tick,Math.max(0,varDoubleInterval-varDoubleDelta));
@@ -45,18 +45,24 @@ function ticker ()
         if (varTimeout) { clearTimeout(varTimeout); }
         varTimeout = setTimeout(tick,varDoubleInterval);
         varTick = 0;
-        if (varDom) varDom.innerHTML = varDoubleLimit - varTick;
+        render();
     }
     function stop()
     {
         //console.log(`stop ${varTick}`);
         if (varTimeout) { clearTimeout(varTimeout); }
         varTick = 0;
-        if (varDom) varDom.innerHTML = varTick;
+        render();
     }
     function getTick()
     {
         return varTick;
+    }
+    function render()
+    {
+        if (varDom) {
+            varDom.innerHTML = varDoubleLimit ? `time: ${varDoubleLimit - varTick}` : `time: not set`;
+        }
     }
     return {
         varTick,

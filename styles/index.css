@@ -24,9 +24,10 @@ header {
     grid-template-columns: 1fr 1fr;
 }
 
-.problem-options {
+#problem-options {
     display: grid;
     justify-content: center;
+    align-items: center;
     margin:0;
 }
 
@@ -66,4 +67,13 @@ main {
 {
     position: relative;
     grid-row: 2;
+    max-height:100%;
+    max-width:100%;
+    justify-content:center;
+    align-items:center;
+}
+
+.column
+{
+    display: flex;
 }

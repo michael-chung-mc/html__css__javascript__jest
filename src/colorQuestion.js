@@ -1,165 +1,186 @@
 function color () {
-    const button = document.querySelector('button');
-    const grid = document.querySelector('.grid');
+    //const button = document.querySelector('button');
+    let varDomCanvas;
+    let varDomGrid;
     
-    const sizeDefault = 16;
-    const sizeMax = 101;
-    const sizeMin = 20;
+    let varGrid;
+    let varRows = 8;
+    let varColumns = 8;
+    // const sizeDefault = 16;
+    // const sizeMax = 101;
+    // const sizeMin = 20;
 
-    let cellHeight = 8;
-    let cellWidth = 8;
-    let cellShadeOption = 0; // 0 = bw && 1 = color && 2 = opacity
+    let varCellHeight = 64;
+    let varCellWidth = 64;
+    let varDefaultCellColor = "rgb(0,0,0)";
+    // let cellShadeOption = 0; // 0 = bw && 1 = color && 2 = opacity
 
-    function synchGridRowDimensions () {
-        const grid = document.getElementsByClassName('grid')[0];
-        const rows = document.getElementsByClassName('row');
-        const rowWidth = grid.offsetWidth;
-        console.log(`${rowWidth} width`);
-        cellHeight = rowWidth/rows.length;
-        cellWidth = rowWidth/rows.length;
-        console.log(`${cellHeight} height`);
+    function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
+        varDomCanvas = argDomCanvas;
+
+        varDomGrid = document.createElement("section");
+        varDomCanvas.appendChild(varDomGrid);
+
+        setGrid();
+        render();
     }
-    
-    function setGrid (rows, columns) {
-        for (let i = 0; i < rows; i++)
+    function setGrid () {
+        varGrid = [];
+        for (let i = 0; i < varRows; i++)
         {
-            var row = document.createElement("div")
-            row.classList.add('row');
-            grid.append(row);
-            for (let j = 0; j < columns; j++)
+            varGrid.push([]);
+            for (let j = 0; j < varColumns; j++)
             {
-                let box = document.createElement("div");
-                box.classList.add('square');
-                box.addEventListener('mouseover', (event) => {shadeCell(event)});
-                row.append(box);
+                varGrid[i].push(varDefaultCellColor);
             }
         }
-        resizeGrid();
+        setGridDimensions();
     }
-    
-    function shadeCell (event) {
-        let cell = event.target;
-        const currentColor = cell.style.backgroundColor;
-        if (cellShadeOption == 0) {
-            if (currentColor != "black")
-            {
-                cell.style.backgroundColor = `rgba(0,0,0, 1.0)`;
-                console.log(`${cell.style.opacity}`);
-            }
-        }
-        else if (cellShadeOption == 1) {
-            const randomRed = Math.floor(Math.random() * (256));
-            const randomBlue = Math.floor(Math.random() * (256));
-            const randomGreen = Math.floor(Math.random() * (256));
-            cell.style.backgroundColor = `rgba(${randomRed},${randomBlue},${randomGreen}, 1.0)`;
-            console.log(`${cell.style.opacity}`);
-        }
-        else if (cellShadeOption == 2) {
-            console.log("base");
-            console.log(`${cell.style.backgroundColor}`);
-            console.log(`${cell.style.opacity}`);
-            cell.style.opacity = parseFloat(cell.style.opacity) + 0.1;
-            console.log("set");
-            console.log(`${cell.style.backgroundColor}`);
-            console.log(`${cell.style.opacity}`);
-        }
-        else {
-            console.log("ShadeCell: Unsupported cell shade option")
-        }
+    function setGridDimensions () {
+        let varWidth = varDomCanvas.getOffsetWidth;
+        varWidth = varWidth == NaN || varWidth == undefined ? varCellWidth * varRows : varWidth;
+        let varHeight = varDomCanvas.getOffsetHeight;
+        varHeight = varHeight == NaN || varHeight == undefined ? varCellHeight * varRows : varHeight;
+        //console.log(`row width:${varWidth} height:${varHeight}`);
+        varCellHeight = parseInt(varHeight/varColumns);
+        varCellWidth = parseInt(varWidth/varRows);
+        //console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
     }
-    
-    function initializeOpacity () {
-        let rows = grid.children;
-        for (let i = 0; i < rows.length; i++)
+    function render () {
+        while(varDomGrid.firstChild) {
+            varDomGrid.removeChild(varDomGrid.firstChild);
+        }
+        renderGrid();
+    }
+    function renderGrid ()
+    {
+        for (let i = 0; i < varRows; i++)
         {
-            let cells = rows[i].children;
-            for (let j = 0; j < cells.length; j++)
+            let varDomColumn = document.createElement("div");
+            varDomColumn.classList.add('column');
+            varDomColumn.style.width = `${varCellWidth}px`;
+            for (let j = 0; j < varColumns; j++)
             {
-                cells[j].style.backgroundColor = `rgb(0,0,0)`;
-                cells[j].style.opacity = 0.0;
+                let varDomCell = document.createElement("div");
+                varDomCell.classList.add('square');
+                varDomCell.style.color = varGrid[i][j];
+                varDomCell.style.height = `${varCellHeight}px`;
+                varDomCell.style.width = `${varCellWidth}px`;
+                //box.addEventListener('mouseover', (event) => {shadeCell(event)});
+                varDomColumn.append(varDomCell);
             }
+            varDomGrid.append(varDomColumn);
         }
     }
-    
-    function maximizeOpacity () {
-        let rows = grid.children;
-        for (let i = 0; i < rows.length; i++)
-        {
-            let cells = rows[i].children;
-            for (let j = 0; j < cells.length; j++)
-            {
-                cells[j].style.backgroundColor = `rgb(255,255,255)`;
-                cells[j].style.opacity = 1.0;
-            }
-        }
+    return {
+        init,
     }
+
+
     
-    function clearGrid () {
-        while(grid.firstChild) {
-            grid.removeChild(grid.firstChild);
-        }
-    }
+    // function shadeCell (event) {
+    //     let cell = event.target;
+    //     const currentColor = cell.style.backgroundColor;
+    //     if (cellShadeOption == 0) {
+    //         if (currentColor != "black")
+    //         {
+    //             cell.style.backgroundColor = `rgba(0,0,0, 1.0)`;
+    //             console.log(`${cell.style.opacity}`);
+    //         }
+    //     }
+    //     else if (cellShadeOption == 1) {
+    //         const randomRed = Math.floor(Math.random() * (256));
+    //         const randomBlue = Math.floor(Math.random() * (256));
+    //         const randomGreen = Math.floor(Math.random() * (256));
+    //         cell.style.backgroundColor = `rgba(${randomRed},${randomBlue},${randomGreen}, 1.0)`;
+    //         console.log(`${cell.style.opacity}`);
+    //     }
+    //     else if (cellShadeOption == 2) {
+    //         console.log("base");
+    //         console.log(`${cell.style.backgroundColor}`);
+    //         console.log(`${cell.style.opacity}`);
+    //         cell.style.opacity = parseFloat(cell.style.opacity) + 0.1;
+    //         console.log("set");
+    //         console.log(`${cell.style.backgroundColor}`);
+    //         console.log(`${cell.style.opacity}`);
+    //     }
+    //     else {
+    //         console.log("ShadeCell: Unsupported cell shade option")
+    //     }
+    // }
     
-    function resizeGrid () {
-        synchGridRowDimensions();
-        let rows = grid.children;
-        for (let i = 0; i < rows.length; i++)
-        {
-            let row = rows[i];
-            row.style.height = `${cellHeight}px`;
-            //console.log(`${row.style.height}`);
-            let cells = row.children;
-            for (let j = 0; j < cells.length; j++)
-            {
-                cells[j].style.width = `${cellWidth}px`;
-            }
-        }
-    }
+    // function initializeOpacity () {
+    //     let rows = grid.children;
+    //     for (let i = 0; i < rows.length; i++)
+    //     {
+    //         let cells = rows[i].children;
+    //         for (let j = 0; j < cells.length; j++)
+    //         {
+    //             cells[j].style.backgroundColor = `rgb(0,0,0)`;
+    //             cells[j].style.opacity = 0.0;
+    //         }
+    //     }
+    // }
     
-    //default grid
-    setGrid(sizeDefault,sizeDefault);
-    //display size
-    document.getElementById("boardSizeDisplay").innerHTML=`${sizeDefault} x ${sizeDefault}`;
-    //dynamically adjust grid size
-    window.addEventListener('resize', function(event) { 
-        resizeGrid();
-    });
+    // function maximizeOpacity () {
+    //     let rows = grid.children;
+    //     for (let i = 0; i < rows.length; i++)
+    //     {
+    //         let cells = rows[i].children;
+    //         for (let j = 0; j < cells.length; j++)
+    //         {
+    //             cells[j].style.backgroundColor = `rgb(255,255,255)`;
+    //             cells[j].style.opacity = 1.0;
+    //         }
+    //     }
+    // }
     
-    //let button resize and clear grid
-    const resizeButton = document.getElementById('resizeButton');
-    resizeButton.addEventListener('click', function(event) {
-        let cellCount = prompt('Number of squares for new grid?')
-        // handle improper
-        if (cellCount > sizeMin && cellCount < sizeMax)
-        {
-            clearGrid();
-            setGrid(cellCount, cellCount);
-            if (cellShadeOption == 2)
-            {
-                initializeOpacity();
-            }
-            else
-            {
-                maximizeOpacity();
-            }
-            //display size
-            document.getElementById("boardSizeDisplay").innerHTML=`${cellCount} x ${cellCount}`;
-        }
-    });
-    //color button options
-    const bwButton = document.getElementById('buttonBW');
-    bwButton.addEventListener('click',function(event){
-        cellShadeOption = 0;
-        maximizeOpacity ();
-    });
-    const rgbButton = document.getElementById('buttonRandomColor');
-    rgbButton.addEventListener('click',function(event){
-        cellShadeOption = 1;
-        maximizeOpacity ();
-    });
-    const opacityButton = document.getElementById('buttonOpacity');
-    opacityButton.addEventListener('click',function(event){
-        cellShadeOption = 2;
-        initializeOpacity ();
-    });
+    
+    
+    // //default grid
+    // setGrid(sizeDefault,sizeDefault);
+    // //display size
+    // document.getElementById("boardSizeDisplay").innerHTML=`${sizeDefault} x ${sizeDefault}`;
+    // //dynamically adjust grid size
+    // window.addEventListener('resize', function(event) { 
+    //     resizeGrid();
+    // });
+    
+    // //let button resize and clear grid
+    // const resizeButton = document.getElementById('resizeButton');
+    // resizeButton.addEventListener('click', function(event) {
+    //     let cellCount = prompt('Number of squares for new grid?')
+    //     // handle improper
+    //     if (cellCount > sizeMin && cellCount < sizeMax)
+    //     {
+    //         clearGrid();
+    //         setGrid(cellCount, cellCount);
+    //         if (cellShadeOption == 2)
+    //         {
+    //             initializeOpacity();
+    //         }
+    //         else
+    //         {
+    //             maximizeOpacity();
+    //         }
+    //         //display size
+    //         document.getElementById("boardSizeDisplay").innerHTML=`${cellCount} x ${cellCount}`;
+    //     }
+    // });
+    // //color button options
+    // const bwButton = document.getElementById('buttonBW');
+    // bwButton.addEventListener('click',function(event){
+    //     cellShadeOption = 0;
+    //     maximizeOpacity ();
+    // });
+    // const rgbButton = document.getElementById('buttonRandomColor');
+    // rgbButton.addEventListener('click',function(event){
+    //     cellShadeOption = 1;
+    //     maximizeOpacity ();
+    // });
+    // const opacityButton = document.getElementById('buttonOpacity');
+    // opacityButton.addEventListener('click',function(event){
+    //     cellShadeOption = 2;
+    //     initializeOpacity ();
+    // });
 }

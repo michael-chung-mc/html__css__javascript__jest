@@ -4,7 +4,7 @@ function main () {
 
     let varDomCanvas = document.getElementById("problem-canvas");
     let varDomScore = document.getElementById("problem-score");
-    let varDomOptions = document.getElementById("arithmetic-options");
+    let varDomOptions = document.getElementById("problem-options");
     let varDomTimer = document.getElementById("problem-timer");
     let varDomProblemArithmetic = document.getElementById("arithmetic-tab");
     varDomProblemArithmetic.addEventListener("click", () => {mode = modes[0]; render();} );
@@ -22,7 +22,7 @@ function main () {
         }
         else if (mode == modes[1])
         {
-            console.log("color");
+            color().init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
         }
     }
 }
