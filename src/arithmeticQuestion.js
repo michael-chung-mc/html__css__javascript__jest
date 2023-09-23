@@ -241,13 +241,13 @@ function arithmetic ()
     function checkAnswer (e)
     {
         let guess = e.target.value;
-        console.log(guess);
+        //console.log(guess);
         if (guess.match(/\d*\.?\d*\/\d*\.?\d*/))
         {
             let split = guess.split("\/");
             guess = parseFloat(split[0])/parseFloat(split[1]);
         }
-        console.log(guess);
+        //console.log(guess);
         if (Math.abs(guess-answer)<.0001)
         {
             if (varTimer.getTick() === 0)
