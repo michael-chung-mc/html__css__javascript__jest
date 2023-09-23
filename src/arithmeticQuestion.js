@@ -90,15 +90,7 @@ function arithmetic ()
         render();
     }
     function enableOperation(index) { varEnabledOperations = varOperations[index] in varEnabledOperations ? varEnabledOperations : [...varEnabledOperations,varOperations[index]]; }
-    function enableAddition() { enableOperation(0); }
-    function enableSubtraction() { enableOperation(1); }
-    function enableMultiplication() { enableOperation(2); }
-    function enableDivision() { enableOperation(3); }
     function disableOperation(index) { varEnabledOperations = varEnabledOperations.length > 1 ? varEnabledOperations.filter((i)=>i!==varOperations[index]) : varEnabledOperations ;}
-    function disableAddition() { disableOperation(0); }
-    function disableSubtraction() { disableOperation(1); }
-    function disableMultiplication() { disableOperation(2); }
-    function disableDivision() { disableOperation(3); }
     function updateOperations() {
         while(varDomEnabledOperations.firstChild)
         {
@@ -248,7 +240,15 @@ function arithmetic ()
     }
     function checkAnswer (e)
     {
-        if (Math.abs(e.target.value-answer)<.0001)
+        let guess = e.target.value;
+        console.log(guess);
+        if (guess.match(/\d*\.?\d*\/\d*\.?\d*/))
+        {
+            let split = guess.split("\/");
+            guess = parseFloat(split[0])/parseFloat(split[1]);
+        }
+        console.log(guess);
+        if (Math.abs(guess-answer)<.0001)
         {
             if (varTimer.getTick() === 0)
             {
