@@ -1,4 +1,4 @@
-# app__brain_games
+# app__brain_stretches
 <a name="readme-top"></a>
 <details>
     <summary>Table of Contents</summary>
