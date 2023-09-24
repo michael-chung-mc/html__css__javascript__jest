@@ -57,7 +57,7 @@ function colorPickQuestion () {
         varDomInput.id = "input-answer";
         varDomInput.addEventListener("input",(e)=>{checkAnswer(e.target.value)});
         varDomCanvas.appendChild(varDomInput);
-        if ((varTimer.getTick()==0 && varScore == 1) || varTimer.getTick()!==0) input.focus();
+        if ((varTimer.getTick()==0 && varScore == 1) || varTimer.getTick()!==0) varDomInput.focus();
     }
     function checkAnswer(value)
     {
