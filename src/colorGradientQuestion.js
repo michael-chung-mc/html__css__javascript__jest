@@ -56,6 +56,11 @@ function colorGradientQuestion () {
         setGrid();
         shuffleGrid();
 
+        window.onresize = () => {
+            setGridDimensions();
+            render();
+        }
+
         render();
     }
     function updateTimerLimit(value)
@@ -86,18 +91,18 @@ function colorGradientQuestion () {
         }
     }
     function setGridDimensions () {
-        varDomCanvas = document.getElementById(varDomCanvas.id);
+        //varDomCanvas = document.getElementById(varDomCanvas.id);
         varDomRect = varDomCanvas.getBoundingClientRect();
-        //console.log(varDomCanvas);
-        varWidth = varDomRect.width;
+        console.log(`dom width:${varDomRect.width} dom height:${varDomRect.height}`);
+        varWidth = Math.min(varDomRect.width, window.innerWidth);
         varWidth = varWidth == NaN || varWidth == undefined ? varCellWidth * varRows : varWidth;
-        varHeight = varDomRect.height;
+        varHeight = Math.min(varDomRect.height, window.innerHeight);
         varHeight = varHeight == NaN || varHeight == undefined ? varCellHeight * varRows : varHeight;
         let varSquare = Math.min(varWidth, varHeight);
-        //console.log(`row width:${varWidth} height:${varHeight}`);
-        varCellHeight = parseInt(varSquare/varColumns);
-        varCellWidth = parseInt(varSquare/varRows);
-        //console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
+        console.log(`row width:${varWidth} height:${varHeight}`);
+        varCellWidth = parseInt(varSquare/varColumns);
+        varCellHeight = parseInt(varSquare/varRows);
+        console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
     }
     function setGridColor () {
         let n = varRows * varColumns;
@@ -158,6 +163,7 @@ function colorGradientQuestion () {
         {
             let varDomRow = document.createElement("div");
             varDomRow.classList.add('row');
+            varDomRow.style.width = `${varWidth}px`;
             varDomRow.style.height = `${varCellHeight}px`;
             for (let j = 0; j < varColumns; j++)
             {
