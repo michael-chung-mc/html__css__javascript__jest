@@ -25,6 +25,8 @@ function colorQuestion () {
 
     let varCellPicked = {x:null,y:null,color:null};
 
+    let varScore;
+
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
         varDomOptions = argDomOptions;
@@ -73,7 +75,15 @@ function colorQuestion () {
         }
         setGridDimensions();
         setGridColor();
-        varAnswerGrid = varGrid;
+        varAnswerGrid = [];
+        for (let i = 0; i < varRows; i++)
+        {
+            varAnswerGrid.push([]);
+            for (let j = 0; j < varColumns; j++)
+            {
+                varAnswerGrid[i][j] = varGrid[i][j];
+            }
+        }
     }
     function setGridDimensions () {
         varDomCanvas = document.getElementById(varDomCanvas.id);
@@ -212,9 +222,28 @@ function colorQuestion () {
             {
                 varTimer.start(varTimerLimit);
             }
+            updateScore();
         } else {
             varCellPicked = {x:x, y:y, color:varGrid[x][y]};
             //console.log(varCellPicked);
+        }
+    }
+    function resetScore() {
+        varScore = 0;
+    }
+    function updateScore() {
+        checkScore();
+        varDomScore.innerHTML = "score:" + varScore;
+    }
+    function checkScore () {
+        resetScore();
+        for (let i = 0; i < varRows; i++)
+        {
+            for (let j = 0; j < varColumns; j++)
+            {
+                varScore += varGrid[i][j] === varAnswerGrid[i][j] ? 1 : 0;
+                console.log(`${varGrid[i][j]} == ${varAnswerGrid[i][j]}`);
+            }
         }
     }
     function stop ()
