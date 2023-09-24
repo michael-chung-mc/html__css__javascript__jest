@@ -1,4 +1,4 @@
-function color () {
+function colorQuestion () {
     //const button = document.querySelector('button');
     let varDomCanvas;
     let varDomGrid;
@@ -14,8 +14,10 @@ function color () {
 
     let varCellHeight = 64;
     let varCellWidth = 64;
-    let varDefaultCellColor = "rgb(0,0,0)";
-    // let cellShadeOption = 0; // 0 = bw && 1 = color && 2 = opacity
+
+    let varColorDefault = "rgb(0,0,0)";
+    let varColorStart = {red:255,green:255,blue:255};
+    let varColorEnd = {red:0,green:0,blue:0};
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
@@ -34,10 +36,11 @@ function color () {
             varGrid.push([]);
             for (let j = 0; j < varColumns; j++)
             {
-                varGrid[i].push(varDefaultCellColor);
+                varGrid[i].push(varColorDefault);
             }
         }
         setGridDimensions();
+        setGridColor();
     }
     function setGridDimensions () {
         varDomCanvas = document.getElementById(varDomCanvas.id);
@@ -52,6 +55,26 @@ function color () {
         varCellHeight = parseInt(varSquare/varColumns);
         varCellWidth = parseInt(varSquare/varRows);
         console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
+    }
+    function setGridColor () {
+        let n = varRows * varColumns;
+        let c = color();
+        for (let i = 0; i < varRows; i++)
+        {
+            for (let j = 0; j < varColumns; j++)
+            {
+                let shade = c.gradient(varColorStart,varColorEnd,(i*varRows+j)/n)
+                console.log((i*varRows+j)/n);
+                setCell(i,j,`rgb(${shade.r},${shade.g},${shade.b})`);
+                console.log(`rgb(${shade.r},${shade.g},${shade.b})`);
+            }
+        }
+    }
+    function setCell (x,y,color) {
+        if (x >= 0 && x < varRows && y >= 0 && y < varColumns)
+        {
+            varGrid[x][y] = color;
+        }
     }
     function render () {
         while(varDomGrid.firstChild) {
@@ -88,8 +111,23 @@ function color () {
         init,
         stop,
     }
-
-
+}
+function color ()
+{
+    function gradient(startRGB, endRGB, step)
+    {
+        let r = endRGB.red - startRGB.red;
+        let g = endRGB.green - startRGB.green;
+        let b = endRGB.blue - startRGB.blue;
+        r = (r * step) + startRGB.red;
+        g = (g * step) + startRGB.green;
+        b = (b * step) + startRGB.blue;
+        return {r,g,b};
+    }
+    return {
+        gradient,
+    }
+}
     
     // function shadeCell (event) {
     //     let cell = event.target;
@@ -196,4 +234,3 @@ function color () {
     //     cellShadeOption = 2;
     //     initializeOpacity ();
     // });
-}

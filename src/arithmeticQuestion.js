@@ -1,4 +1,4 @@
-function arithmetic ()
+function arithmeticQuestion ()
 {
     let varDomOptions;
     let varDomOperandRange;

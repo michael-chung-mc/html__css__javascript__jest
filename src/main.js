@@ -22,12 +22,12 @@ function main () {
         while (varDomTimer.firstChild) { varDomTimer.removeChild(varDomTimer.firstChild); }
         if (mode == modes[0])
         {
-            activeQuestion = arithmetic();
+            activeQuestion = arithmeticQuestion();
             activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
         }
         else if (mode == modes[1])
         {
-            activeQuestion = color();
+            activeQuestion = colorQuestion();
             activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
         }
     }
