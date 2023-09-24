@@ -15,6 +15,7 @@ function colorQuestion () {
     let varColorDefault = "rgb(0,0,0)";
     let varColorStart = {red:255,green:255,blue:255};
     let varColorEnd = {red:0,green:0,blue:0};
+    let varColorPicked;
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
@@ -74,6 +75,11 @@ function colorQuestion () {
             varGrid[x][y] = color;
         }
     }
+    function swapCellColor (startX, startY, targetX,targetY) {
+        let varToSwap = varGrid[startX][startY];
+        setCellColorRGB(startX,startY,varGrid[targetX][targetY]);
+        setCellColorRGB(targetX,targetY,varToSwap);
+    }
     function shuffleGrid ()
     {
         for (let i = 0; i < varRows; i++)
@@ -88,10 +94,8 @@ function colorQuestion () {
                     targetX = targetX >= varRows ? 0 : targetX;
                     let targetY = parseInt(Math.random() * varColumns);
                     targetY = targetY >= varColumns ? 0 : targetY;
-                    console.log(`${i},${j} to ${targetX},${targetY}`)
-                    let varToSwap = varGrid[i][j];
-                    setCellColorRGB(i,j,varGrid[targetX][targetY]);
-                    setCellColorRGB(targetX,targetY,varToSwap);
+                    //console.log(`${i},${j} to ${targetX},${targetY}`)
+                    swapCellColor (i,j,targetX,targetY);
                 }
             }
         }
@@ -116,12 +120,17 @@ function colorQuestion () {
                 varDomCell.style.backgroundColor = varGrid[i][j];
                 varDomCell.style.height = `${varCellHeight}px`;
                 varDomCell.style.width = `${varCellWidth}px`;
-                //box.addEventListener('mouseover', (event) => {shadeCell(event)});
+                varDomCell.addEventListener('click', () => {pickCell(i,j)});
                 varDomRow.append(varDomCell);
             }
             varDomRow.style.gridTemplateColumns="1fr autofit";
             varDomGrid.append(varDomRow);
         }
+    }
+    function pickCell(x,y)
+    {
+        varColorPicked = varGrid[x][y];
+        console.log(varColorPicked);
     }
     function stop ()
     {
