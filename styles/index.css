@@ -73,7 +73,20 @@ main {
     align-items:center;
 }
 
-.column
-{
+.grid {
     display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width:75vw;
+    height:75vw;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    margin: 0px;
+    min-width: 8px;
+    min-height: 8px;
 }

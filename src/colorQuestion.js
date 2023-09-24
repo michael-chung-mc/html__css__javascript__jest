@@ -21,6 +21,7 @@ function color () {
         varDomCanvas = argDomCanvas;
 
         varDomGrid = document.createElement("section");
+        varDomGrid.classList.add("grid");
         varDomCanvas.appendChild(varDomGrid);
 
         setGrid();
@@ -43,9 +44,10 @@ function color () {
         varWidth = varWidth == NaN || varWidth == undefined ? varCellWidth * varRows : varWidth;
         varHeight = varDomCanvas.getOffsetHeight;
         varHeight = varHeight == NaN || varHeight == undefined ? varCellHeight * varRows : varHeight;
+        let varSquare = Math.min(varWidth, varHeight);
         //console.log(`row width:${varWidth} height:${varHeight}`);
-        varCellHeight = parseInt(varHeight/varColumns);
-        varCellWidth = parseInt(varWidth/varRows);
+        varCellHeight = parseInt(varSquare/varColumns);
+        varCellWidth = parseInt(varSquare/varRows);
         //console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
     }
     function render () {
@@ -65,7 +67,7 @@ function color () {
             {
                 let varDomCell = document.createElement("div");
                 varDomCell.classList.add('cell');
-                varDomCell.style.color = varGrid[i][j];
+                varDomCell.style.backgroundColor = varGrid[i][j];
                 varDomCell.style.height = `${varCellHeight}px`;
                 varDomCell.style.width = `${varCellWidth}px`;
                 //box.addEventListener('mouseover', (event) => {shadeCell(event)});
@@ -77,7 +79,7 @@ function color () {
     }
     function stop ()
     {
-        
+
     }
     return {
         init,
