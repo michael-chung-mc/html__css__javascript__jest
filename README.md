@@ -81,6 +81,15 @@ No installation or signup required brain stretching exercises
 </summary>Color Hue Matching</summary>
 <details>
 
+- [x] Color Pick Test
+- [x] Timer
+    - [x] Timer Limit Modification
+- [ ] Scoring
+</details>
+
+</summary>Color Hue Puzzles</summary>
+<details>
+
 - [x] Color Grid Creation
     - [x] Hue Shuffling
 - [x] Hue Range Manipulation
@@ -88,6 +97,7 @@ No installation or signup required brain stretching exercises
     - [x] Timer Limit Modification
 - [x] Scoring
 </details>
+
 
 ## Usage
 

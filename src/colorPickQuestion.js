@@ -10,7 +10,7 @@ function colorPickQuestion () {
 
     let varColor = {red:0,green:0,blue:0};
 
-    let varScore;
+    let varScore = 0;
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
