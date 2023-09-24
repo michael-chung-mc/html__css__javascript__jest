@@ -15,7 +15,8 @@ function colorQuestion () {
     let varColorDefault = "rgb(0,0,0)";
     let varColorStart = {red:255,green:255,blue:255};
     let varColorEnd = {red:0,green:0,blue:0};
-    let varColorPicked;
+
+    let varCellPicked = {x:null,y:null,color:null};
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
@@ -79,6 +80,7 @@ function colorQuestion () {
         let varToSwap = varGrid[startX][startY];
         setCellColorRGB(startX,startY,varGrid[targetX][targetY]);
         setCellColorRGB(targetX,targetY,varToSwap);
+        render();
     }
     function shuffleGrid ()
     {
@@ -129,8 +131,16 @@ function colorQuestion () {
     }
     function pickCell(x,y)
     {
-        varColorPicked = varGrid[x][y];
-        console.log(varColorPicked);
+        if (varCellPicked.x!=null && varCellPicked.y!=null
+            && (varCellPicked.x != x || varCellPicked.y !=y))
+        {
+            swapCellColor(varCellPicked.x,varCellPicked.y,x,y);
+            varCellPicked = {x:null,y:null,color:null};
+            console.log(`pick cell swapped`);
+        } else {
+            varCellPicked = {x:x, y:y, color:varGrid[x][y]};
+            console.log(varCellPicked);
+        }
     }
     function stop ()
     {
