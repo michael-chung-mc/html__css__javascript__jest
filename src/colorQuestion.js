@@ -40,15 +40,18 @@ function color () {
         setGridDimensions();
     }
     function setGridDimensions () {
-        varWidth = varDomCanvas.getOffsetWidth;
+        varDomCanvas = document.getElementById(varDomCanvas.id);
+        varDomRect = varDomCanvas.getBoundingClientRect();
+        console.log(varDomCanvas);
+        varWidth = varDomRect.width;
         varWidth = varWidth == NaN || varWidth == undefined ? varCellWidth * varRows : varWidth;
-        varHeight = varDomCanvas.getOffsetHeight;
+        varHeight = varDomRect.height;
         varHeight = varHeight == NaN || varHeight == undefined ? varCellHeight * varRows : varHeight;
         let varSquare = Math.min(varWidth, varHeight);
-        //console.log(`row width:${varWidth} height:${varHeight}`);
+        console.log(`row width:${varWidth} height:${varHeight}`);
         varCellHeight = parseInt(varSquare/varColumns);
         varCellWidth = parseInt(varSquare/varRows);
-        //console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
+        console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
     }
     function render () {
         while(varDomGrid.firstChild) {
