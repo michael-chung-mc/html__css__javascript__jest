@@ -2,8 +2,9 @@ function colorQuestion () {
     let varDomCanvas;
     let varDomOptions;
     let varDomScore;
-    let varDomGrid;
     let varDomTimerLimit;
+    let varDomGrid;
+    let varDomColorRange;
 
     let varTimer;
     let varTimerIncrement = 1000;
@@ -20,8 +21,7 @@ function colorQuestion () {
     let varCellWidth = 64;
 
     let varColorDefault = "rgb(0,0,0)";
-    let varColorStart = {red:255,green:255,blue:255};
-    let varColorEnd = {red:0,green:0,blue:0};
+    let varColorRange = [{red:255,green:255,blue:255},{red:0,green:0,blue:0}];
 
     let varCellPicked = {x:null,y:null,color:null};
 
@@ -29,6 +29,10 @@ function colorQuestion () {
         varDomCanvas = argDomCanvas;
         varDomOptions = argDomOptions;
         varDomScore = argDomScoreBoard;
+
+        varDomColorRange = document.createElement("div");
+        varDomColorRange.id = "option-color-range";
+        varDomOptions.appendChild(varDomColorRange);
 
         let varDomOption = document.createElement("div")
         varDomOption.classList.add("option");
@@ -92,7 +96,7 @@ function colorQuestion () {
         {
             for (let j = 0; j < varColumns; j++)
             {
-                let shade = c.gradient(varColorStart,varColorEnd,(i*varRows+j)/n)
+                let shade = c.gradient(varColorRange[0],varColorRange[1],(i*varRows+j)/n)
                 //console.log((i*varRows+j)/n);
                 setCellColorRGB(i,j,`rgb(${shade.r},${shade.g},${shade.b})`);
                 //console.log(`rgb(${shade.r},${shade.g},${shade.b})`);
@@ -132,6 +136,7 @@ function colorQuestion () {
         }
     }
     function render () {
+        updateColorRange();
         while(varDomGrid.firstChild) {
             varDomGrid.removeChild(varDomGrid.firstChild);
         }
@@ -156,6 +161,43 @@ function colorQuestion () {
             }
             varDomRow.style.gridTemplateColumns="1fr autofit";
             varDomGrid.append(varDomRow);
+        }
+    }
+    function updateColorRange()
+    {
+        while(varDomColorRange.firstChild)
+        {
+            varDomColorRange.removeChild(varDomColorRange.firstChild);
+        }
+        let varDomOption = document.createElement("div")
+        varDomOption.classList.add("option");
+        let varDomText = document.createElement("div");
+        varDomText.innerHTML = "RGB Gradient Range:";
+        varDomOption.appendChild(varDomText);
+        for (let i = 0; i < varColorRange.length; i++)
+        {
+            let varDomColor = document.createElement("input");
+            varDomColor.className = "range-input";
+            varDomColor.id = "option-color-range-"+i;
+            varDomColor.addEventListener("focusout", (e)=>{updateColor(i, e.target.value)});
+            varDomColor.defaultValue = `${varColorRange[i].red},${varColorRange[i].green},${varColorRange[i].blue}`;
+            varDomColor.style.width = varDomColor.defaultValue.length + 'ch';
+            varDomOption.appendChild(varDomColor);
+        }
+        varDomColorRange.appendChild(varDomOption);
+    }
+    function updateColor(index, color)
+    {
+        console.log(color);
+        if (color.match(/\d*,\d*,\d/))
+        {
+            let split = color.split(",");
+            varColorRange[index] = {red:split[0], green:split[1], blue:split[2]};
+            console.log(`${varColorRange[index]}`);
+            setGrid();
+            shuffleGrid();
+            varTimer.stop();
+            render();
         }
     }
     function pickCell(x,y)
