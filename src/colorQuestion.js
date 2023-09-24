@@ -198,12 +198,12 @@ function colorQuestion () {
     }
     function updateColor(index, color)
     {
-        console.log(color);
+        //console.log(color);
         if (color.match(/\d*,\d*,\d/))
         {
             let split = color.split(",");
             varColorRange[index] = {red:split[0], green:split[1], blue:split[2]};
-            console.log(`${varColorRange[index]}`);
+            //console.log(`${varColorRange[index]}`);
             setGrid();
             shuffleGrid();
             varTimer.stop();
@@ -225,7 +225,7 @@ function colorQuestion () {
             updateScore();
         } else {
             varCellPicked = {x:x, y:y, color:varGrid[x][y]};
-            //console.log(varCellPicked);
+            console.log(`${varCellPicked.color}`);
         }
     }
     function resetScore() {
@@ -242,7 +242,7 @@ function colorQuestion () {
             for (let j = 0; j < varColumns; j++)
             {
                 varScore += varGrid[i][j] === varAnswerGrid[i][j] ? 1 : 0;
-                console.log(`${varGrid[i][j]} == ${varAnswerGrid[i][j]}`);
+                //console.log(`${varGrid[i][j]} == ${varAnswerGrid[i][j]}`);
             }
         }
     }

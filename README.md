@@ -54,7 +54,6 @@ No installation or signup required brain stretching exercises
 
 ### Roadmap
 
-
 </summary>Arithmetic Speed Drill</summary>
 <details>
 
@@ -74,6 +73,17 @@ No installation or signup required brain stretching exercises
     - [x] Subtraction
     - [x] Multiplication
     - [x] Division
+- [x] Timer
+    - [x] Timer Limit Modification
+- [x] Scoring
+</details>
+
+</summary>Color Hue Matching</summary>
+<details>
+
+- [x] Color Grid Creation
+    - [x] Hue Shuffling
+- [x] Hue Range Manipulation
 - [x] Timer
     - [x] Timer Limit Modification
 - [x] Scoring
