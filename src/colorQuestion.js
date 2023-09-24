@@ -1,13 +1,19 @@
 function colorQuestion () {
-    //const button = document.querySelector('button');
     let varDomCanvas;
+    let varDomOptions;
+    let varDomScore;
     let varDomGrid;
-    
+
+    let varTimer;
+    let varTimerIncrement = 1000;
+    let varTimerLimit;
+
     let varGrid;
     let varWidth;
     let varHeight;
     let varRows = 8;
     let varColumns = 8;
+    let varAnswerGrid;
 
     let varCellHeight = 64;
     let varCellWidth = 64;
@@ -20,13 +26,30 @@ function colorQuestion () {
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
+        varDomOptions = argDomOptions;
+        varDomScore = argDomScoreBoard;
+
+        let varDomOption = document.createElement("div")
+        varDomOption.classList.add("option");
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "Time Limit:";
+        varDomOption.appendChild(varDomText);
+        varDomTimerLimit = document.createElement("input");
+        varDomTimerLimit.id = "option-timer-limit";
+        varDomTimerLimit.defaultValue = varTimerLimit;
+        varDomTimerLimit.addEventListener("input", (e)=>{updateTimerLimit(e.target.value)});
+        varDomOption.appendChild(varDomTimerLimit);
+        varDomOptions.appendChild(varDomOption);
+        varTimer = ticker();
+        varTimer.init(varTimerIncrement, argDomTimer);
+
 
         varDomGrid = document.createElement("section");
         varDomGrid.classList.add("grid");
         varDomCanvas.appendChild(varDomGrid);
-
         setGrid();
         shuffleGrid();
+
         render();
     }
     function setGrid () {
@@ -41,6 +64,7 @@ function colorQuestion () {
         }
         setGridDimensions();
         setGridColor();
+        varAnswerGrid = varGrid;
     }
     function setGridDimensions () {
         varDomCanvas = document.getElementById(varDomCanvas.id);
@@ -136,10 +160,10 @@ function colorQuestion () {
         {
             swapCellColor(varCellPicked.x,varCellPicked.y,x,y);
             varCellPicked = {x:null,y:null,color:null};
-            console.log(`pick cell swapped`);
+            //console.log(`pick cell swapped`);
         } else {
             varCellPicked = {x:x, y:y, color:varGrid[x][y]};
-            console.log(varCellPicked);
+            //console.log(varCellPicked);
         }
     }
     function stop ()
