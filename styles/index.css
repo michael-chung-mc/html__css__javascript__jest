@@ -21,7 +21,7 @@ header {
 
 .problem-tabs {
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 #problem-options {
@@ -89,4 +89,9 @@ main {
     margin: 0px;
     min-width: 8px;
     min-height: 8px;
+}
+
+.swatch {
+    width:100%;
+    min-height:1rem;
 }

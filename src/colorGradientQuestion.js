@@ -1,4 +1,4 @@
-function colorQuestion () {
+function colorGradientQuestion () {
     let varDomCanvas;
     let varDomOptions;
     let varDomScore;
@@ -253,21 +253,5 @@ function colorQuestion () {
     return {
         init,
         stop,
-    }
-}
-function color ()
-{
-    function gradient(startRGB, endRGB, step)
-    {
-        let r = endRGB.red - startRGB.red;
-        let g = endRGB.green - startRGB.green;
-        let b = endRGB.blue - startRGB.blue;
-        r = (r * step) + startRGB.red;
-        g = (g * step) + startRGB.green;
-        b = (b * step) + startRGB.blue;
-        return {r,g,b};
-    }
-    return {
-        gradient,
     }
 }

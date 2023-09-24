@@ -1,5 +1,5 @@
 function main () {
-    let modes = ["arithmetic"];
+    let modes = ["arithmetic", "color-pick", "color-grid"];
     let mode = modes[0];
 
     let varDomCanvas = document.getElementById("problem-canvas");
@@ -8,8 +8,10 @@ function main () {
     let varDomTimer = document.getElementById("problem-timer");
     let varDomProblemArithmetic = document.getElementById("arithmetic-tab");
     varDomProblemArithmetic.addEventListener("click", () => {mode = modes[0]; render();} );
-    let varDomProblemColor = document.getElementById("color-tab");
-    varDomProblemColor.addEventListener("click", () => {mode = modes[1]; render();} );
+    let varDomProblemColorPick = document.getElementById("color-pick-tab");
+    varDomProblemColorPick.addEventListener("click", () => {mode = modes[1]; render();} );
+    let varDomProblemColorGrid = document.getElementById("color-grid-tab");
+    varDomProblemColorGrid.addEventListener("click", () => {mode = modes[2]; render();} );
 
     let activeQuestion;
 
@@ -27,7 +29,12 @@ function main () {
         }
         else if (mode == modes[1])
         {
-            activeQuestion = colorQuestion();
+            activeQuestion = colorPickQuestion();
+            activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
+        }
+        else if (mode == modes[2])
+        {
+            activeQuestion = colorGradientQuestion();
             activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
         }
     }
