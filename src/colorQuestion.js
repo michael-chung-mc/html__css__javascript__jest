@@ -3,10 +3,11 @@ function colorQuestion () {
     let varDomOptions;
     let varDomScore;
     let varDomGrid;
+    let varDomTimerLimit;
 
     let varTimer;
     let varTimerIncrement = 1000;
-    let varTimerLimit;
+    let varTimerLimit = 180;
 
     let varGrid;
     let varWidth;
@@ -43,13 +44,17 @@ function colorQuestion () {
         varTimer = ticker();
         varTimer.init(varTimerIncrement, argDomTimer);
 
-
         varDomGrid = document.createElement("section");
         varDomGrid.classList.add("grid");
         varDomCanvas.appendChild(varDomGrid);
         setGrid();
         shuffleGrid();
 
+        render();
+    }
+    function updateTimerLimit(value)
+    {
+        varTimerLimit = value > 0 ? value : varTimerLimit;
         render();
     }
     function setGrid () {
@@ -69,16 +74,16 @@ function colorQuestion () {
     function setGridDimensions () {
         varDomCanvas = document.getElementById(varDomCanvas.id);
         varDomRect = varDomCanvas.getBoundingClientRect();
-        console.log(varDomCanvas);
+        //console.log(varDomCanvas);
         varWidth = varDomRect.width;
         varWidth = varWidth == NaN || varWidth == undefined ? varCellWidth * varRows : varWidth;
         varHeight = varDomRect.height;
         varHeight = varHeight == NaN || varHeight == undefined ? varCellHeight * varRows : varHeight;
         let varSquare = Math.min(varWidth, varHeight);
-        console.log(`row width:${varWidth} height:${varHeight}`);
+        //console.log(`row width:${varWidth} height:${varHeight}`);
         varCellHeight = parseInt(varSquare/varColumns);
         varCellWidth = parseInt(varSquare/varRows);
-        console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
+        //console.log(`cell height:${varCellHeight} width:${varCellWidth}`);
     }
     function setGridColor () {
         let n = varRows * varColumns;
@@ -161,6 +166,10 @@ function colorQuestion () {
             swapCellColor(varCellPicked.x,varCellPicked.y,x,y);
             varCellPicked = {x:null,y:null,color:null};
             //console.log(`pick cell swapped`);
+            if (varTimer.getTick() === 0)
+            {
+                varTimer.start(varTimerLimit);
+            }
         } else {
             varCellPicked = {x:x, y:y, color:varGrid[x][y]};
             //console.log(varCellPicked);
@@ -168,7 +177,7 @@ function colorQuestion () {
     }
     function stop ()
     {
-
+        varTimer.stop();
     }
     return {
         init,
