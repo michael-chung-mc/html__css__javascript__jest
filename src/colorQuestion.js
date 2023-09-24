@@ -4,6 +4,8 @@ function color () {
     let varDomGrid;
     
     let varGrid;
+    let varWidth;
+    let varHeight;
     let varRows = 8;
     let varColumns = 8;
     // const sizeDefault = 16;
@@ -37,9 +39,9 @@ function color () {
         setGridDimensions();
     }
     function setGridDimensions () {
-        let varWidth = varDomCanvas.getOffsetWidth;
+        varWidth = varDomCanvas.getOffsetWidth;
         varWidth = varWidth == NaN || varWidth == undefined ? varCellWidth * varRows : varWidth;
-        let varHeight = varDomCanvas.getOffsetHeight;
+        varHeight = varDomCanvas.getOffsetHeight;
         varHeight = varHeight == NaN || varHeight == undefined ? varCellHeight * varRows : varHeight;
         //console.log(`row width:${varWidth} height:${varHeight}`);
         varCellHeight = parseInt(varHeight/varColumns);
@@ -56,24 +58,30 @@ function color () {
     {
         for (let i = 0; i < varRows; i++)
         {
-            let varDomColumn = document.createElement("div");
-            varDomColumn.classList.add('column');
-            varDomColumn.style.width = `${varCellWidth}px`;
+            let varDomRow = document.createElement("div");
+            varDomRow.classList.add('row');
+            varDomRow.style.height = `${varCellHeight}px`;
             for (let j = 0; j < varColumns; j++)
             {
                 let varDomCell = document.createElement("div");
-                varDomCell.classList.add('square');
+                varDomCell.classList.add('cell');
                 varDomCell.style.color = varGrid[i][j];
                 varDomCell.style.height = `${varCellHeight}px`;
                 varDomCell.style.width = `${varCellWidth}px`;
                 //box.addEventListener('mouseover', (event) => {shadeCell(event)});
-                varDomColumn.append(varDomCell);
+                varDomRow.append(varDomCell);
             }
-            varDomGrid.append(varDomColumn);
+            varDomRow.style.gridTemplateColumns="1fr autofit";
+            varDomGrid.append(varDomRow);
         }
+    }
+    function stop ()
+    {
+        
     }
     return {
         init,
+        stop,
     }
 
 

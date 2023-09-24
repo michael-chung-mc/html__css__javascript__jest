@@ -10,19 +10,25 @@ function main () {
     varDomProblemArithmetic.addEventListener("click", () => {mode = modes[0]; render();} );
     let varDomProblemColor = document.getElementById("color-tab");
     varDomProblemColor.addEventListener("click", () => {mode = modes[1]; render();} );
+
+    let activeQuestion;
+
     function render ()
     {
+        if (activeQuestion) activeQuestion.stop();
         while (varDomCanvas.firstChild) { varDomCanvas.removeChild(varDomCanvas.firstChild); }
         while (varDomScore.firstChild) { varDomScore.removeChild(varDomScore.firstChild); }
         while (varDomOptions.firstChild) { varDomOptions.removeChild(varDomOptions.firstChild); }
         while (varDomTimer.firstChild) { varDomTimer.removeChild(varDomTimer.firstChild); }
         if (mode == modes[0])
         {
-            arithmetic().init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
+            activeQuestion = arithmetic();
+            activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
         }
         else if (mode == modes[1])
         {
-            color().init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
+            activeQuestion = color();
+            activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
         }
     }
 }
