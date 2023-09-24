@@ -8,9 +8,6 @@ function colorQuestion () {
     let varHeight;
     let varRows = 8;
     let varColumns = 8;
-    // const sizeDefault = 16;
-    // const sizeMax = 101;
-    // const sizeMin = 20;
 
     let varCellHeight = 64;
     let varCellWidth = 64;
@@ -27,6 +24,7 @@ function colorQuestion () {
         varDomCanvas.appendChild(varDomGrid);
 
         setGrid();
+        shuffleGrid();
         render();
     }
     function setGrid () {
@@ -64,16 +62,38 @@ function colorQuestion () {
             for (let j = 0; j < varColumns; j++)
             {
                 let shade = c.gradient(varColorStart,varColorEnd,(i*varRows+j)/n)
-                console.log((i*varRows+j)/n);
-                setCell(i,j,`rgb(${shade.r},${shade.g},${shade.b})`);
-                console.log(`rgb(${shade.r},${shade.g},${shade.b})`);
+                //console.log((i*varRows+j)/n);
+                setCellColorRGB(i,j,`rgb(${shade.r},${shade.g},${shade.b})`);
+                //console.log(`rgb(${shade.r},${shade.g},${shade.b})`);
             }
         }
     }
-    function setCell (x,y,color) {
+    function setCellColorRGB (x,y,color) {
         if (x >= 0 && x < varRows && y >= 0 && y < varColumns)
         {
             varGrid[x][y] = color;
+        }
+    }
+    function shuffleGrid ()
+    {
+        for (let i = 0; i < varRows; i++)
+        {
+            for (let j = 0; j < varColumns; j++)
+            {
+                if (Math.random()>.05)
+                {
+                    let x = i;
+                    let y = j;
+                    let targetX = parseInt(Math.random() * varRows);
+                    targetX = targetX >= varRows ? 0 : targetX;
+                    let targetY = parseInt(Math.random() * varColumns);
+                    targetY = targetY >= varColumns ? 0 : targetY;
+                    console.log(`${i},${j} to ${targetX},${targetY}`)
+                    let varToSwap = varGrid[i][j];
+                    setCellColorRGB(i,j,varGrid[targetX][targetY]);
+                    setCellColorRGB(targetX,targetY,varToSwap);
+                }
+            }
         }
     }
     function render () {
@@ -128,109 +148,3 @@ function color ()
         gradient,
     }
 }
-    
-    // function shadeCell (event) {
-    //     let cell = event.target;
-    //     const currentColor = cell.style.backgroundColor;
-    //     if (cellShadeOption == 0) {
-    //         if (currentColor != "black")
-    //         {
-    //             cell.style.backgroundColor = `rgba(0,0,0, 1.0)`;
-    //             console.log(`${cell.style.opacity}`);
-    //         }
-    //     }
-    //     else if (cellShadeOption == 1) {
-    //         const randomRed = Math.floor(Math.random() * (256));
-    //         const randomBlue = Math.floor(Math.random() * (256));
-    //         const randomGreen = Math.floor(Math.random() * (256));
-    //         cell.style.backgroundColor = `rgba(${randomRed},${randomBlue},${randomGreen}, 1.0)`;
-    //         console.log(`${cell.style.opacity}`);
-    //     }
-    //     else if (cellShadeOption == 2) {
-    //         console.log("base");
-    //         console.log(`${cell.style.backgroundColor}`);
-    //         console.log(`${cell.style.opacity}`);
-    //         cell.style.opacity = parseFloat(cell.style.opacity) + 0.1;
-    //         console.log("set");
-    //         console.log(`${cell.style.backgroundColor}`);
-    //         console.log(`${cell.style.opacity}`);
-    //     }
-    //     else {
-    //         console.log("ShadeCell: Unsupported cell shade option")
-    //     }
-    // }
-    
-    // function initializeOpacity () {
-    //     let rows = grid.children;
-    //     for (let i = 0; i < rows.length; i++)
-    //     {
-    //         let cells = rows[i].children;
-    //         for (let j = 0; j < cells.length; j++)
-    //         {
-    //             cells[j].style.backgroundColor = `rgb(0,0,0)`;
-    //             cells[j].style.opacity = 0.0;
-    //         }
-    //     }
-    // }
-    
-    // function maximizeOpacity () {
-    //     let rows = grid.children;
-    //     for (let i = 0; i < rows.length; i++)
-    //     {
-    //         let cells = rows[i].children;
-    //         for (let j = 0; j < cells.length; j++)
-    //         {
-    //             cells[j].style.backgroundColor = `rgb(255,255,255)`;
-    //             cells[j].style.opacity = 1.0;
-    //         }
-    //     }
-    // }
-    
-    
-    
-    // //default grid
-    // setGrid(sizeDefault,sizeDefault);
-    // //display size
-    // document.getElementById("boardSizeDisplay").innerHTML=`${sizeDefault} x ${sizeDefault}`;
-    // //dynamically adjust grid size
-    // window.addEventListener('resize', function(event) { 
-    //     resizeGrid();
-    // });
-    
-    // //let button resize and clear grid
-    // const resizeButton = document.getElementById('resizeButton');
-    // resizeButton.addEventListener('click', function(event) {
-    //     let cellCount = prompt('Number of squares for new grid?')
-    //     // handle improper
-    //     if (cellCount > sizeMin && cellCount < sizeMax)
-    //     {
-    //         clearGrid();
-    //         setGrid(cellCount, cellCount);
-    //         if (cellShadeOption == 2)
-    //         {
-    //             initializeOpacity();
-    //         }
-    //         else
-    //         {
-    //             maximizeOpacity();
-    //         }
-    //         //display size
-    //         document.getElementById("boardSizeDisplay").innerHTML=`${cellCount} x ${cellCount}`;
-    //     }
-    // });
-    // //color button options
-    // const bwButton = document.getElementById('buttonBW');
-    // bwButton.addEventListener('click',function(event){
-    //     cellShadeOption = 0;
-    //     maximizeOpacity ();
-    // });
-    // const rgbButton = document.getElementById('buttonRandomColor');
-    // rgbButton.addEventListener('click',function(event){
-    //     cellShadeOption = 1;
-    //     maximizeOpacity ();
-    // });
-    // const opacityButton = document.getElementById('buttonOpacity');
-    // opacityButton.addEventListener('click',function(event){
-    //     cellShadeOption = 2;
-    //     initializeOpacity ();
-    // });
