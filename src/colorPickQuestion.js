@@ -11,6 +11,7 @@ function colorPickQuestion () {
     let varColor = {red:0,green:0,blue:0};
 
     let varScore = 0;
+    let varUncertainty = 10;
 
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
@@ -55,25 +56,27 @@ function colorPickQuestion () {
         varDomCanvas.appendChild(varDomQuestion);
         let varDomInput = document.createElement("input");
         varDomInput.id = "input-answer";
+        varDomInput.placeholder = "r g b";
         varDomInput.addEventListener("input",(e)=>{checkAnswer(e.target.value)});
         varDomCanvas.appendChild(varDomInput);
         if ((varTimer.getTick()==0 && varScore == 1) || varTimer.getTick()!==0) varDomInput.focus();
     }
     function checkAnswer(value)
     {
-        if (value.match(/\d*,\d*,\d*/))
+        if (value.match(/\d*[,\.-\/\s]\d*[,\.-\/\s]\d*/))
         {
-            let split = value.split(",");
-            // console.log(`${varColor.r},${varColor.g},${varColor.b} to ${value}`);
-            if (parseInt(varColor.red)===parseInt(split[0])
-             && parseInt(varColor.green)===parseInt(split[1])
-             && parseInt(varColor.blue)===parseInt(split[2]))
+            let split = value.split(/[,\.-\/\s]/);
+            console.log(`${varColor.r},${varColor.g},${varColor.b} to ${value}`);
+            let varDeltaR = parseInt(varColor.red)-parseInt(split[0]);
+            let varDeltaG = parseInt(varColor.green)-parseInt(split[1]);
+            let varDeltaB = parseInt(varColor.blue) - parseInt(split[2]);
+            if (Math.abs(varDeltaR) < varUncertainty && Math.abs(varDeltaG) < varUncertainty && Math.abs(varDeltaB) < varUncertainty)
             {
                 if (varTimer.getTick() === 0)
                 {
                     varTimer.start(varTimerLimit);
                 }
-                varScore+=1;
+                varScore += (varUncertainty * 3 - varDeltaR - varDeltaG - varDeltaB);
                 resetColor();
                 render();
                 console.log(varColor);
