@@ -66,7 +66,7 @@ function colorPickQuestion () {
         if (value.match(/\d*[,\.-\/\s]\d*[,\.-\/\s]\d*/))
         {
             let split = value.split(/[,\.-\/\s]/);
-            console.log(`${varColor.r},${varColor.g},${varColor.b} to ${value}`);
+            //console.log(`${varColor.red},${varColor.green},${varColor.blue} to ${value}`);
             let varDeltaR = parseInt(varColor.red)-parseInt(split[0]);
             let varDeltaG = parseInt(varColor.green)-parseInt(split[1]);
             let varDeltaB = parseInt(varColor.blue) - parseInt(split[2]);
