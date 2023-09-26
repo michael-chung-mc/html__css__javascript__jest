@@ -227,6 +227,7 @@ function colorGradientQuestion () {
             if (varTimer.getTick() === 0)
             {
                 varTimer.start(varTimerLimit);
+                resetScore();
             }
             updateScore();
         } else {
