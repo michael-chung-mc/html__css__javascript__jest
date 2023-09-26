@@ -20,7 +20,7 @@ function arithmeticQuestion ()
     let varEnabledPrecisions = varPrecisions;
 
     const varRange = [{max:100,min:2},{max:100,min:2}];
-    let score = 0;
+    let varScore = 0;
     let varDecimalPrecision = 2;
     let numerators;
     let denominators;
@@ -228,10 +228,10 @@ function arithmeticQuestion ()
         varPrecision = varEnabledPrecisions[index];
     }
     function resetScore() {
-        score = 0;
+        varScore = 0;
     }
     function updateScore() {
-        varDomScore.innerHTML = "score:" + score;
+        varDomScore.innerHTML = "score:" + varScore;
     }
     function updateTimerLimit(value)
     {
@@ -253,8 +253,9 @@ function arithmeticQuestion ()
             if (varTimer.getTick() === 0)
             {
                 varTimer.start(varTimerLimit);
+                resetScore();
             }
-            score += 1;
+            varScore += 1;
             render();
         }
     }
@@ -284,7 +285,7 @@ function arithmeticQuestion ()
         input.id = "input-answer";
         input.addEventListener("input",(e)=>{checkAnswer(e)});
         varDomCanvas.appendChild(input);
-        if ((varTimer.getTick()==0 && score == 1) || varTimer.getTick()!==0) input.focus();
+        if ((varTimer.getTick()==0 && varScore == 1) || varTimer.getTick()!==0) input.focus();
     }
     function resetProblem () {
         // console.log(max);

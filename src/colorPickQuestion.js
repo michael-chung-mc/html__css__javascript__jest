@@ -75,6 +75,7 @@ function colorPickQuestion () {
                 if (varTimer.getTick() === 0)
                 {
                     varTimer.start(varTimerLimit);
+                    resetScore();
                 }
                 varScore += (varUncertainty * 3 - varDeltaR - varDeltaG - varDeltaB);
                 resetColor();
