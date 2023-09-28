@@ -61,6 +61,8 @@ function colorGradientQuestion () {
             render();
         }
 
+        updateScore();
+        
         render();
     }
     function updateTimerLimit(value)
