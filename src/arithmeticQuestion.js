@@ -380,7 +380,7 @@ function arithmeticQuestion ()
             answer = 0;
             for (let i = 0; i < varRange.length-1; i+=2)
             {
-                answer += (numerators[i]*denominators[i+1])+(numerators[i+1]*denominators[i]);
+                answer += ((numerators[i]*denominators[i+1])+(numerators[i+1]*denominators[i]))/(denominators[i]*denominators[i+1]);
             }
         }
         else if (varOperator==varOperations[1])
@@ -388,7 +388,7 @@ function arithmeticQuestion ()
             answer = 0;
             for (let i = 0; i < varRange.length-1; i+=2)
             {
-                answer += (numerators[i]*denominators[i+1])-(numerators[i+1]*denominators[i]);
+                answer += ((numerators[i]*denominators[i+1])-(numerators[i+1]*denominators[i]))/(denominators[i]*denominators[i+1]);
             }
         }
         else if (varOperator==varOperations[2])
@@ -396,7 +396,7 @@ function arithmeticQuestion ()
             answer = 0;
             for (let i = 0; i < varRange.length-1; i+=2)
             {
-                answer += (numerators[i]*denominators[i+1])*(numerators[i+1]*denominators[i]);
+                answer += ((numerators[i]*denominators[i+1])*(numerators[i+1]*denominators[i]))/(denominators[i]*denominators[i+1]);
             }
         }
         else if(varOperator==varOperations[3])
@@ -404,7 +404,7 @@ function arithmeticQuestion ()
             answer = 0;
             for (let i = 0; i < varRange.length-1; i+=2)
             {
-                answer += (numerators[i]*denominators[i+1])/(numerators[i+1]*denominators[i]);
+                answer += ((numerators[i]*denominators[i+1])/(numerators[i+1]*denominators[i]));
             }
         }
     }
