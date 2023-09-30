@@ -93,7 +93,7 @@ function colorPickQuestion () {
                     resetScore();
                     resetHistory();
                 }
-                let oldColor = `${varColor.red} ${varColor.green} ${varColor.blue}`;
+                let oldColor = JSON.stringify(varColor);
                 addHistory(`${oldColor} : ${value}`);
                 varScore += (varUncertainty * 3 - varDeltaR - varDeltaG - varDeltaB);
                 resetColor();
