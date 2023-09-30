@@ -1,9 +1,11 @@
 function colorPickQuestion () {
     let varDomCanvas;
+    let varDomSession;
     let varDomOptions;
     let varDomScore;
     let varDomTimerLimit;
     let varDomUncertainty;
+    let varDomHistory;
 
     let varTimer;
     let varTimerIncrement = 1000;
@@ -16,8 +18,9 @@ function colorPickQuestion () {
 
     let history;
 
-    function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
+    function init (argDomCanvas, argDomOptions, argDomSession, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
+        varDomSession = argDomSession;
         varDomOptions = argDomOptions;
         varDomScore = argDomScoreBoard;
 
@@ -51,6 +54,10 @@ function colorPickQuestion () {
         varTimer = ticker();
         varTimer.init(varTimerIncrement, argDomTimer);
 
+        varDomHistory = document.createElement("div");
+        varDomHistory.innerText = "New Game";
+        varDomSession.appendChild(varDomHistory);
+
         render();
     }
     function updateTimerLimit(value)
@@ -61,6 +68,7 @@ function colorPickQuestion () {
     function render ()
     {
         updateScore();
+        varDomHistory.innerText = history;
         while(varDomCanvas.firstChild)
         {
             varDomCanvas.removeChild(varDomCanvas.firstChild);

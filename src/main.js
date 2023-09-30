@@ -3,6 +3,7 @@ function main () {
     let mode = modes[0];
 
     let varDomCanvas = document.getElementById("problem-canvas");
+    let varDomSession = document.getElementById("problem-session");
     let varDomScore = document.getElementById("problem-score");
     let varDomOptions = document.getElementById("problem-options");
     let varDomTimer = document.getElementById("problem-timer");
@@ -30,7 +31,7 @@ function main () {
         else if (mode == modes[1])
         {
             activeQuestion = colorPickQuestion();
-            activeQuestion.init(varDomCanvas,varDomOptions,varDomScore,varDomTimer);
+            activeQuestion.init(varDomCanvas,varDomOptions,varDomSession,varDomScore,varDomTimer);
         }
         else if (mode == modes[2])
         {
