@@ -3,6 +3,7 @@ function colorPickQuestion () {
     let varDomOptions;
     let varDomScore;
     let varDomTimerLimit;
+    let varDomUncertainty;
 
     let varTimer;
     let varTimerIncrement = 1000;
@@ -23,6 +24,18 @@ function colorPickQuestion () {
         varDomOptions.appendChild(varDomColorRange);
 
         let varDomOption = document.createElement("div")
+        varDomOption.classList.add("option");
+        varDomText = document.createElement("div");
+        varDomText.innerHTML = "Guess Forgiveness:";
+        varDomOption.appendChild(varDomText);
+        varDomUncertainty = document.createElement("input");
+        varDomUncertainty.id = "option-uncertainty";
+        varDomUncertainty.defaultValue = varUncertainty;
+        varDomUncertainty.addEventListener("input", (e)=>{updateUncertainty(e.target.value)});
+        varDomOption.appendChild(varDomUncertainty);
+        varDomOptions.appendChild(varDomOption);
+
+        varDomOption = document.createElement("div")
         varDomOption.classList.add("option");
         varDomText = document.createElement("div");
         varDomText.innerHTML = "Time Limit:";
@@ -70,7 +83,7 @@ function colorPickQuestion () {
             let varDeltaR = parseInt(varColor.red)-parseInt(split[0]);
             let varDeltaG = parseInt(varColor.green)-parseInt(split[1]);
             let varDeltaB = parseInt(varColor.blue) - parseInt(split[2]);
-            if (Math.abs(varDeltaR) < varUncertainty && Math.abs(varDeltaG) < varUncertainty && Math.abs(varDeltaB) < varUncertainty)
+            if (Math.abs(varDeltaR) <= varUncertainty && Math.abs(varDeltaG) <= varUncertainty && Math.abs(varDeltaB) <= varUncertainty)
             {
                 if (varTimer.getTick() === 0)
                 {
@@ -94,6 +107,11 @@ function colorPickQuestion () {
     }
     function updateScore() {
         varDomScore.innerHTML = "score:" + varScore;
+    }
+    function updateUncertainty(value)
+    {
+        varUncertainty = value > 0 ? value : varUncertainty;
+        render();
     }
     function updateTimerLimit(value)
     {

@@ -37,7 +37,6 @@ No installation or signup required brain stretching exercises
 ### Requirements
 
 - [ ] Mental Math
-- [ ] Memory
 - [ ] Color
 
 ### Design
@@ -84,7 +83,7 @@ No installation or signup required brain stretching exercises
 - [x] Color Pick Test
 - [x] Timer
     - [x] Timer Limit Modification
-- [ ] Scoring
+- [x] Scoring
 </details>
 
 </summary>Color Hue Puzzles</summary>
