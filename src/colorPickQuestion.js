@@ -14,6 +14,8 @@ function colorPickQuestion () {
     let varScore = 0;
     let varUncertainty = 10;
 
+    let history;
+
     function init (argDomCanvas, argDomOptions, argDomScoreBoard, argDomTimer) {
         varDomCanvas = argDomCanvas;
         varDomOptions = argDomOptions;
@@ -89,11 +91,15 @@ function colorPickQuestion () {
                 {
                     varTimer.start(varTimerLimit);
                     resetScore();
+                    resetHistory();
                 }
+                let oldColor = `${varColor.red} ${varColor.green} ${varColor.blue}`;
+                addHistory(`${oldColor} : ${value}`);
                 varScore += (varUncertainty * 3 - varDeltaR - varDeltaG - varDeltaB);
                 resetColor();
                 render();
                 console.log(varColor);
+                console.log(history);
             }
         }
     }
@@ -104,6 +110,14 @@ function colorPickQuestion () {
     }
     function resetScore() {
         varScore = 0;
+    }
+    function resetHistory()
+    {
+        history = [];
+    }
+    function addHistory(data)
+    {
+        history.push(data);
     }
     function updateScore() {
         varDomScore.innerHTML = "score:" + varScore;
