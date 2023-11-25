@@ -49,6 +49,7 @@ https://michael-chung-mc.github.io/wip__html__css__javascript__jest/
 * HTML
 * CSS
 * Javascript
+* Jest
 * Visual Studio Code
 * Xubuntu
 * VirtualBox
@@ -114,9 +115,57 @@ https://michael-chung-mc.github.io/wip__html__css__javascript__jest/
   * [ ] Select .ppm image file to view
   </details>
 
+</summary>Arithmetic Speed Drill</summary>
+<details>
+
+- [x] Operand Range Modification
+- [x] Integer Arithmetic
+    - [x] Addition
+    - [x] Subtraction
+    - [x] Multiplication
+    - [x] Division
+- [x] Decimal Arithmetic
+    - [x] Addition
+    - [x] Subtraction
+    - [x] Multiplication
+    - [x] Division
+- [x] Fractional Arithmetic
+    - [x] Addition
+    - [x] Subtraction
+    - [x] Multiplication
+    - [x] Division
+- [x] Timer
+    - [x] Timer Limit Modification
+- [x] Scoring
+</details>
+
+</summary>Color Hue Matching</summary>
+<details>
+
+- [x] Color Pick Test
+- [x] Timer
+    - [x] Timer Limit Modification
+- [x] Scoring
+</details>
+
+</summary>Color Hue Puzzles</summary>
+<details>
+
+- [x] Color Grid Creation
+    - [x] Hue Shuffling
+- [x] Hue Range Manipulation
+- [x] Timer
+    - [x] Timer Limit Modification
+- [x] Scoring
+</details>
+
 ## Usage
 ### Install
+
+- [ ] Clone Repo
 ### Run
+
+- [ ] Open index.html in browser of choice
 ## Acknowledgements
 * [The Odin Project](https://www.theodinproject.com)
 * [Google Materials & Symbols](fonts.google.com)
