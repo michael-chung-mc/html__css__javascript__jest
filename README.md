@@ -1,4 +1,4 @@
-# html__css__javascript__jest
+# app__image_viewer__ppm
 <a name="readme-top"></a>
 <details>
     <summary>Table of Contents</summary>
@@ -9,16 +9,17 @@
                 <li><a href="#preview">Preview</li>
             </ul>
         </li>
-        <li><a href="#design">Design</li>
+        <li><a href="#methodology">Methodology</li>
           <ul>
-            <li><a href="#requirements">Tools</li>
+            <li><a href="#requirements">Requirements</li>
+            <li><a href="#design">Design</li>
             <li><a href="#tools">Tools</li>
             <li><a href="#roadmap">Roadmap</li>
           </ul>
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#install">Install</li>
+                <li><a href="#setup">Setup</li>
                 <li><a href="#run">Run</li>
             </ul>
         </li>
@@ -32,6 +33,17 @@ Practice Basic HTML and CSS and Javascript with Jest
 ### Preview
 https://michael-chung-mc.github.io/wip__html__css__javascript__jest/
 ## Design
+|-- data/ == hold image files
+    |-- .gitignore == ignore image files
+|-- scripts/
+    |-- ppmviewer.js == canvas & main
+|-- styles/
+    |-- ppmviewer.css = style ppmviewer.html
+|-- src/
+    |-- ppmviewer.html
+|-- .gitignore
+|-- index.html
+|-- README.md 
 ### Requirements
 ### Tools
 * HTML
@@ -84,6 +96,22 @@ https://michael-chung-mc.github.io/wip__html__css__javascript__jest/
   - [x] remove books
   - [x] read book
   - [x] form validation
+  </details>
+
+<details>
+</summary>ppm image viewer app</summary>
+
+  - Roadmap
+  * [x] basic mvp
+      * [x] basic ppm image viewing functionality
+      * [x] exception handling
+  * [ ] ux mvp
+      * [ ] drag and drop for image files
+      * [ ] image carousel through data folder within repo
+  - Setup
+  - Run
+  * [ ] Open index.html in browser
+  * [ ] Select .ppm image file to view
   </details>
 
 ## Usage
