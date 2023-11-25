@@ -1,4 +1,4 @@
-# practice__html_css__javascript__jest
+# javascript__jest__html_css
 <a name="readme-top"></a>
 <details>
     <summary>Table of Contents</summary>
