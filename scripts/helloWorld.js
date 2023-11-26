@@ -21,7 +21,6 @@ blackPink.style.cssText = "border-style: solid; border-color: black; background-
 blackPink.appendChild(blackPinkH);
 blackPink.appendChild(blackPinkP);
 
-
 container.appendChild(content);
 container.appendChild(red);
 container.appendChild(blue);
